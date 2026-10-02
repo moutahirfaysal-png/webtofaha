@@ -1,42 +1,50 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import type { Language } from './i18n';
-import { DEFAULT_LANGUAGE, isRTL } from './i18n';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { translations, Language } from './i18n';
 
-interface LanguageContextValue {
-  lang: Language;
-  setLang: (lang: Language) => void;
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (keyPath: string) => string;
   dir: 'ltr' | 'rtl';
 }
 
-const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>(() => {
-    const stored = localStorage.getItem('riad_lang') as Language | null;
-    return stored || DEFAULT_LANGUAGE;
-  });
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [language, setLanguage] = useState<Language>('en');
 
-  const dir: 'ltr' | 'rtl' = isRTL(lang) ? 'rtl' : 'ltr';
+  const dir = language === 'ar' ? 'rtl' : 'ltr';
 
   useEffect(() => {
-    document.documentElement.lang = lang;
     document.documentElement.dir = dir;
-    localStorage.setItem('riad_lang', lang);
-  }, [lang, dir]);
+    document.documentElement.lang = language;
+  }, [language, dir]);
 
-  const setLang = (newLang: Language) => {
-    setLangState(newLang);
+  // دالة جلب الترجمة حسب المسار مثل 'rooms.viewDetails'
+  const t = (keyPath: string): string => {
+    const keys = keyPath.split('.');
+    let result: any = translations[language];
+    for (const key of keys) {
+      if (result && result[key]) {
+        result = result[key];
+      } else {
+        return keyPath; // في حال عدم وجود الترجمة
+      }
+    }
+    return result as string;
   };
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, dir }}>
-      {children}
+    <LanguageContext.Provider value={{ language, setLanguage, t, dir }}>
+      <div dir={dir}>{children}</div>
     </LanguageContext.Provider>
   );
-}
+};
 
-export function useLanguage() {
-  const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error('useLanguage must be used within LanguageProvider');
-  return ctx;
-}
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
