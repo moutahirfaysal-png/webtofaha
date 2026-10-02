@@ -9,6 +9,7 @@ import WhatsAppFloat from '@/components/WhatsAppFloat';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
 import Rooms from '@/pages/Rooms';
+import { RoomsSection } from '@/components/RoomsSection'; // 👈 استدعاء المكون هنا
 import RoomDetail from '@/pages/RoomDetail';
 import Gallery from '@/pages/Gallery';
 import Experiences from '@/pages/Experiences';
@@ -32,7 +33,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/rooms" element={<Rooms />} />
+              {/* 👈 توجيه مسار /rooms ليتم عرض RoomsSection مباشرة */}
+              <Route path="/rooms" element={<RoomsSection />} />
               <Route path="/rooms/:slug" element={<RoomDetail />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/experiences" element={<Experiences />} />
