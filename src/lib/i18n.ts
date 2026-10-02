@@ -1,5 +1,9 @@
 export type Language = 'en' | 'fr' | 'ar' | 'es';
 
+export const DEFAULT_LANGUAGE: Language = 'en';
+
+export const isRTL = (lang: Language): boolean => lang === 'ar';
+
 export const translations = {
   en: {
     nav: { home: 'Home', about: 'About', rooms: 'Our Rooms', gallery: 'Gallery', contact: 'Contact', bookNow: 'Book Now' },
