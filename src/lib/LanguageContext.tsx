@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { translations, Language } from './i18n';
+import { translations, Language, DEFAULT_LANGUAGE, isRTL } from './i18n';
 
 interface LanguageContextType {
   language: Language;
@@ -11,16 +11,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
 
-  const dir = language === 'ar' ? 'rtl' : 'ltr';
+  const dir = isRTL(language) ? 'rtl' : 'ltr';
 
   useEffect(() => {
     document.documentElement.dir = dir;
     document.documentElement.lang = language;
   }, [language, dir]);
 
-  // دالة جلب الترجمة حسب المسار مثل 'rooms.viewDetails'
   const t = (keyPath: string): string => {
     const keys = keyPath.split('.');
     let result: any = translations[language];
@@ -28,7 +27,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (result && result[key]) {
         result = result[key];
       } else {
-        return keyPath; // في حال عدم وجود الترجمة
+        return keyPath;
       }
     }
     return result as string;
