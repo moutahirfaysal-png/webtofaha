@@ -7,7 +7,7 @@ export default function RoomDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
-  // البحث عن الغرفة بناءً على slug أو id، وفي حال عدم التحديد يتم عرض الغرفة الأولى كافتراضي
+  // البحث عن الغرفة بناءً على slug أو id
   const room = roomsData.find((r) => r.slug === slug || r.id === slug) || roomsData[0];
 
   const [activeImg, setActiveImg] = useState(0);
@@ -15,8 +15,8 @@ export default function RoomDetail() {
   if (!room) {
     return (
       <div className="min-h-screen pt-32 text-center">
-        <h2 className="text-2xl font-bold text-gray-800">الغرفة غير موجودة</h2>
-        <Link to="/rooms" className="text-[#a86548] underline mt-4 inline-block">العودة لقائمة الغرف</Link>
+        <h2 className="text-2xl font-bold text-gray-800">Room Not Found</h2>
+        <Link to="/rooms" className="text-[#a86548] underline mt-4 inline-block">Back to Rooms</Link>
       </div>
     );
   }
@@ -30,15 +30,15 @@ export default function RoomDetail() {
           onClick={() => navigate(-1)} 
           className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition mb-6 text-sm font-medium"
         >
-          <ArrowLeft className="w-4 h-4" /> العودة للغرف
+          <ArrowLeft className="w-4 h-4" /> Back to Rooms
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* الجانب الأيسر: معرض الصور والمعدات */}
+          {/* معرض الصور والمعلومات */}
           <div className="lg:col-span-2 space-y-8">
             
-            {/* معرض صور الغرفة */}
+            {/* معرض الصور */}
             <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 space-y-3">
               <div className="h-96 w-full rounded-xl overflow-hidden bg-stone-100 border border-stone-200">
                 <img 
@@ -48,7 +48,7 @@ export default function RoomDetail() {
                 />
               </div>
               
-              {/* المصغرات للتنقل بين الصور */}
+              {/* الصور المصغرة */}
               {room.images.length > 1 && (
                 <div className="flex gap-3 overflow-x-auto pb-2">
                   {room.images.map((img, index) => (
@@ -66,7 +66,7 @@ export default function RoomDetail() {
               )}
             </div>
 
-            {/* معلومات ووصف الغرفة */}
+            {/* تفاصيل الغرفة */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
               <h1 className="text-3xl font-serif font-bold text-stone-800">{room.name}</h1>
               
@@ -84,56 +84,56 @@ export default function RoomDetail() {
               <p className="text-stone-600 leading-relaxed text-sm">{room.description}</p>
             </div>
 
-            {/* معدات وتجهيزات الغرفة المطلوبة */}
+            {/* التجهيزات والخدمات */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-              <h3 className="text-xl font-serif font-bold text-stone-800 mb-4">معدات وتجهيزات الغرفة</h3>
+              <h3 className="text-xl font-serif font-bold text-stone-800 mb-4">Room Amenities & Features</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
                   <Bath className="w-5 h-5 text-[#a86548]" />
                   <div>
-                    <p className="font-semibold text-stone-800 text-sm">دوش وطواليط داخلي</p>
-                    <p className="text-xs text-stone-500">حمام خاص ومستقل داخل الغرفة</p>
+                    <p className="font-semibold text-stone-800 text-sm">Private En-suite Bathroom</p>
+                    <p className="text-xs text-stone-500">Private bathroom and toilet inside the room</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
                   <ShowerHead className="w-5 h-5 text-[#a86548]" />
                   <div>
-                    <p className="font-semibold text-stone-800 text-sm">فوطات ومعدات الاستحمام</p>
-                    <p className="text-xs text-stone-500">مناديل ناعمة وشامبو وصابون مجاني</p>
+                    <p className="font-semibold text-stone-800 text-sm">Towels & Toiletries</p>
+                    <p className="text-xs text-stone-500">Fresh towels, soap, and complimentary shampoo</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
                   <Wind className="w-5 h-5 text-[#a86548]" />
                   <div>
-                    <p className="font-semibold text-stone-800 text-sm">كليماتيزور (تكييف وتدفئة)</p>
-                    <p className="text-xs text-stone-500">تحكم كامل بالحرارة صيفاً وشتاءً</p>
+                    <p className="font-semibold text-stone-800 text-sm">Air Conditioning & Heating</p>
+                    <p className="text-xs text-stone-500">Full climate control for summer and winter</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
                   <Sparkles className="w-5 h-5 text-[#a86548]" />
                   <div>
-                    <p className="font-semibold text-stone-800 text-sm">مجفف شعر (Sèche-cheveux)</p>
-                    <p className="text-xs text-stone-500">متوفر مجاناً داخل الحمام</p>
+                    <p className="font-semibold text-stone-800 text-sm">Hairdryer</p>
+                    <p className="text-xs text-stone-500">Available free of charge in the bathroom</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
                   <Wifi className="w-5 h-5 text-[#a86548]" />
                   <div>
-                    <p className="font-semibold text-stone-800 text-sm">إنترنت واي فاي سريع</p>
-                    <p className="text-xs text-stone-500">تغطية عالية السرعة مجانية</p>
+                    <p className="font-semibold text-stone-800 text-sm">High-Speed Wi-Fi</p>
+                    <p className="text-xs text-stone-500">Free high-speed internet access</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
                   <CheckCircle className="w-5 h-5 text-[#a86548]" />
                   <div>
-                    <p className="font-semibold text-stone-800 text-sm">المعدات الأساسية</p>
-                    <p className="text-xs text-stone-500">أغطية، خزنة، ومقابس كهربائية</p>
+                    <p className="font-semibold text-stone-800 text-sm">Essential Amenities</p>
+                    <p className="text-xs text-stone-500">Linens, safe, and electrical outlets</p>
                   </div>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function RoomDetail() {
 
           </div>
 
-          {/* الجانب الأيمن: بطاقة السعر والحجز */}
+          {/* بطاقة السعر والحجز الجانبية */}
           <div>
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 sticky top-28 space-y-6">
               <div>
@@ -152,13 +152,13 @@ export default function RoomDetail() {
               <div className="space-y-3 pt-2">
                 <Link 
                   to="/book" 
-                  className="w-full block text-center bg-[#a86548] text-white py-3.5 rounded-xl font-bold hover:bg-[#8e5238] transition shadow-md"
+                  className="w-full block text-center bg-[#a86548] text-white py-3.5 rounded-xl font-bold hover:bg-[#8e5238] transition shadow-md uppercase tracking-wider text-xs"
                 >
                   BOOK THIS ROOM
                 </Link>
                 
                 <p className="text-xs text-center text-stone-500 flex items-center justify-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" /> أفضل سعر مضمون
+                  <Calendar className="w-3.5 h-3.5" /> Best price guaranteed
                 </p>
               </div>
             </div>
