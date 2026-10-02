@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import { X, Wifi, Wind, Bath, ShowerHead, Sparkles, CheckCircle, Bed, User } from 'lucide-react';
-
-export interface RoomData {
-  id: string;
-  name: string;
-  price: number;
-  capacity: string;
-  bedType: string;
-  description: string;
-  images: string[];
-}
+import { RoomData } from '../lib/roomsData'; // تعديل المسار حسب مكان roomsData
 
 interface Props {
   room: RoomData | null;
@@ -55,7 +46,7 @@ export const RoomDetailsModal: React.FC<Props> = ({ room, onClose, onBook }) => 
               />
             </div>
             
-            {/* المصغرات للتنقل بين الصور */}
+            {/* المصغرات للتنقل بين صور الغرفة */}
             {room.images.length > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-2">
                 {room.images.map((img, idx) => (
@@ -79,7 +70,7 @@ export const RoomDetailsModal: React.FC<Props> = ({ room, onClose, onBook }) => 
             <p className="text-gray-600 text-sm leading-relaxed">{room.description}</p>
           </div>
 
-          {/* معدات وخدمات الغرفة المطلوبة */}
+          {/* تجهيزات ومعدات الغرفة */}
           <div>
             <h4 className="text-lg font-bold text-gray-800 mb-3">معدات وخدمات الغرفة</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
