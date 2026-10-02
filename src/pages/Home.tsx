@@ -16,7 +16,7 @@ export default function Home() {
 
   useSEO({
     title: undefined,
-    description: 'Riad Tofaha is a traditional Moroccan boutique riad in the heart of Marrakech offering authentic accommodation, warm hospitality, and an unforgettable cultural experience.',
+    description: 'Riad Tofaha is a traditional Moroccan  riad  in the heart of Marrakech offering authentic accommodation, warm hospitality, and an unforgettable cultural experience.',
     canonicalPath: '/',
     jsonLd: [buildLodgingBusinessSchema(), buildOrganizationSchema(), buildWebSiteSchema()],
   });
