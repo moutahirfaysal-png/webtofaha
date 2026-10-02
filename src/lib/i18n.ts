@@ -4,9 +4,9 @@ export const DEFAULT_LANGUAGE: Language = 'en';
 
 export const isRTL = (lang: Language): boolean => lang === 'ar';
 
-export const translations = {
+export const translations: Record<Language, Record<string, any>> = {
   en: {
-    nav: { home: 'Home', about: 'About', rooms: 'Our Rooms', gallery: 'Gallery', contact: 'Contact', bookNow: 'Book Now' },
+    nav: { home: 'Home', about: 'About', rooms: 'Our Rooms', gallery: 'Gallery', experiences: 'Experiences', blog: 'Blog', contact: 'Contact', bookNow: 'Book Now' },
     rooms: {
       title: 'Our Rooms & Suites',
       viewDetails: 'VIEW ROOM DETAILS',
@@ -29,7 +29,7 @@ export const translations = {
     }
   },
   fr: {
-    nav: { home: 'Accueil', about: 'À Propos', rooms: 'Nos Chambres', gallery: 'Galerie', contact: 'Contact', bookNow: 'Réserver' },
+    nav: { home: 'Accueil', about: 'À Propos', rooms: 'Nos Chambres', gallery: 'Galerie', experiences: 'Expériences', blog: 'Blog', contact: 'Contact', bookNow: 'Réserver' },
     rooms: {
       title: 'Nos Chambres & Suites',
       viewDetails: 'DÉTAILS DE LA CHAMBRE',
@@ -52,7 +52,7 @@ export const translations = {
     }
   },
   ar: {
-    nav: { home: 'الرئيسية', about: 'من نحن', rooms: 'غرفنا', gallery: 'المعرض', contact: 'اتصل بنا', bookNow: 'احجز الآن' },
+    nav: { home: 'الرئيسية', about: 'من نحن', rooms: 'غرفنا', gallery: 'المعرض', experiences: 'التجارب', blog: 'المدونة', contact: 'اتصل بنا', bookNow: 'احجز الآن' },
     rooms: {
       title: 'غرفنا وأجنحتنا',
       viewDetails: 'عرض تفاصيل الغرفة',
@@ -75,7 +75,7 @@ export const translations = {
     }
   },
   es: {
-    nav: { home: 'Inicio', about: 'Sobre Nosotros', rooms: 'Nuestras Habitaciones', gallery: 'Galería', contact: 'Contacto', bookNow: 'Reservar' },
+    nav: { home: 'Inicio', about: 'Sobre Nosotros', rooms: 'Nuestras Habitaciones', gallery: 'Galería', experiences: 'Experiencias', blog: 'Blog', contact: 'Contacto', bookNow: 'Reservar' },
     rooms: {
       title: 'Nuestras Habitaciones y Suites',
       viewDetails: 'VER DETALLES DE LA HABITACIÓN',
@@ -98,3 +98,24 @@ export const translations = {
     }
   }
 };
+
+// دالة الترجمة عبر المفاتيح (e.g. "nav.home")
+export function translate(keyPath: string, lang: Language = DEFAULT_LANGUAGE): string {
+  const keys = keyPath.split('.');
+  let result: any = translations[lang] || translations[DEFAULT_LANGUAGE];
+  for (const key of keys) {
+    if (result && result[key]) {
+      result = result[key];
+    } else {
+      return keyPath;
+    }
+  }
+  return typeof result === 'string' ? result : keyPath;
+}
+
+// دالة جلب النص بناءً على اللغة المحددة
+export function getLocalizedText(textObj: Record<string, string> | string | undefined, lang: Language): string {
+  if (!textObj) return '';
+  if (typeof textObj === 'string') return textObj;
+  return textObj[lang] || textObj['en'] || textObj['fr'] || Object.values(textObj)[0] || '';
+}
