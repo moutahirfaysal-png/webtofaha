@@ -34,28 +34,41 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.viewDetails': 'View Details',
     'rooms.bookRoom': 'Book Room',
 
-    // القيم والمميزات (Values)
-    'values.badge': 'THE TOFAHA EXPERIENCE',
-    'values.title': 'Why Stay With Us',
-    'values.subtitle': 'Immerse yourself in timeless Moroccan refinement, authentic architecture, and legendary hospitality.',
+    // About Us Page (EN)
+    'about.heroTagline': 'ABOUT RIAD TOFAHA',
+    'about.heroTitle': 'A Newly Renovated Haven in the Heart of the Medina',
+    'about.heroSubtitle': 'Blending centuries-old Moroccan craftsmanship with contemporary luxury, Riad Tofaha offers a tranquil oasis just steps away from Marrakech’s historic treasures.',
     
-    'values.authenticity.title': 'Authentic Moroccan Craftsmanship',
-    'values.authenticity.desc': 'Handcrafted Zellige tiles, carved plasterwork, and centuries-old artisan traditions in every corner.',
+    'about.storyTag': 'THE TOFAHA CONCEPT',
+    'about.storyTitle': 'Where Traditional Elegance Meets Modern Comfort',
+    'about.storyP1': 'Riad Tofaha is a newly restored boutique Riad, thoughtfully designed to offer guests an authentic Moroccan stay with high-end modern amenities. Located in the historical Medina of Marrakech, our Riad showcases hand-crafted Zellige tilework, intricate carved plaster, and warm wooden architecture.',
+    'about.storyP2': 'Designed as a peaceful sanctuary, thick traditional walls insulate the interior from the lively energy of the surrounding alleys, creating a calm and intimate atmosphere for relaxation after a day of exploring.',
 
-    'values.architecture.title': 'Traditional Architecture',
-    'values.architecture.desc': 'An open-air patio with lush courtyard greenery and a soothing central water fountain.',
+    'about.locationTag': 'LOCATION & ACCESSIBILITY',
+    'about.locationTitle': 'Prime Medina Location & Rare Vehicle Access',
+    
+    'about.feature1Title': '15 Mins to Jemaa el-Fnaa',
+    'about.feature1Desc': 'Situated in a peaceful neighborhood, just a pleasant 15-minute walk through historic alleys to Marrakech’s world-famous central square and lively souks.',
 
-    'values.intimate.title': 'Intimate & Peaceful Haven',
-    'values.intimate.desc': 'An exclusive sanctuary designed to offer complete privacy and absolute serenity away from the busy Medina.',
+    'about.feature2Title': 'Direct Car & Luggage Access',
+    'about.feature2Desc': 'A rare and prized privilege in the Medina: taxis and cars can pull up directly in front of Riad Tofaha for effortless luggage drop-off.',
 
-    'values.comfort.title': 'Modern Luxury & Comfort',
-    'values.comfort.desc': 'Premium plush bedding, climate-controlled rooms, and high-speed Wi-Fi throughout the Riad.',
+    'about.feature3Title': 'Guarded Parking Nearby',
+    'about.feature3Desc': 'Located just moments away from a secure, guarded public parking lot, making road trips and rental cars completely stress-free.',
 
-    'values.culture.title': 'Prime Medina Location',
-    'values.culture.desc': 'Situated in the heart of the historical Medina, just steps away from Marrakech’s most iconic monuments.',
+    'about.feature4Title': 'Peaceful & Quiet Refuge',
+    'about.feature4Desc': 'Enjoy absolute tranquility inside the Riad. Step out into the vibrant culture of Marrakech, then return to undisturbed peace and quiet.',
 
-    'values.hospitality.title': 'Legendary Hospitality',
-    'values.hospitality.desc': 'Warm personal greetings, dedicated concierge service, and genuine Moroccan care tailored to your stay.',
+    'about.facilitiesTag': 'RIAD HIGHLIGHTS',
+    'about.facilitiesTitle': 'Designed for Your Ultimate Comfort',
+    'about.facility1Title': '4 Independent Boutique Rooms',
+    'about.facility1Desc': 'Intimate, climate-controlled rooms featuring comfortable bedding, private bathrooms, and refined decor.',
+    'about.facility2Title': 'Rooftop Sun Terrace',
+    'about.facility2Desc': 'A panoramic roof terrace ideal for enjoying breakfast under the sun or relaxing during warm Marrakech evenings.',
+    'about.facility3Title': 'Fully Equipped Shared Kitchen',
+    'about.facility3Desc': 'Feel at home with access to a modern shared kitchen for preparing teas, snacks, and personal meals.',
+    'about.facility4Title': 'Warm Personalized Hospitality',
+    'about.facility4Desc': 'Hosted with genuine care and local knowledge by Khalid, ensuring every guest feels welcomed like family.',
 
     'book.title': 'Book Your Stay',
     'book.subtitle': 'Select your stay dates and enter your details. We will confirm your reservation instantly via WhatsApp.',
@@ -107,28 +120,41 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.viewDetails': 'Voir Détails',
     'rooms.bookRoom': 'Réserver',
 
-    // Values (FR)
-    'values.badge': 'L\'EXPÉRIENCE TOFAHA',
-    'values.title': 'Pourquoi Choisir Notre Riad',
-    'values.subtitle': 'Plongez au cœur du raffinement marocain, d\'une architecture séculaire et d\'une hospitalité légendaire.',
+    // About Us Page (FR)
+    'about.heroTagline': 'À PROPOS DU RIAD TOFAHA',
+    'about.heroTitle': 'Un Havre de Paix Récemment Rénové au Cœur de la Médina',
+    'about.heroSubtitle': 'Alliant l’artisanat marocain traditionnel au confort contemporain, le Riad Tofaha offre une oasis de tranquillité à deux pas des trésors historiques de Marrakech.',
     
-    'values.authenticity.title': 'Artisanat Marocain Authentique',
-    'values.authenticity.desc': 'Zelliges faits main, plâtres sculptés et finitions artisanales traditionnelles dans chaque espace.',
+    'about.storyTag': 'LE CONCEPT TOFAHA',
+    'about.storyTitle': 'Où l’Élégance Traditionnelle Rencontre le Confort Moderne',
+    'about.storyP1': 'Le Riad Tofaha est un riad récemment rénové, pensé pour offrir à ses hôtes une expérience marocaine authentique dotée de tout le confort moderne. Situé dans la médina historique, il met à l’honneur le zellige fait main, le plâtre sculpté et l’architecture en bois noble.',
+    'about.storyP2': 'Conçu comme un véritable havre de paix, ses murs épais vous isolent parfaitement de l’animation des ruelles extérieures, créant une atmosphère calme et intimiste pour vous détendre après une journée d’exploration.',
 
-    'values.architecture.title': 'Architecture Traditionnelle',
-    'values.architecture.desc': 'Un patio central baigné de lumière avec une fontaine d\'eau apaisante et une verdure verdoyante.',
+    'about.locationTag': 'LOCALISATION ET ACCÈS',
+    'about.locationTitle': 'Emplacement Idéal & Accès Rare en Voiture',
+    
+    'about.feature1Title': 'À 15 Min de Jemaa el-Fnaa',
+    'about.feature1Desc': 'Niché dans un quartier calme, le riad se trouve à seulement 15 minutes à pied de la célèbre place Jemaa el-Fnaa et des souks animés.',
 
-    'values.intimate.title': 'Havre de Paix Intime',
-    'values.intimate.desc': 'Un sanctuaire privé conçu pour vous offrir une sérénité absolue loin de l\'agitation de la Médina.',
+    'about.feature2Title': 'Dépose-Bagages Devant la Porte',
+    'about.feature2Desc': 'Un privilège rare en Médina : les taxis et voitures peuvent s’arrêter directement devant le Riad Tofaha pour décharger vos bagages sans effort.',
 
-    'values.comfort.title': 'Confort Moderne & Élégance',
-    'values.comfort.desc': 'Literie haut de gamme, climatisation réversible et Wi-Fi haut débit dans tout l\'établissement.',
+    'about.feature3Title': 'Parking Sécurisé à Proximité',
+    'about.feature3Desc': 'Situé à deux pas d’un parking public gardé et sécurisé, idéal pour vos déplacements en voiture ou vos véhicules de location.',
 
-    'values.culture.title': 'Emplacement Idéal en Médina',
-    'values.culture.desc': 'Niché au cœur de la Médina historique, à quelques minutes à pied des lieux touristiques emblématiques.',
+    'about.feature4Title': 'Havre de Paix et de Sérénité',
+    'about.feature4Desc': 'Profitez d’un calme absolu à l’intérieur du Riad. Explorez la médina vibrante la journée et retrouvez la sérénité totale le soir.',
 
-    'values.hospitality.title': 'Hospitalité Légendaire',
-    'values.hospitality.desc': 'Accueil chaleureux, service conciergerie personnalisé et bienveillance marocaine dédiée à votre confort.',
+    'about.facilitiesTag': 'LES POINTS FORTS DU RIAD',
+    'about.facilitiesTitle': 'Pensé Pour Votre Plus Grand Confort',
+    'about.facility1Title': '4 Chambres Belles & Indépendantes',
+    'about.facility1Desc': 'Chambres climatisées, literie confortable, salle de bain privative et décoration soignée.',
+    'about.facility2Title': 'Terrasse Panoramique sur le Toit',
+    'about.facility2Desc': 'Une belle terrasse sur le toit idéale pour savourer le petit-déjeuner au soleil ou se détendre le soir.',
+    'about.facility3Title': 'Cuisine Commune Équipée',
+    'about.facility3Desc': 'Profitez d’une cuisine commune moderne et équipée pour préparer vos thés, collations et repas légers.',
+    'about.facility4Title': 'Hospitalité Chaleureuse & Attentionnée',
+    'about.facility4Desc': 'Un accueil personnalisé et bienveillant assuré par Khalid, pour vous faire sentir comme chez vous dès votre arrivée.',
 
     'book.title': 'Réserver Votre Séjour',
     'book.subtitle': 'Sélectionnez vos dates de séjour et entrez vos coordonnées. Nous confirmerons votre réservation instantanément via WhatsApp.',
@@ -180,28 +206,41 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.viewDetails': 'عرض التفاصيل',
     'rooms.bookRoom': 'احجز الغرفة',
 
-    // Values (AR)
-    'values.badge': 'تجربة رياض تفاحة',
-    'values.title': 'لماذا تختار الإقامة معنا؟',
-    'values.subtitle': 'عش تجربة الفخامة المغربية الأصيلة وسط معمار تقليدي وضيافة مراكشية عريقة.',
+    // About Us Page (AR)
+    'about.heroTagline': 'عن رياض تفاحة',
+    'about.heroTitle': 'واحة هادئة ومجددة حديثاً في قلب المدينة القديمة',
+    'about.heroSubtitle': 'يجمع رياض تفاحة بين أصالة المعمار المغربي العريق والراحة العصريّة الرفيعة، ليوفر لك ملاذاً هادئاً على بُعد خطوات من أبرز معالم مراكش التاريخية.',
     
-    'values.authenticity.title': 'أصالة الصناعة التقليدية',
-    'values.authenticity.desc': 'زليج تقليدي مصنوع يدوياً، وجبس منقوش بدقة، وتفاصيل حرفية عريقة في كل زاوية.',
+    'about.storyTag': 'مفهوم رياض تفاحة',
+    'about.storyTitle': 'حيث تلتقي الأصالة المغربية بالراحة الحديثة',
+    'about.storyP1': 'رياض تفاحة هو رياض بوتيك مُجدد بالكامل ومصمم بعناية ليمنح زواره إقامة مغربية أصيلة مع أحدث وسائل الراحة. يقع الرياض في قلب المدينة العتيقة لمراكش، وتتزين أركانه بالزليج التقليدي المصنوع يدوياً، والجبس المنقوش بدقة، مع اللمسات الخشبية الدافئة.',
+    'about.storyP2': 'تم تصميم الرياض ليكون ملاذاً هادئاً بامتياز؛ إذ تعزلك جدرانه التقليدية السميكة تماماً عن صخب الأزقة الخارجية، مما يخلق أجواءً ساحرة من السكينة والهدوء والراحة المطلقة بعد يوم حافل باستكشاف مراكش.',
 
-    'values.architecture.title': 'عمارة مركسية تقليدية',
-    'values.architecture.desc': 'فناء مركزي مفتوح على السماء يضم خضرة ساحرة ونافورة ماء منعشة تعزف ألحان السكينة.',
+    'about.locationTag': 'الموقع وسهولة الوصول',
+    'about.locationTitle': 'موقع استراتيجي بالمدينة العتيقة وسهولة وصول السيارات',
+    
+    'about.feature1Title': '15 دقيقة عن ساحة جامع الفناء',
+    'about.feature1Desc': 'يقع الرياض في حي هادئ وأصيل، يبعد 15 دقيقة فقط سيراً على الأقدام عبر أزقة المدينة القديمة للوصول لساحة جامع الفناء الشهيرة والأسواق التقليدية.',
 
-    'values.intimate.title': 'ملاذ هادئ وخاص',
-    'values.intimate.desc': 'ملاذ خاص مصمم ليوفر لك الخصوصية التامة والهدوء المطلق بعيداً عن صخب الأزقة.',
+    'about.feature2Title': 'توقف السيارة أمام باب الرياض',
+    'about.feature2Desc': 'ميزة نادرة واستثنائية بالمدينة القديمة: يمكن للسيارات وسيارات الأجرة التوقف أمام باب الرياض مباشرة لتنزيل وتحميل الأمتعة بكل أريحية.',
 
-    'values.comfort.title': 'راحة وعصرنة رفيعة',
-    'values.comfort.desc': 'أسرة فاخرة للغاية، تكييف متطور، وخدمة إنترنت فائقة السرعة في جميع مرافق الرياض.',
+    'about.feature3Title': 'موقف سيارات آمن قريب جداً',
+    'about.feature3Desc': 'يقع الرياض على بُعد خطوات قصيرة من موقف سيارات آمن ومحروس، مما يجعل استخدام سيارات الكراء والتنقلات أمراً ميسراً.',
 
-    'values.culture.title': 'موقع استراتيجي بالمدينة العتيقة',
-    'values.culture.desc': 'يقع الرياض في قلب المدينة القديمة وعلى بُعد خطوات قليلة من أشهر معالم مراكش التاريخية.',
+    'about.feature4Title': 'سكينة وهدوء مطلق',
+    'about.feature4Desc': 'استمتع بالهدوء التام والراحة داخل الرياض، حيث يمكنك استكشاف حيوية مراكش نهاراً والعودة للاسترخاء في سكينة تامة ليلاً.',
 
-    'values.hospitality.title': 'ضيافة مغربية عريقة',
-    'values.hospitality.desc': 'استقبال حار بالمنعنع المغربي، وخدمة كونسيرج مخصصة تلبي كافة تطلعاتك طوال إقامتك.',
+    'about.facilitiesTag': 'مميزات الرياض',
+    'about.facilitiesTitle': 'مصمم خصيصاً لراحتك التامة',
+    'about.facility1Title': '4 غرف نوم مستقلة وأنيقة',
+    'about.facility1Desc': 'غرف مجهزة بتكييف هواء، أسرة مريحة، حمامات خاصة، وتصميم داخلي راقٍ يعكس سحر الضيافة.',
+    'about.facility2Title': 'تراس مشمس على السطح',
+    'about.facility2Desc': 'تراس بانورامي ساحر على السطح للاستمتاع بوجبة الإفطار تحت أشعة الشمس أو الاسترخاء في أمسيات مراكش الدافئة.',
+    'about.facility3Title': 'مطبخ مشترك مجهز بالكامل',
+    'about.facility3Desc': 'مطبخ حديث ومجهز بالكامل متاح لجميع الضيوف لإعداد الشاي، المشروبات، والوجبات الخفيفة بحرية.',
+    'about.facility4Title': 'ضيافة واستقبال حار',
+    'about.facility4Desc': 'استقبال شخصي وحار يقدمه المضيف خالد، مع الحرص على تلبية كافة احتياجاتك لتشعر وكأنك في بيتك.',
 
     'book.title': 'احجز إقامتك',
     'book.subtitle': 'اختر تواريخ إقامتك وأدخل بياناتك، وسنقوم بتأكيد حجزك فوراً عبر الواتساب.',
@@ -253,28 +292,41 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.viewDetails': 'Ver Detalles',
     'rooms.bookRoom': 'Reservar',
 
-    // Values (ES)
-    'values.badge': 'LA EXPERIENCIA TOFAHA',
-    'values.title': 'Por Qué Elegir Nuestro Riad',
-    'values.subtitle': 'Sumérjase en el refinamiento marroquí, la arquitectura auténtica y la hospitalidad legendaria.',
+    // About Us Page (ES)
+    'about.heroTagline': 'SOBRE RIAD TOFAHA',
+    'about.heroTitle': 'Un Refugio Recientemente Renovado en el Corazón de la Medina',
+    'about.heroSubtitle': 'Combinando la artesanía marroquí tradicional con el confort contemporáneo, Riad Tofaha ofrece un oasis de tranquilidad a pocos pasos de los tesoros históricos de Marrakech.',
     
-    'values.authenticity.title': 'Artesanía Marroquí Auténtica',
-    'values.authenticity.desc': 'Zellige hecho a mano, yeso esculpido y tradiciones artesanales en cada rincón.',
+    'about.storyTag': 'EL CONCEPTO TOFAHA',
+    'about.storyTitle': 'Donde la Elegancia Tradicional se Une al Confort Moderno',
+    'about.storyP1': 'Riad Tofaha es un Riad boutique recientemente restaurado, diseñado para ofrecer una estancia marroquí auténtica con comodidades modernas. Ubicado en la Medina histórica, destaca por sus azulejos Zellige hechos a mano, yeso esculpido y madera noble.',
+    'about.storyP2': 'Diseñado como un santuario tranquilo, sus gruesos muros aislan el interior del bullicio de los callejones, creando una atmósfera serena para relajarse tras un día explorando Marrakech.',
 
-    'values.architecture.title': 'Arquitectura Tradicional',
-    'values.architecture.desc': 'Un patio al aire libre rodeado de vegetación y una refrescante fuente de agua.',
+    'about.locationTag': 'UBICACIÓN Y ACCESO',
+    'about.locationTitle': 'Ubicación Privilegiada y Acceso Exclusivo en Vehículo',
+    
+    'about.feature1Title': 'A 15 Min de Jemaa el-Fnaa',
+    'about.feature1Desc': 'Ubicado en un barrio tranquilo, a solo 15 minutos a pie por históricas callejuelas hasta la famosa plaza central y los vibrantes zocos.',
 
-    'values.intimate.title': 'Un Remanso de Paz Íntimo',
-    'values.intimate.desc': 'Un santuario exclusivo diseñado para ofrecer absoluta serenidad lejos del bullicio de la Medina.',
+    'about.feature2Title': 'Descarga de Equipaje en la Puerta',
+    'about.feature2Desc': 'Un privilegio exclusivo en la Medina: taxis y coches pueden parar directamente frente a Riad Tofaha para descargar equipaje fácilmente.',
 
-    'values.comfort.title': 'Lujo y Confort Moderno',
-    'values.comfort.desc': 'Camas de alta calidad, aire acondicionado y Wi-Fi de alta velocidad en todo el Riad.',
+    'about.feature3Title': 'Aparcamiento Vigilado Cercano',
+    'about.feature3Desc': 'Situado a pocos pasos de un aparcamiento público vigilado y seguro, ideal para coches de alquiler o viajes en carretera.',
 
-    'values.culture.title': 'Ubicación Privilegiada en la Medina',
-    'values.culture.desc': 'Ubicado en el corazón de la Medina histórica, a pocos pasos de los monumentos más icónicos.',
+    'about.feature4Title': 'Un Oasis de Paz y Silencio',
+    'about.feature4Desc': 'Disfrute de tranquilidad absoluta dentro del Riad. Explore la animada Medina de día y regrese a la calma total de noche.',
 
-    'values.hospitality.title': 'Hospitalidad Legendaria',
-    'values.hospitality.desc': 'Cálida bienvenida personalizada, servicio de conserjería dedicado y auténtica atención marroquí.',
+    'about.facilitiesTag': 'LO DESTACADO DEL RIAD',
+    'about.facilitiesTitle': 'Diseñado para su Máxima Comodidad',
+    'about.facility1Title': '4 Habitaciones Independientes',
+    'about.facility1Desc': 'Habitaciones climatizadas con ropa de cama de primera calidad, baño privado y decoración cuidada.',
+    'about.facility2Title': 'Terraza en la Azotea',
+    'about.facility2Desc': 'Una hermosa terraza panorámica ideal para disfrutar del desayuno al sol o relajarse al atardecer.',
+    'about.facility3Title': 'Cocina Compartida Equipada',
+    'about.facility3Desc': 'Siéntase como en casa con acceso a una cocina compartida equipada para preparar tés, aperitivos o comidas ligeras.',
+    'about.facility4Title': 'Hospitalidad Cálida y Personalizada',
+    'about.facility4Desc': 'Atención atenta y cálida brindada por Khalid, asegurando que cada huésped se sienta bienvenido desde su llegada.',
 
     'book.title': 'Reservar Su Estancia',
     'book.subtitle': 'Seleccione sus fechas de estancia e ingrese sus datos. Confirmaremos su reserva al instante por WhatsApp.',
