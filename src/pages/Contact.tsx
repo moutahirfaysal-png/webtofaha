@@ -12,10 +12,10 @@ export default function Contact() {
   const whatsappNumber = '212618177464';
   const contactEmail = 'contact@riadtofaha.com';
   
-  // الروابط المباشرة
+  // الروابط المباشرة المحدثة
   const bookingComUrl = 'https://www.booking.com/hotel/ma/riad-tofaha.fr.html';
   const airbnbUrl = 'https://www.airbnb.fr/rooms/1434061785654499260';
-  const googleMapsUrl = 'https://maps.app.goo.gl/twzPTFH4qwoBpLct7';
+  const googleMapsUrl = 'https://maps.app.goo.gl/LBszwPBDoDKGZaPL7';
 
   // نموذج الرسائل
   const [fullName, setFullName] = useState('');
