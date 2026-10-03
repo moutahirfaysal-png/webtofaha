@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, Bed, Users, ArrowRight, MapPin, Star, Palmtree } from 'lucide-react';
+import { ChevronDown, Bed, Users, ArrowRight, MapPin, Star, Palmtree, MessageSquareQuote } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { translate, getLocalizedText } from '@/lib/i18n';
 import { useSEO, buildLodgingBusinessSchema, buildOrganizationSchema, buildWebSiteSchema } from '@/lib/seo';
@@ -44,6 +44,46 @@ export default function Home() {
     { key: 'comfort', icon: Bed },
     { key: 'culture', icon: MapPin },
     { key: 'hospitality', icon: Star },
+  ];
+
+  // التعليقات الحقيقية المأخوذة من حساب Booking.com للرياض
+  const realBookingReviews = [
+    {
+      id: '1',
+      name: 'Mbarek',
+      country: 'France',
+      flag: '🇫🇷',
+      date: '28 mars 2026',
+      room: 'Chambre Double Deluxe',
+      score: '10',
+      title: 'Exceptionnel',
+      comment: "J'ai passé un séjour exceptionnel dans ce riad Tofaha récemment rénové, à seulement 15 minutes à pied du centre. Le déjeuner est parfait rien à dire. Khalid, l'hôte, a été incroyablement gentil, accueillant et serviable durant mon séjour. Les quatre chambres indépendantes, la cuisine commune équipée et la terrasse sur le toit rendent le séjour particulièrement confortable. L'endroit est à la fois authentique et moderne !",
+      ownerResponse: "Me Mbarek merci beaucoup pour votre message"
+    },
+    {
+      id: '2',
+      name: 'Marcel',
+      country: 'Hongrie',
+      flag: '🇭🇺',
+      date: '6 août 2026',
+      room: 'Chambre Double Deluxe',
+      score: '10',
+      title: 'Exceptionnel',
+      comment: "Everything was just perfect. Highly recommend. And owner it's always available. I felt like being in a 5***** hotel.",
+      ownerResponse: "Thanks a lot bro 🤓 you are welcome anytime"
+    },
+    {
+      id: '3',
+      name: 'Daniel',
+      country: 'Allemagne',
+      flag: '🇩🇪',
+      date: '10 mai 2026',
+      room: 'Chambre Double Deluxe',
+      score: '10',
+      title: 'Exceptionnel',
+      comment: "Stayed at Khalils Riad for two nights at a weekend. Really enjoyed this time. He's a very kind guy and takes care about his guests. Rooms are clean and beds are comfortable. Definitely recommend this place and looking forward to go there again!!",
+      ownerResponse: "Thanks a lot Daniel and you are welcome any time"
+    }
   ];
 
   return (
@@ -226,121 +266,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Guest Experience & Booking.com Reviews Section */}
+      {/* REAL BOOKING.COM REVIEWS SECTION */}
       <section className="py-24 md:py-32 bg-ivory-100">
         <div className="container-luxury">
           <div className="text-center mb-16 space-y-4">
-            <p className="section-subtitle">{translate('guest.subtitle', lang) || 'GUEST REVIEWS'}</p>
-            <h2 className="section-title">{translate('guest.title', lang) || 'What Our Guests Say'}</h2>
+            <p className="section-subtitle">GUEST REVIEWS & EXPERIENCES</p>
+            <h2 className="section-title">What Our Guests Say on Booking.com</h2>
 
             {/* Booking.com Rating Badge */}
             <div className="inline-flex items-center gap-3 bg-ivory-50 px-6 py-3 rounded-2xl shadow-sm border border-sand-200 mt-4">
               <div className="bg-[#003580] text-white font-bold text-lg px-3 py-1 rounded-lg">
-                9.7
+                10 / 10
               </div>
               <div className="text-left rtl:text-right">
                 <div className="text-sm font-bold text-brown-800 flex items-center gap-1.5">
-                  <span>Exceptional</span>
+                  <span>Exceptionnel</span>
                   <span className="text-xs text-brown-400">• Verified by Booking.com</span>
                 </div>
-                <div className="text-xs text-brown-600">Based on authentic guest reviews</div>
+                <div className="text-xs text-brown-600">Authentic reviews from verified guests</div>
               </div>
             </div>
           </div>
 
-          {/* Booking.com Reviews Grid */}
+          {/* Booking.com Reviews Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            {/* Review 1 */}
-            <div className="bg-ivory-50 p-8 rounded-2xl shadow-sm border border-sand-200 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-gold-500">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-current text-amber-500" />
-                    ))}
+            {realBookingReviews.map((item) => (
+              <div 
+                key={item.id} 
+                className="bg-ivory-50 p-8 rounded-2xl shadow-sm border border-sand-200 flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
+              >
+                <div className="space-y-4">
+                  {/* Top Review Header */}
+                  <div className="flex items-center justify-between border-b border-sand-200 pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{item.flag}</span>
+                      <div>
+                        <h4 className="font-bold text-brown-800 text-sm">{item.name}</h4>
+                        <p className="text-[11px] text-brown-500">{item.country} • {item.date}</p>
+                      </div>
+                    </div>
+                    <div className="bg-[#003580] text-white font-bold text-xs px-2.5 py-1 rounded-md">
+                      {item.score} / 10
+                    </div>
                   </div>
-                  <span className="bg-[#003580]/10 text-[#003580] text-xs font-bold px-2.5 py-1 rounded">
-                    10 / 10
-                  </span>
-                </div>
-                <h3 className="font-serif font-medium text-brown-800 text-lg">
-                  "Un havre de paix exceptionnel en pleine médina"
-                </h3>
-                <p className="text-brown-600 text-sm leading-relaxed font-light">
-                  "Le riad est magnifiquement décoré avec un accueil chaleureux de toute l'équipe. Le thé de bienvenue et le petit-déjeuner sur la terrasse étaient parfaits !"
-                </p>
-              </div>
 
-              <div className="mt-6 pt-4 border-t border-sand-200 flex items-center justify-between text-xs">
-                <div>
-                  <p className="font-bold text-brown-800">Sophie & Pierre</p>
-                  <p className="text-brown-500">France 🇫🇷</p>
-                </div>
-                <span className="text-[#003580] font-semibold">Booking.com</span>
-              </div>
-            </div>
+                  {/* Room Tag */}
+                  <p className="text-[11px] font-semibold text-terracotta-600 uppercase tracking-wider">
+                    {item.room}
+                  </p>
 
-            {/* Review 2 */}
-            <div className="bg-ivory-50 p-8 rounded-2xl shadow-sm border border-sand-200 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-gold-500">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-current text-amber-500" />
-                    ))}
+                  {/* Review Title & Comment */}
+                  <div>
+                    <h3 className="font-serif font-bold text-brown-800 text-base mb-1.5">
+                      "{item.title}"
+                    </h3>
+                    <p className="text-brown-600 text-xs leading-relaxed font-light">
+                      {item.comment}
+                    </p>
                   </div>
-                  <span className="bg-[#003580]/10 text-[#003580] text-xs font-bold px-2.5 py-1 rounded">
-                    9.8 / 10
-                  </span>
                 </div>
-                <h3 className="font-serif font-medium text-brown-800 text-lg">
-                  "Truly unforgettable Moroccan hospitality"
-                </h3>
-                <p className="text-brown-600 text-sm leading-relaxed font-light">
-                  "Riad Tofaha exceeded all our expectations. The courtyard pool is breathtaking and the room was spotlessly clean with authentic traditional details."
-                </p>
-              </div>
 
-              <div className="mt-6 pt-4 border-t border-sand-200 flex items-center justify-between text-xs">
-                <div>
-                  <p className="font-bold text-brown-800">David M.</p>
-                  <p className="text-brown-500">United Kingdom 🇬🇧</p>
-                </div>
-                <span className="text-[#003580] font-semibold">Booking.com</span>
-              </div>
-            </div>
-
-            {/* Review 3 */}
-            <div className="bg-ivory-50 p-8 rounded-2xl shadow-sm border border-sand-200 flex flex-col justify-between hover:shadow-md transition-shadow">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-gold-500">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-current text-amber-500" />
-                    ))}
+                {/* Owner Reply Box */}
+                {item.ownerResponse && (
+                  <div className="mt-6 pt-4 border-t border-sand-200 bg-sand-100/60 p-3 rounded-xl">
+                    <p className="text-[11px] font-bold text-brown-800 mb-0.5 flex items-center gap-1">
+                      <MessageSquareQuote size={13} className="text-terracotta-600" /> Réponse de l'établissement:
+                    </p>
+                    <p className="text-[11px] text-brown-600 italic">
+                      "{item.ownerResponse}"
+                    </p>
                   </div>
-                  <span className="bg-[#003580]/10 text-[#003580] text-xs font-bold px-2.5 py-1 rounded">
-                    10 / 10
-                  </span>
-                </div>
-                <h3 className="font-serif font-medium text-brown-800 text-lg">
-                  "اقامة رائعة وهادئة في قلب مراكش"
-                </h3>
-                <p className="text-brown-600 text-sm leading-relaxed font-light">
-                  "الرياض جميل ونظيف جداً، والخدمة ممتازة وحسن الضيافة المغربية الأصيلة. الفطور في السطح كان رائعاً."
-                </p>
+                )}
               </div>
-
-              <div className="mt-6 pt-4 border-t border-sand-200 flex items-center justify-between text-xs">
-                <div>
-                  <p className="font-bold text-brown-800">محمد العبدالله</p>
-                  <p className="text-brown-500">الإمارات 🇦🇪</p>
-                </div>
-                <span className="text-[#003580] font-semibold">Booking.com</span>
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
