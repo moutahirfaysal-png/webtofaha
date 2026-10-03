@@ -1,172 +1,176 @@
-import React, { useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { roomsData } from '@/lib/roomsData';
-import { ArrowLeft, Bath, ShowerHead, Wind, Sparkles, Wifi, CheckCircle, Bed, User, Calendar } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Bed, Users, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { useLanguage } from '@/lib/LanguageContext';
+import { translate, getLocalizedText, Language } from '@/lib/i18n';
+import { useSEO } from '@/lib/seo';
+import { fetchRooms } from '@/lib/data';
+import { formatPrice } from '@/lib/booking';
+import type { Room } from '@/lib/types';
 
-export default function RoomDetail() {
-  const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
+// مكون فرعي لبناء بطاقة الغرفة مع سلايدر الصور والأسهم
+function RoomCardItem({ room, lang }: { room: Room; lang: Language }) {
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
-  // البحث عن الغرفة بناءً على slug أو id
-  const room = roomsData.find((r) => r.slug === slug || r.id === slug) || roomsData[0];
+  const images = room.images && room.images.length > 0 ? room.images : ['/terasssse.jpeg'];
 
-  const [activeImg, setActiveImg] = useState(0);
+  const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImgIndex((prev) => (prev + 1) % images.length);
+  };
 
-  if (!room) {
-    return (
-      <div className="min-h-screen pt-32 text-center">
-        <h2 className="text-2xl font-bold text-gray-800">Room Not Found</h2>
-        <Link to="/rooms" className="text-[#a86548] underline mt-4 inline-block">Back to Rooms</Link>
-      </div>
-    );
-  }
+  const prevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
-    <div className="pt-24 pb-16 bg-stone-50 min-h-screen">
-      <div className="max-w-6xl mx-auto px-4">
-        
-        {/* زر العودة */}
-        <button 
-          onClick={() => navigate(-1)} 
-          className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition mb-6 text-sm font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Rooms
-        </button>
+    <div className="bg-white rounded-3xl overflow-hidden border border-sand-300/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col group">
+      
+      {/* Slider Container */}
+      <div className="relative h-72 md:h-80 overflow-hidden bg-brown-900/10">
+        <img
+          src={images[currentImgIndex]}
+          alt={getLocalizedText(room.name, lang)}
+          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 via-transparent to-black/20" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* معرض الصور والمعلومات */}
-          <div className="lg:col-span-2 space-y-8">
-            
-            {/* معرض الصور */}
-            <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 space-y-3">
-              <div className="h-96 w-full rounded-xl overflow-hidden bg-stone-100 border border-stone-200">
-                <img 
-                  src={room.images[activeImg] || room.images[0]} 
-                  alt={room.name} 
-                  className="w-full h-full object-cover transition-all duration-300"
+        {/* Navigation Arrows (Show if more than 1 image) */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prevImage}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/75 text-white flex items-center justify-center transition backdrop-blur-sm z-10"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            <button
+              onClick={nextImage}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/75 text-white flex items-center justify-center transition backdrop-blur-sm z-10"
+              aria-label="Next image"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            {/* Pagination Dots */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setCurrentImgIndex(idx);
+                  }}
+                  className={`h-2 rounded-full transition-all ${
+                    idx === currentImgIndex ? 'w-5 bg-gold-300' : 'w-2 bg-white/60'
+                  }`}
+                  aria-label={`Slide ${idx + 1}`}
                 />
-              </div>
-              
-              {/* الصور المصغرة */}
-              {room.images.length > 1 && (
-                <div className="flex gap-3 overflow-x-auto pb-2">
-                  {room.images.map((img, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveImg(index)}
-                      className={`h-20 w-28 flex-shrink-0 rounded-lg overflow-hidden border-2 transition ${
-                        activeImg === index ? 'border-[#a86548] scale-95' : 'border-transparent opacity-70 hover:opacity-100'
-                      }`}
-                    >
-                      <img src={img} alt="" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
+              ))}
             </div>
+          </>
+        )}
 
-            {/* تفاصيل الغرفة */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-4">
-              <h1 className="text-3xl font-serif font-bold text-stone-800">{room.name}</h1>
-              
-              <div className="flex flex-wrap gap-6 text-sm text-stone-600 border-y border-stone-100 py-3">
-                <div className="flex items-center gap-2">
-                  <Bed className="w-4 h-4 text-[#a86548]" />
-                  <span>{room.bedType}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-[#a86548]" />
-                  <span>{room.capacity}</span>
-                </div>
-              </div>
-
-              <p className="text-stone-600 leading-relaxed text-sm">{room.description}</p>
-            </div>
-
-            {/* التجهيزات والخدمات */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-              <h3 className="text-xl font-serif font-bold text-stone-800 mb-4">Room Amenities & Features</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
-                  <Bath className="w-5 h-5 text-[#a86548]" />
-                  <div>
-                    <p className="font-semibold text-stone-800 text-sm">Private En-suite Bathroom</p>
-                    <p className="text-xs text-stone-500">Private bathroom and toilet inside the room</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
-                  <ShowerHead className="w-5 h-5 text-[#a86548]" />
-                  <div>
-                    <p className="font-semibold text-stone-800 text-sm">Towels & Toiletries</p>
-                    <p className="text-xs text-stone-500">Fresh towels, soap, and complimentary shampoo</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
-                  <Wind className="w-5 h-5 text-[#a86548]" />
-                  <div>
-                    <p className="font-semibold text-stone-800 text-sm">Air Conditioning & Heating</p>
-                    <p className="text-xs text-stone-500">Full climate control for summer and winter</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
-                  <Sparkles className="w-5 h-5 text-[#a86548]" />
-                  <div>
-                    <p className="font-semibold text-stone-800 text-sm">Hairdryer</p>
-                    <p className="text-xs text-stone-500">Available free of charge in the bathroom</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
-                  <Wifi className="w-5 h-5 text-[#a86548]" />
-                  <div>
-                    <p className="font-semibold text-stone-800 text-sm">High-Speed Wi-Fi</p>
-                    <p className="text-xs text-stone-500">Free high-speed internet access</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 p-3.5 bg-stone-50 rounded-xl border border-stone-100">
-                  <CheckCircle className="w-5 h-5 text-[#a86548]" />
-                  <div>
-                    <p className="font-semibold text-stone-800 text-sm">Essential Amenities</p>
-                    <p className="text-xs text-stone-500">Linens, safe, and electrical outlets</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+        {/* Price Tag Badge */}
+        {room.base_price && (
+          <div className="absolute top-4 right-4 bg-ivory-50/95 backdrop-blur-sm px-3.5 py-1.5 rounded-xl shadow-md border border-sand-300 z-10">
+            <span className="text-xs md:text-sm font-bold text-brown-900">
+              {translate('roomsPreview.from', lang)} {formatPrice(room.base_price, room.currency)}
+            </span>
+            <span className="text-[10px] text-brown-500 font-light"> / {translate('roomsPreview.perNight', lang)}</span>
           </div>
+        )}
 
-          {/* بطاقة السعر والحجز الجانبية */}
-          <div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 sticky top-28 space-y-6">
-              <div>
-                <span className="text-xs text-stone-500 block uppercase tracking-wider font-semibold">Price per night</span>
-                <span className="text-3xl font-serif font-bold text-[#a86548]">€{room.price}</span>
-              </div>
+        {/* Room Attributes */}
+        <div className="absolute bottom-4 left-4 flex items-center gap-2 z-10">
+          <span className="inline-flex items-center gap-1 text-xs bg-brown-900/75 backdrop-blur-sm text-ivory-50 px-2.5 py-1 rounded-lg">
+            <Bed size={13} /> {room.bed_config}
+          </span>
+          <span className="inline-flex items-center gap-1 text-xs bg-brown-900/75 backdrop-blur-sm text-ivory-50 px-2.5 py-1 rounded-lg">
+            <Users size={13} /> {room.max_occupancy} {translate('roomsPreview.guests', lang)}
+          </span>
+        </div>
+      </div>
 
-              <div className="space-y-3 pt-2">
-                <Link 
-                  to="/book" 
-                  className="w-full block text-center bg-[#a86548] text-white py-3.5 rounded-xl font-bold hover:bg-[#8e5238] transition shadow-md uppercase tracking-wider text-xs"
-                >
-                  BOOK THIS ROOM
-                </Link>
-                
-                <p className="text-xs text-center text-stone-500 flex items-center justify-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" /> Best price guaranteed
-                </p>
-              </div>
-            </div>
-          </div>
-
+      {/* Card Content */}
+      <div className="p-6 md:p-8 flex-1 flex flex-col justify-between space-y-4">
+        <div>
+          <h3 className="font-serif text-2xl font-bold text-brown-900 mb-2">
+            {getLocalizedText(room.name, lang)}
+          </h3>
+          <p className="text-xs md:text-sm text-brown-600 font-light leading-relaxed">
+            {getLocalizedText(room.short_description, lang) || getLocalizedText(room.description, lang)}
+          </p>
         </div>
 
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <Link
+            to={`/rooms/${room.slug}`}
+            className="flex-1 inline-flex items-center justify-center gap-2 border border-brown-300 px-5 py-3 text-xs font-bold uppercase tracking-wider text-brown-800 hover:bg-brown-900 hover:text-white rounded-xl transition-all"
+          >
+            {translate('roomsPreview.viewDetails', lang)}
+          </Link>
+          <Link
+            to={`/book?room=${room.slug}`}
+            className="flex-1 inline-flex items-center justify-center gap-2 bg-[#a86548] hover:bg-[#8e5238] px-5 py-3 text-xs font-bold uppercase tracking-wider text-white rounded-xl transition-all shadow-md"
+          >
+            {translate('roomsPreview.bookRoom', lang)}
+          </Link>
+        </div>
       </div>
+
+    </div>
+  );
+}
+
+export default function Rooms() {
+  const { lang } = useLanguage();
+  const [rooms, setRooms] = useState<Room[]>([]);
+
+  useSEO({
+    title: translate('rooms.page_title', lang),
+    description: translate('rooms.desc', lang),
+    canonicalPath: '/rooms',
+  });
+
+  useEffect(() => {
+    fetchRooms().then(setRooms);
+  }, []);
+
+  return (
+    <div className="pt-24 pb-20 bg-ivory-100 min-h-screen text-brown-900">
+      
+      {/* Hero Header Section */}
+      <section className="bg-[#2A1810] text-ivory-50 py-16 md:py-24 px-4 mb-16 border-b border-gold-500/20 text-center">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-gold-300 font-medium flex items-center justify-center gap-2">
+            <Sparkles size={14} /> {translate('rooms.subtitle', lang)}
+          </p>
+          <h1 className="font-serif text-3xl md:text-5xl font-medium tracking-wide leading-tight">
+            {translate('rooms.title', lang)}
+          </h1>
+          <p className="text-ivory-50/80 max-w-2xl mx-auto text-xs md:text-sm font-light leading-relaxed">
+            {translate('rooms.desc', lang)}
+          </p>
+        </div>
+      </section>
+
+      {/* Rooms Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {rooms.map((room) => (
+            <RoomCardItem key={room.id} room={room} lang={lang} />
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 }
