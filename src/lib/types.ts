@@ -4,6 +4,7 @@ export type LocalizedText = {
   en?: string;
   fr?: string;
   ar?: string;
+  es?: string; // أضيفت لضمان توافق اللغات الأربع للموقع
 };
 
 export interface Room {
