@@ -137,6 +137,23 @@ export default function Home() {
 
   const heroImage = '/terasssse.jpeg';
 
+  // نصوص بديلة ذكية تتجنب ظهور كلمات عامة مثل tagline أو subtitle
+  const customTagline = 
+    getLocalizedText(settings?.brand_tagline, lang) && 
+    getLocalizedText(settings?.brand_tagline, lang) !== 'TAGLINE' 
+      ? getLocalizedText(settings?.brand_tagline, lang) 
+      : (lang === 'fr' ? 'Un havre de paix au cœur de la médina' : lang === 'ar' ? 'واحة من الهدوء في قلب المدينة العتيقة' : 'A traditional sanctuary in the heart of Marrakech');
+
+  const customDescription = 
+    getLocalizedText(settings?.brand_description, lang) && 
+    getLocalizedText(settings?.brand_description, lang) !== 'subtitle' 
+      ? getLocalizedText(settings?.brand_description, lang) 
+      : (lang === 'fr' 
+          ? 'Découvrez l’authentique hospitalité marocaine dans notre riad rénové, alliant charme traditionnel et confort moderne.' 
+          : lang === 'ar' 
+          ? 'اكتشف أصالة الضيافة المغربية في رياضنا التقليدي الذي يجمع بين روعة التراث ووسائل الراحة الحديثة.' 
+          : 'Experience authentic Moroccan hospitality in a beautifully restored traditional riad combining timeless heritage and modern comfort.');
+
   const experiences = [
     { key: 'jemaa', image: 'https://images.pexels.com/photos/35513343/pexels-photo-35513343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'best-places-to-visit-in-marrakech-tourist-guide' },
     { key: 'bahia', image: 'https://images.pexels.com/photos/10306569/pexels-photo-10306569.png?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'best-places-to-visit-in-marrakech-tourist-guide' },
@@ -197,13 +214,13 @@ export default function Home() {
         <div className="relative h-full flex items-center justify-center text-center px-6">
           <div className="max-w-4xl">
             <p className="text-sm md:text-base uppercase tracking-[0.3em] text-gold-300 mb-6 font-medium">
-              {getLocalizedText(settings?.brand_tagline, lang) || translate('hero.tagline', lang)}
+              {customTagline}
             </p>
             <h1 className="text-hero font-serif font-medium text-ivory-50 mb-8 text-balance">
               Riad Tofaha
             </h1>
             <p className="text-lg md:text-xl text-ivory-50/90 max-w-2xl mx-auto leading-relaxed mb-10 font-light">
-              {getLocalizedText(settings?.brand_description, lang) || translate('hero.subtitle', lang)}
+              {customDescription}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/rooms" className="btn-primary">
@@ -375,7 +392,7 @@ export default function Home() {
             {translate('hero.bookStay', lang)}
           </h2>
           <p className="text-lg text-ivory-50/80 max-w-2xl mx-auto mb-10 font-light">
-            {getLocalizedText(settings?.brand_description, lang) || translate('hero.subtitle', lang)}
+            {customDescription}
           </p>
           <Link to="/book" className="bg-[#a86548] hover:bg-[#8e5238] text-white px-8 py-3.5 rounded-xl text-xs uppercase tracking-widest font-bold transition duration-300 shadow-xl inline-block">
             {translate('nav.booknow', lang)}
