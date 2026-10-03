@@ -1,177 +1,152 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Bed, Users, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { useParams, Link } from 'react-router-dom';
+import { Bed, Users, Wifi, Wind, ShieldCheck, ChevronLeft, ChevronRight, Send, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
-import { translate, getLocalizedText, Language } from '@/lib/i18n';
+import { getLocalizedText, translate } from '@/lib/i18n';
 import { useSEO } from '@/lib/seo';
-import { fetchRooms } from '@/lib/data';
+import { fetchRoomBySlug } from '@/lib/data';
 import { formatPrice } from '@/lib/booking';
 import type { Room } from '@/lib/types';
 
-function RoomCardItem({ room, lang }: { room: Room; lang: Language }) {
+export default function RoomDetail() {
+  const { slug } = useParams<{ slug: string }>();
+  const { lang } = useLanguage();
+  const [room, setRoom] = useState<Room | null>(null);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
-  const images = room.images && room.images.length > 0 ? room.images : ['/terasssse.jpeg'];
-
-  const nextImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImgIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  return (
-    <div className="bg-white rounded-3xl overflow-hidden border border-sand-300/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col group">
-      
-      {/* Slider Container - بدون رابط خارجي كي لا ينقل المستخدم عند ضغط الأسهم */}
-      <div className="relative h-72 md:h-80 overflow-hidden bg-brown-900/10">
-        <img
-          src={images[currentImgIndex]}
-          alt={getLocalizedText(room.name, lang)}
-          className="w-full h-full object-cover transition-all duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 via-transparent to-black/20 pointer-events-none" />
-
-        {/* Navigation Arrows */}
-        {images.length > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={prevImage}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition backdrop-blur-md z-20 shadow-lg cursor-pointer"
-              aria-label="Previous image"
-            >
-              <ChevronLeft size={22} />
-            </button>
-
-            <button
-              type="button"
-              onClick={nextImage}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition backdrop-blur-md z-20 shadow-lg cursor-pointer"
-              aria-label="Next image"
-            >
-              <ChevronRight size={22} />
-            </button>
-
-            {/* Pagination Dots */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 pointer-events-auto">
-              {images.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setCurrentImgIndex(idx);
-                  }}
-                  className={`h-2 rounded-full transition-all ${
-                    idx === currentImgIndex ? 'w-5 bg-gold-300' : 'w-2 bg-white/60'
-                  }`}
-                />
-              ))}
-            </div>
-          </>
-        )}
-
-        {/* Price Tag Badge */}
-        {room.base_price && (
-          <div className="absolute top-4 right-4 bg-ivory-50/95 backdrop-blur-sm px-3.5 py-1.5 rounded-xl shadow-md border border-sand-300 z-10">
-            <span className="text-xs md:text-sm font-bold text-brown-900">
-              {translate('roomsPreview.from', lang)} {formatPrice(room.base_price, room.currency)}
-            </span>
-            <span className="text-[10px] text-brown-500 font-light"> / {translate('roomsPreview.perNight', lang)}</span>
-          </div>
-        )}
-
-        {/* Room Attributes */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-2 z-10">
-          <span className="inline-flex items-center gap-1 text-xs bg-brown-900/75 backdrop-blur-sm text-ivory-50 px-2.5 py-1 rounded-lg">
-            <Bed size={13} /> {room.bed_config}
-          </span>
-          <span className="inline-flex items-center gap-1 text-xs bg-brown-900/75 backdrop-blur-sm text-ivory-50 px-2.5 py-1 rounded-lg">
-            <Users size={13} /> {room.max_occupancy} {translate('roomsPreview.guests', lang)}
-          </span>
-        </div>
-      </div>
-
-      {/* Card Content */}
-      <div className="p-6 md:p-8 flex-1 flex flex-col justify-between space-y-4">
-        <div>
-          <h3 className="font-serif text-2xl font-bold text-brown-900 mb-2">
-            {getLocalizedText(room.name, lang)}
-          </h3>
-          <p className="text-xs md:text-sm text-brown-600 font-light leading-relaxed">
-            {getLocalizedText(room.short_description, lang) || getLocalizedText(room.description, lang)}
-          </p>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
-          <Link
-            to={`/rooms/${room.slug}`}
-            className="flex-1 inline-flex items-center justify-center gap-2 border border-brown-300 px-5 py-3 text-xs font-bold uppercase tracking-wider text-brown-800 hover:bg-brown-900 hover:text-white rounded-xl transition-all"
-          >
-            {translate('roomsPreview.viewDetails', lang)}
-          </Link>
-          <Link
-            to={`/book?room=${room.slug}`}
-            className="flex-1 inline-flex items-center justify-center gap-2 bg-[#a86548] hover:bg-[#8e5238] px-5 py-3 text-xs font-bold uppercase tracking-wider text-white rounded-xl transition-all shadow-md"
-          >
-            {translate('roomsPreview.bookRoom', lang)}
-          </Link>
-        </div>
-      </div>
-
-    </div>
-  );
-}
-
-export default function Rooms() {
-  const { lang } = useLanguage();
-  const [rooms, setRooms] = useState<Room[]>([]);
+  useEffect(() => {
+    if (slug) {
+      fetchRoomBySlug(slug).then(setRoom);
+    }
+  }, [slug]);
 
   useSEO({
-    title: translate('rooms.page_title', lang),
-    description: translate('rooms.desc', lang),
-    canonicalPath: '/rooms',
+    title: room ? `${getLocalizedText(room.name, lang)} | Riad Tofaha` : 'Room Detail',
+    description: room ? getLocalizedText(room.short_description, lang) : '',
+    canonicalPath: `/rooms/${slug}`,
   });
 
-  useEffect(() => {
-    fetchRooms().then(setRooms);
-  }, []);
+  if (!room) {
+    return (
+      <div className="pt-32 pb-20 text-center min-h-screen bg-ivory-100 flex flex-col items-center justify-center">
+        <p className="text-lg text-brown-800">جاري تحميل تفاصيل الغرفة...</p>
+      </div>
+    );
+  }
+
+  const roomName = getLocalizedText(room.name, lang);
+  const images = room.images && room.images.length > 0 ? room.images : ['/terasssse.jpeg'];
+
+  const nextImg = () => setCurrentImgIndex((prev) => (prev + 1) % images.length);
+  const prevImg = () => setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
     <div className="pt-24 pb-20 bg-ivory-100 min-h-screen text-brown-900">
-      
-      {/* Hero Header Section */}
-      <section className="bg-[#2A1810] text-ivory-50 py-16 md:py-24 px-4 mb-16 border-b border-gold-500/20 text-center">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-gold-300 font-medium flex items-center justify-center gap-2">
-            <Sparkles size={14} /> {translate('rooms.subtitle', lang)}
-          </p>
-          <h1 className="font-serif text-3xl md:text-5xl font-medium tracking-wide leading-tight">
-            {translate('rooms.title', lang)}
-          </h1>
-          <p className="text-ivory-50/80 max-w-2xl mx-auto text-xs md:text-sm font-light leading-relaxed">
-            {translate('rooms.desc', lang)}
-          </p>
-        </div>
-      </section>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        {/* Back Link */}
+        <Link
+          to="/rooms"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#a86548] hover:text-brown-900 transition"
+        >
+          <ArrowLeft size={16} /> العودة لكل الغرف
+        </Link>
 
-      {/* Rooms Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {rooms.map((room) => (
-            <RoomCardItem key={room.id} room={room} lang={lang} />
-          ))}
+        {/* Room Header & Slider */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Main Gallery Slider */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="relative h-96 md:h-[450px] rounded-3xl overflow-hidden shadow-xl border border-sand-300">
+              <img
+                src={images[currentImgIndex]}
+                alt={roomName}
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImg}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md shadow-lg"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button
+                    onClick={nextImg}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md shadow-lg"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Thumbnails Bar */}
+            {images.length > 1 && (
+              <div className="flex items-center gap-3 overflow-x-auto pb-2">
+                {images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImgIndex(idx)}
+                    className={`h-20 w-28 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${
+                      idx === currentImgIndex ? 'border-[#a86548] scale-105' : 'border-transparent opacity-70'
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Room Summary & Booking Box */}
+          <div className="lg:col-span-5 bg-white p-8 rounded-3xl border border-sand-300 shadow-lg space-y-6">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#a86548]">
+                {translate('rooms.subtitle', lang)}
+              </span>
+              <h1 className="font-serif text-3xl font-bold text-brown-900 mt-1">
+                {roomName}
+              </h1>
+              <div className="flex items-center gap-2 mt-3">
+                <span className="text-2xl font-black text-brown-900">
+                  {formatPrice(room.base_price, room.currency)}
+                </span>
+                <span className="text-xs text-brown-500"> / ليلة واحدة</span>
+              </div>
+            </div>
+
+            <p className="text-xs md:text-sm text-brown-600 font-light leading-relaxed border-t border-b border-sand-200 py-4">
+              {getLocalizedText(room.description, lang) || getLocalizedText(room.short_description, lang)}
+            </p>
+
+            {/* Amenities */}
+            <div className="grid grid-cols-2 gap-3 text-xs font-semibold text-brown-800">
+              <div className="flex items-center gap-2 bg-ivory-100 p-3 rounded-xl border border-sand-200">
+                <Bed size={16} className="text-[#a86548]" /> {room.bed_config}
+              </div>
+              <div className="flex items-center gap-2 bg-ivory-100 p-3 rounded-xl border border-sand-200">
+                <Users size={16} className="text-[#a86548]" /> حتى {room.max_occupancy} ضيوف
+              </div>
+              <div className="flex items-center gap-2 bg-ivory-100 p-3 rounded-xl border border-sand-200">
+                <Wind size={16} className="text-[#a86548]" /> تكييف هواء
+              </div>
+              <div className="flex items-center gap-2 bg-ivory-100 p-3 rounded-xl border border-sand-200">
+                <Wifi size={16} className="text-[#a86548]" /> واي فاي مجاني
+              </div>
+            </div>
+
+            <Link
+              to={`/book?room=${room.slug}`}
+              className="w-full bg-[#a86548] hover:bg-[#8e5238] text-white py-4 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg transition duration-300"
+            >
+              <Send size={16} /> احجز هذه الغرفة الآن
+            </Link>
+          </div>
+
         </div>
       </div>
-
     </div>
   );
 }
