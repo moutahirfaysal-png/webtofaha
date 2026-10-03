@@ -13,7 +13,7 @@ import type { Room } from '@/lib/types';
 function RoomCard({ room, lang }: { room: Room; lang: Language }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const images = room.images && room.images.length > 0 ? room.images : ['/terasse.jpeg'];
+  const images = room.images && room.images.length > 0 ? room.images : ['/https://www.airbnb.fr/rooms/1434061785654499260?guests=1&adults=1&s=67&unique_share_id=4f02827a-e142-43f2-99dd-30b24d0cec63'];
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.preventDefault();
