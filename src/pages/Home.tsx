@@ -137,7 +137,7 @@ export default function Home() {
 
   const heroImage = '/terasssse.jpeg';
 
-  // نصوص بديلة ذكية تتجنب ظهور كلمات عامة مثل tagline أو subtitle
+  // معالجة النصوص البديلة لمنع ظهور كلمات خام مثل TAGLINE أو subtitle
   const customTagline = 
     getLocalizedText(settings?.brand_tagline, lang) && 
     getLocalizedText(settings?.brand_tagline, lang) !== 'TAGLINE' 
@@ -153,6 +153,15 @@ export default function Home() {
           : lang === 'ar' 
           ? 'اكتشف أصالة الضيافة المغربية في رياضنا التقليدي الذي يجمع بين روعة التراث ووسائل الراحة الحديثة.' 
           : 'Experience authentic Moroccan hospitality in a beautifully restored traditional riad combining timeless heritage and modern comfort.');
+
+  // نصوص آمنة لقسم تجارب المدونة لتفادي ظهور SUBTITLE أو title
+  const expSubtitle = translate('experiences.subtitle', lang) && translate('experiences.subtitle', lang) !== 'SUBTITLE'
+    ? translate('experiences.subtitle', lang)
+    : (lang === 'fr' ? 'À DÉCOUVRIR À MARRAKECH' : lang === 'ar' ? 'اكتشف مراكش' : 'EXPLORE MARRAKECH');
+
+  const expTitle = translate('experiences.title', lang) && translate('experiences.title', lang) !== 'title'
+    ? translate('experiences.title', lang)
+    : (lang === 'fr' ? 'Expériences & Merveilles de la Médina' : lang === 'ar' ? 'أبرز المعالم والتجارب في المدينة' : 'Experiences & Medina Wonders');
 
   const experiences = [
     { key: 'jemaa', image: 'https://images.pexels.com/photos/35513343/pexels-photo-35513343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'best-places-to-visit-in-marrakech-tourist-guide' },
@@ -272,10 +281,10 @@ export default function Home() {
         <div className="container-luxury">
           <div className="text-center mb-16 space-y-3">
             <p className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-gold-300">
-              {translate('experiences.subtitle', lang)}
+              {expSubtitle}
             </p>
             <h2 className="font-serif text-3xl md:text-5xl font-medium text-ivory-50">
-              {translate('experiences.title', lang)}
+              {expTitle}
             </h2>
           </div>
 
