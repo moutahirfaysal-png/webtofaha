@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, Send, ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
-import { translate } from '@/lib/i18n';
+import { translate, Language } from '@/lib/i18n';
 import { useSEO } from '@/lib/seo';
 
 export default function Contact() {
@@ -12,7 +12,7 @@ export default function Contact() {
   const whatsappNumber = '212618177464';
   const contactEmail = 'contact@riadtofaha.com';
   
-  // الروابط المباشرة المرفقة
+  // الروابط المباشرة
   const bookingComUrl = 'https://www.booking.com/hotel/ma/riad-tofaha.fr.html';
   const airbnbUrl = 'https://www.airbnb.fr/rooms/1434061785654499260';
   const googleMapsUrl = 'https://maps.app.goo.gl/twzPTFH4qwoBpLct7';
@@ -29,19 +29,25 @@ export default function Contact() {
     canonicalPath: '/contact',
   });
 
+  // توليد قالب رسالة الواتساب ديناميكياً بحسب اللغة المختارة
+  const getWhatsAppMessage = (selectedLang: Language, name: string, emailStr: string, subj: string, msg: string) => {
+    switch (selectedLang) {
+      case 'fr':
+        return `💬 *Nouveau Message de Demande - Riad Tofaha* 💬\n----------------------------------\n👤 *Nom:* ${name}\n📧 *E-mail:* ${emailStr}\n📌 *Sujet:* ${subj}\n\n📝 *Message:*\n${msg}\n----------------------------------`;
+      case 'es':
+        return `💬 *Nuevo Mensaje de Consulta - Riad Tofaha* 💬\n----------------------------------\n👤 *Nombre:* ${name}\n📧 *Correo Electrónico:* ${emailStr}\n📌 *Asunto:* ${subj}\n\n📝 *Mensaje:*\n${msg}\n----------------------------------`;
+      case 'ar':
+        return `💬 *رسالة استفسار جديدة من الموقع - Riad Tofaha* 💬\n----------------------------------\n👤 *الاسم:* ${name}\n📧 *البريد الإلكتروني:* ${emailStr}\n📌 *الموضوع:* ${subj}\n\n📝 *الرسالة:*\n${msg}\n----------------------------------`;
+      case 'en':
+      default:
+        return `💬 *New Inquiry Message - Riad Tofaha* 💬\n----------------------------------\n👤 *Name:* ${name}\n📧 *Email:* ${emailStr}\n📌 *Subject:* ${subj}\n\n📝 *Message:*\n${msg}\n----------------------------------`;
+    }
+  };
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formattedMessage = `💬 *رسالة استفسار جديدة من الموقع - Riad Tofaha* 💬
-----------------------------------
-👤 *الاسم:* ${fullName}
-📧 *البريد الإلكتروني:* ${email}
-📌 *الموضوع:* ${subject}
-
-📝 *الرسالة:*
-${message}
-----------------------------------`;
-
+    const formattedMessage = getWhatsAppMessage(lang, fullName, email, subject, message);
     const encodedMessage = encodeURIComponent(formattedMessage);
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
   };
@@ -87,7 +93,7 @@ ${message}
                   </a>
                 </p>
                 <p className="text-xs text-brown-500 font-light mt-1">
-                  متاح عبر WhatsApp للتواصل والمساعدة المباشرة.
+                  {translate('contact.phone.subtext', lang)}
                 </p>
               </div>
             </div>
@@ -107,7 +113,7 @@ ${message}
                   </a>
                 </p>
                 <p className="text-xs text-brown-500 font-light mt-1">
-                  للاستفسارات الرسمية وطلبات الإقامة الحصرية.
+                  {translate('contact.email.subtext', lang)}
                 </p>
               </div>
             </div>
@@ -125,7 +131,7 @@ ${message}
                   {translate('contact.addressval', lang)}
                 </p>
                 <p className="text-xs text-brown-500 font-light mt-1">
-                  15 دقيقة من جامع الفناء • إمكانية توقف السيارة أمام الباب.
+                  {translate('contact.address.subtext', lang)}
                 </p>
               </div>
             </div>
@@ -187,7 +193,7 @@ ${message}
                 {translate('contact.formtitle', lang)}
               </h2>
               <p className="text-xs text-brown-600 font-light mt-1">
-                سيتم إرسال الاستفسار فوراً إلى رقم الواتساب الرسمي للرياض.
+                {translate('contact.form.subtext', lang)}
               </p>
             </div>
 
@@ -259,7 +265,7 @@ ${message}
 
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-brown-500 pt-1 text-center">
                 <CheckCircle2 size={14} className="text-[#25D366] shrink-0" />
-                <span>رد سريع ومباشر عبر واتساب.</span>
+                <span>{translate('contact.send.subtext', lang)}</span>
               </div>
             </form>
           </div>
