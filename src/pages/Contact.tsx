@@ -10,12 +10,12 @@ export default function Contact() {
   // بيانات الرياض الرسمية
   const phoneFormatted = '+212 618 177464';
   const whatsappNumber = '212618177464';
-  const contactEmail = 'contact@riadtofaha.com';
+  const contactEmail = 'riadtofaha@gmail.com';
   
   // الروابط المباشرة المحدثة
   const bookingComUrl = 'https://www.booking.com/hotel/ma/riad-tofaha.fr.html';
   const airbnbUrl = 'https://www.airbnb.fr/rooms/1434061785654499260';
-  const googleMapsUrl = 'https://maps.app.goo.gl/LBszwPBDoDKGZaPL7';
+  const googleMapsUrl = 'https://maps.app.goo.gl/PSEu8TLNJKP9xqhR8';
 
   // نموذج الرسائل
   const [fullName, setFullName] = useState('');
