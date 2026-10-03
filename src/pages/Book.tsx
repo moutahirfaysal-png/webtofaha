@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Calendar, Users, User, Globe, Phone, Mail, MessageSquare, Send, CheckCircle2 } from 'lucide-react';
+import { Calendar, Users, User, Globe, Phone, Mail, MessageSquare, Send, CheckCircle2, Sparkles, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { translate, getLocalizedText } from '@/lib/i18n';
 import { useSEO } from '@/lib/seo';
 import { fetchRooms } from '@/lib/data';
+import { formatPrice } from '@/lib/booking';
 import type { Room } from '@/lib/types';
 
 export default function Book() {
@@ -26,7 +27,7 @@ export default function Book() {
   const [notes, setNotes] = useState('');
 
   // رقم الواتساب الرسمي للرياض
-  const riadWhatsAppNumber = '212618177464'; 
+  const riadWhatsAppNumber = '212613136351'; 
 
   useSEO({
     title: `${translate('book.title', lang)} | Riad Tofaha Marrakech`,
@@ -113,7 +114,6 @@ ${notes ? `\n💬 *ملاحظات إضافية:* ${notes}` : ''}
 أرغب في تأكيد توفر هذه الغرفة. شكراً لكم!`;
     }
 
-    // Default: English
     return `✨ *New Booking Request - Riad Tofaha* ✨
 ----------------------------------
 🏡 *Selected Room:* ${roomName}
@@ -148,80 +148,108 @@ I would like to confirm availability for this room. Thank you!`;
   return (
     <div className="pt-24 pb-20 bg-ivory-100 min-h-screen text-brown-900">
       {/* Header Banner */}
-      <section className="bg-[#2A1810] text-ivory-50 py-16 md:py-20 px-4 mb-12 border-b border-gold-500/20">
-        <div className="max-w-4xl mx-auto text-center space-y-4">
-          <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-gold-300 font-medium">
-            RESERVATION
+      <section className="bg-[#2A1810] text-ivory-50 py-12 md:py-16 px-4 mb-10 border-b border-gold-500/20">
+        <div className="max-w-4xl mx-auto text-center space-y-3">
+          <p className="text-xs uppercase tracking-[0.3em] text-gold-300 font-medium flex items-center justify-center gap-2">
+            <Sparkles size={14} /> RESERVATION
           </p>
-          <h1 className="font-serif text-4xl md:text-6xl font-medium tracking-wide">
+          <h1 className="font-serif text-3xl md:text-5xl font-medium tracking-wide">
             {translate('book.title', lang)}
           </h1>
-          <p className="text-ivory-50/80 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-light">
+          <p className="text-ivory-50/80 max-w-xl mx-auto text-xs md:text-sm leading-relaxed font-light">
             {translate('book.subtitle', lang)}
           </p>
         </div>
       </section>
 
-      {/* Booking Form Container */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-ivory-50 rounded-2xl border border-sand-300/80 p-6 md:p-10 shadow-lg">
-          <form onSubmit={handleBookingSubmit} className="space-y-8">
-            
-            {/* 1. Room Selection */}
-            <div className="space-y-3">
-              <label className="block text-xs font-bold uppercase tracking-wider text-brown-800">
-                {translate('book.roomSelect', lang)}
-              </label>
-              <select
-                value={selectedRoomSlug}
-                onChange={(e) => setSelectedRoomSlug(e.target.value)}
-                required
-                className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#a86548]"
-              >
-                {rooms.map((room) => (
-                  <option key={room.id} value={room.slug}>
-                    {getLocalizedText(room.name, lang)} - ({translate('book.capacity', lang)} {room.max_occupancy} {room.max_occupancy === 1 ? translate('book.guestSingular', lang) : translate('book.guestPlural', lang)})
-                  </option>
-                ))}
-              </select>
+      {/* Main Container - Airbnb Styled Card */}
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+        <div className="bg-white rounded-3xl border border-neutral-200 shadow-2xl p-6 sm:p-8 space-y-6">
+          
+          {/* Header Info of Selected Room */}
+          {selectedRoom && (
+            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
+              <div>
+                <h2 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900">
+                  {getLocalizedText(selectedRoom.name, lang)}
+                </h2>
+                <p className="text-xs text-neutral-500 font-medium mt-0.5">
+                  {selectedRoom.bed_config} • {selectedRoom.max_occupancy} {selectedRoom.max_occupancy === 1 ? translate('book.guestSingular', lang) : translate('book.guestPlural', lang)}
+                </p>
+              </div>
+              {selectedRoom.base_price && (
+                <div className="text-right">
+                  <span className="text-lg font-bold text-neutral-900">
+                    {formatPrice(selectedRoom.base_price, selectedRoom.currency)}
+                  </span>
+                  <span className="text-xs text-neutral-500 block"> / {translate('rooms.night', lang)}</span>
+                </div>
+              )}
             </div>
+          )}
 
-            {/* 2. Check-in, Check-out & Guests */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                  <Calendar size={14} className="text-[#a86548]" /> {translate('book.checkIn', lang)}
+          <form onSubmit={handleBookingSubmit} className="space-y-6">
+            
+            {/* Airbnb Segmented Box Widget */}
+            <div className="border border-neutral-300 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-[#a86548] focus-within:border-transparent transition-all shadow-sm">
+              
+              {/* Row 1: Room Selector */}
+              <div className="p-3 bg-neutral-50/60 hover:bg-white transition border-b border-neutral-300">
+                <label className="block text-[9px] font-black uppercase tracking-wider text-neutral-500">
+                  {translate('book.roomSelect', lang)}
                 </label>
-                <input
-                  type="date"
+                <select
+                  value={selectedRoomSlug}
+                  onChange={(e) => setSelectedRoomSlug(e.target.value)}
                   required
-                  value={checkIn}
-                  onChange={(e) => setCheckIn(e.target.value)}
-                  className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#a86548]"
-                />
+                  className="w-full bg-transparent text-xs font-semibold text-neutral-800 focus:outline-none cursor-pointer pt-0.5"
+                >
+                  {rooms.map((room) => (
+                    <option key={room.id} value={room.slug}>
+                      {getLocalizedText(room.name, lang)} ({translate('book.capacity', lang)} {room.max_occupancy})
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                  <Calendar size={14} className="text-[#a86548]" /> {translate('book.checkOut', lang)}
-                </label>
-                <input
-                  type="date"
-                  required
-                  value={checkOut}
-                  onChange={(e) => setCheckOut(e.target.value)}
-                  className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#a86548]"
-                />
+              {/* Row 2: Check-in & Check-out side by side */}
+              <div className="grid grid-cols-2 divide-x divide-neutral-300 border-b border-neutral-300 rtl:divide-x-reverse">
+                <div className="p-3 bg-neutral-50/60 hover:bg-white transition">
+                  <label className="block text-[9px] font-black uppercase tracking-wider text-neutral-500 flex items-center gap-1">
+                    <Calendar size={11} className="text-[#a86548]" /> {translate('book.checkIn', lang)}
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    className="w-full bg-transparent text-xs font-semibold text-neutral-800 focus:outline-none cursor-pointer pt-0.5"
+                  />
+                </div>
+
+                <div className="p-3 bg-neutral-50/60 hover:bg-white transition">
+                  <label className="block text-[9px] font-black uppercase tracking-wider text-neutral-500 flex items-center gap-1">
+                    <Calendar size={11} className="text-[#a86548]" /> {translate('book.checkOut', lang)}
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    className="w-full bg-transparent text-xs font-semibold text-neutral-800 focus:outline-none cursor-pointer pt-0.5"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                  <Users size={14} className="text-[#a86548]" /> {translate('book.guests', lang)}
+              {/* Row 3: Guests Selector */}
+              <div className="p-3 bg-neutral-50/60 hover:bg-white transition">
+                <label className="block text-[9px] font-black uppercase tracking-wider text-neutral-500 flex items-center gap-1">
+                  <Users size={11} className="text-[#a86548]" /> {translate('book.guests', lang)}
                 </label>
                 <select
                   value={guests}
                   onChange={(e) => setGuests(Number(e.target.value))}
-                  className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#a86548]"
+                  className="w-full bg-transparent text-xs font-semibold text-neutral-800 focus:outline-none cursor-pointer pt-0.5"
                 >
                   {Array.from({ length: selectedRoom?.max_occupancy || 2 }, (_, i) => i + 1).map((num) => (
                     <option key={num} value={num}>
@@ -229,101 +257,101 @@ I would like to confirm availability for this room. Thank you!`;
                     </option>
                   ))}
                 </select>
-                {selectedRoom && (
-                  <p className="text-[11px] text-brown-500">
-                    * {translate('book.maxGuestsNote', lang)} {selectedRoom.max_occupancy} {selectedRoom.max_occupancy === 1 ? translate('book.guestSingular', lang) : translate('book.guestPlural', lang)}.
-                  </p>
-                )}
               </div>
             </div>
 
-            <hr className="border-sand-300/60" />
+            {/* Personal Details Section (Clean Minimalist Grid) */}
+            <div className="space-y-3 pt-2">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 block">
+                معلومات الحجز الشخصية / Guest Details
+              </span>
 
-            {/* 3. Personal Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                  <User size={14} className="text-[#a86548]" /> {translate('book.fullName', lang)}
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder={translate('book.placeholder.fullName', lang)}
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#a86548]"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="border border-neutral-300 rounded-xl p-2.5 bg-neutral-50/40 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#a86548] focus-within:border-transparent transition">
+                  <label className="block text-[9px] font-black uppercase text-neutral-500 flex items-center gap-1">
+                    <User size={11} className="text-[#a86548]" /> {translate('book.fullName', lang)}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder={translate('book.placeholder.fullName', lang)}
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="w-full bg-transparent text-xs text-neutral-800 font-medium focus:outline-none pt-0.5"
+                  />
+                </div>
+
+                <div className="border border-neutral-300 rounded-xl p-2.5 bg-neutral-50/40 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#a86548] focus-within:border-transparent transition">
+                  <label className="block text-[9px] font-black uppercase text-neutral-500 flex items-center gap-1">
+                    <Globe size={11} className="text-[#a86548]" /> {translate('book.nationality', lang)}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder={translate('book.placeholder.nationality', lang)}
+                    value={nationality}
+                    onChange={(e) => setNationality(e.target.value)}
+                    className="w-full bg-transparent text-xs text-neutral-800 font-medium focus:outline-none pt-0.5"
+                  />
+                </div>
+
+                <div className="border border-neutral-300 rounded-xl p-2.5 bg-neutral-50/40 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#a86548] focus-within:border-transparent transition">
+                  <label className="block text-[9px] font-black uppercase text-neutral-500 flex items-center gap-1">
+                    <Phone size={11} className="text-[#a86548]" /> {translate('book.phone', lang)}
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder={translate('book.placeholder.phone', lang)}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full bg-transparent text-xs text-neutral-800 font-medium focus:outline-none pt-0.5"
+                  />
+                </div>
+
+                <div className="border border-neutral-300 rounded-xl p-2.5 bg-neutral-50/40 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#a86548] focus-within:border-transparent transition">
+                  <label className="block text-[9px] font-black uppercase text-neutral-500 flex items-center gap-1">
+                    <Mail size={11} className="text-[#a86548]" /> {translate('book.email', lang)}
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    placeholder={translate('book.placeholder.email', lang)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-transparent text-xs text-neutral-800 font-medium focus:outline-none pt-0.5"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                  <Globe size={14} className="text-[#a86548]" /> {translate('book.nationality', lang)}
+              {/* Special Requests */}
+              <div className="border border-neutral-300 rounded-xl p-2.5 bg-neutral-50/40 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#a86548] focus-within:border-transparent transition">
+                <label className="block text-[9px] font-black uppercase text-neutral-500 flex items-center gap-1">
+                  <MessageSquare size={11} className="text-[#a86548]" /> {translate('book.specialRequests', lang)}
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder={translate('book.placeholder.nationality', lang)}
-                  value={nationality}
-                  onChange={(e) => setNationality(e.target.value)}
-                  className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#a86548]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                  <Phone size={14} className="text-[#a86548]" /> {translate('book.phone', lang)}
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder={translate('book.placeholder.phone', lang)}
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#a86548]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                  <Mail size={14} className="text-[#a86548]" /> {translate('book.email', lang)}
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder={translate('book.placeholder.email', lang)}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#a86548]"
+                <textarea
+                  rows={2}
+                  placeholder={translate('book.placeholder.notes', lang)}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  className="w-full bg-transparent text-xs text-neutral-800 font-medium focus:outline-none pt-0.5 resize-none"
                 />
               </div>
             </div>
 
-            {/* 4. Special Requests */}
-            <div className="space-y-2">
-              <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 flex items-center gap-1.5">
-                <MessageSquare size={14} className="text-[#a86548]" /> {translate('book.specialRequests', lang)}
-              </label>
-              <textarea
-                rows={3}
-                placeholder={translate('book.placeholder.notes', lang)}
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#a86548]"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <div className="pt-4">
+            {/* Airbnb Style Action Button */}
+            <div className="pt-2">
               <button
                 type="submit"
-                className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition duration-300"
+                className="w-full bg-gradient-to-r from-[#25D366] to-[#1da851] hover:from-[#20ba5a] hover:to-[#178f43] text-white py-3.5 rounded-2xl font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
               >
-                <Send size={18} /> {translate('book.submitBtn', lang)}
+                <Send size={16} /> {translate('book.submitBtn', lang)}
               </button>
             </div>
 
-            <div className="flex items-center justify-center gap-2 text-xs text-brown-500 pt-2 text-center">
-              <CheckCircle2 size={15} className="text-[#25D366] shrink-0" />
+            {/* Reassurance Footer */}
+            <div className="flex items-center justify-center gap-1.5 text-[11px] text-neutral-500 text-center pt-1">
+              <ShieldCheck size={14} className="text-[#25D366] shrink-0" />
               <span>{translate('book.redirectNote', lang)}</span>
             </div>
           </form>
