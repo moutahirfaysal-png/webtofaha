@@ -34,6 +34,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.bookRoom': 'Book via WhatsApp',
     'roomsPreview.viewAll': 'Explore All Rooms',
 
+    // Room Detail (EN)
+    'roomdetail.loading': 'Loading room details...',
+    'roomdetail.backtorooms': 'Back to all rooms',
+    'roomdetail.pernight': '/ night',
+    'roomdetail.maxguests': 'Up to {count} guests',
+    'roomdetail.ac': 'Air Conditioning',
+    'roomdetail.wifi': 'Free WiFi',
+    'roomdetail.bathroom': 'Private en-suite bathroom with shower',
+    'roomdetail.towels': 'Bath & face towels provided',
+    'roomdetail.parking': 'Nearby secure guarded parking',
+    'roomdetail.cardrop': 'Car drop-off directly in front of the Riad',
+    'roomdetail.hairdryer': 'Hair dryer',
+    'roomdetail.laundry': 'Laundry service available',
+    'roomdetail.booknow': 'Book This Room Now',
+
     // Book Page (EN)
     'book.hero_badge': 'DIRECT BOOKING',
     'book.hero_title': 'Book Your Stay',
@@ -155,6 +170,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.viewDetails': 'Voir Détails',
     'roomsPreview.bookRoom': 'Réserver via WhatsApp',
     'roomsPreview.viewAll': 'Découvrir Toutes les Chambres',
+
+    // Room Detail (FR)
+    'roomdetail.loading': 'Chargement des détails de la chambre...',
+    'roomdetail.backtorooms': 'Retour à toutes les chambres',
+    'roomdetail.pernight': '/ nuit',
+    'roomdetail.maxguests': "Jusqu'à {count} invités",
+    'roomdetail.ac': 'Climatisation',
+    'roomdetail.wifi': 'WiFi gratuit',
+    'roomdetail.bathroom': 'Salle de bain privative avec douche',
+    'roomdetail.towels': 'Serviettes de bain et de visage fournies',
+    'roomdetail.parking': 'Parking surveillé à proximité',
+    'roomdetail.cardrop': 'Dépose-minute en voiture devant la porte du Riad',
+    'roomdetail.hairdryer': 'Sèche-cheveux',
+    'roomdetail.laundry': 'Service de blanchisserie disponible',
+    'roomdetail.booknow': 'Réserver cette chambre',
 
     // Book Page (FR)
     'book.hero_badge': 'RÉSERVATION DIRECTE',
@@ -278,6 +308,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.bookRoom': 'احجز عبر واتساب',
     'roomsPreview.viewAll': 'تصفح كافة الغرف',
 
+    // Room Detail (AR)
+    'roomdetail.loading': 'جاري تحميل تفاصيل الغرفة...',
+    'roomdetail.backtorooms': 'العودة لكل الغرف',
+    'roomdetail.pernight': '/ ليلة واحدة',
+    'roomdetail.maxguests': 'حتى {count} ضيوف',
+    'roomdetail.ac': 'تكييف هواء',
+    'roomdetail.wifi': 'واي فاي مجاني',
+    'roomdetail.bathroom': 'حمام خاص داخل الغرفة مع دوش',
+    'roomdetail.towels': 'فوط الاستحمام والوجه متوفرة',
+    'roomdetail.parking': 'موقف سيارات محروس وقريب',
+    'roomdetail.cardrop': 'إمكانية وصول السيارة إلى أمام الرياض لوضع الأغراض',
+    'roomdetail.hairdryer': 'مجفف شعر (شيشوار)',
+    'roomdetail.laundry': 'خدمة غسيل الملابس',
+    'roomdetail.booknow': 'احجز هذه الغرفة الآن',
+
     // Book Page (AR)
     'book.hero_badge': 'حجز مباشر',
     'book.hero_title': 'احجز إقامتك',
@@ -399,6 +444,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.viewDetails': 'Ver Detalles',
     'roomsPreview.bookRoom': 'Reservar por WhatsApp',
     'roomsPreview.viewAll': 'Explorar Todas las Habitaciones',
+
+    // Room Detail (ES)
+    'roomdetail.loading': 'Cargando detalles de la habitación...',
+    'roomdetail.backtorooms': 'Volver a todas las habitaciones',
+    'roomdetail.pernight': '/ noche',
+    'roomdetail.maxguests': 'Hasta {count} huéspedes',
+    'roomdetail.ac': 'Aire acondicionado',
+    'roomdetail.wifi': 'WiFi gratis',
+    'roomdetail.bathroom': 'Baño privado en suite con ducha',
+    'roomdetail.towels': 'Toallas de baño y cara proporcionadas',
+    'roomdetail.parking': 'Aparcamiento vigilado cercano',
+    'roomdetail.cardrop': 'Acceso de coche directamente frente al Riad',
+    'roomdetail.hairdryer': 'Secador de pelo',
+    'roomdetail.laundry': 'Servicio de lavandería disponible',
+    'roomdetail.booknow': 'Reservar esta habitación',
 
     // Book Page (ES)
     'book.hero_badge': 'RESERVA DIRECTA',
