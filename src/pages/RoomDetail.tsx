@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Bed, Users, Wifi, Wind, ShieldCheck, ChevronLeft, ChevronRight, Send, ArrowLeft } from 'lucide-react';
+import { Bed, Users, Wifi, Wind, ChevronLeft, ChevronRight, Send, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getLocalizedText, translate } from '@/lib/i18n';
 import { useSEO } from '@/lib/seo';
@@ -21,7 +21,7 @@ export default function RoomDetail() {
   }, [slug]);
 
   useSEO({
-    title: room ? `${getLocalizedText(room.name, lang)} | Riad Tofaha` : 'Room Detail',
+    title: room ? `${getLocalizedText(room.name, lang)} | Riad Tofaha` : translate('roomDetail.loading', lang),
     description: room ? getLocalizedText(room.short_description, lang) : '',
     canonicalPath: `/rooms/${slug}`,
   });
@@ -29,7 +29,7 @@ export default function RoomDetail() {
   if (!room) {
     return (
       <div className="pt-32 pb-20 text-center min-h-screen bg-ivory-100 flex flex-col items-center justify-center">
-        <p className="text-lg text-brown-800">جاري تحميل تفاصيل الغرفة...</p>
+        <p className="text-lg text-brown-800">{translate('roomDetail.loading', lang)}</p>
       </div>
     );
   }
@@ -41,7 +41,7 @@ export default function RoomDetail() {
   const prevImg = () => setCurrentImgIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className="pt-24 pb-20 bg-ivory-100 min-h-screen text-brown-900">
+    <div className="pt-24 pb-20 bg-ivory-100 min-h-screen text-brown-900" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Back Link */}
@@ -49,7 +49,8 @@ export default function RoomDetail() {
           to="/rooms"
           className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#a86548] hover:text-brown-900 transition"
         >
-          <ArrowLeft size={16} /> العودة لكل الغرف
+          <ArrowLeft size={16} className={lang === 'ar' ? 'rotate-180' : ''} /> 
+          {translate('roomDetail.backToRooms', lang)}
         </Link>
 
         {/* Room Header & Slider */}
@@ -113,7 +114,7 @@ export default function RoomDetail() {
                 <span className="text-2xl font-black text-brown-900">
                   {formatPrice(room.base_price, room.currency)}
                 </span>
-                <span className="text-xs text-brown-500"> / ليلة واحدة</span>
+                <span className="text-xs text-brown-500"> {translate('roomDetail.perNight', lang)}</span>
               </div>
             </div>
 
@@ -127,13 +128,13 @@ export default function RoomDetail() {
                 <Bed size={16} className="text-[#a86548]" /> {room.bed_config}
               </div>
               <div className="flex items-center gap-2 bg-ivory-100 p-3 rounded-xl border border-sand-200">
-                <Users size={16} className="text-[#a86548]" /> حتى {room.max_occupancy} ضيوف
+                <Users size={16} className="text-[#a86548]" /> {translate('roomDetail.maxGuests', lang).replace('{count}', String(room.max_occupancy))}
               </div>
               <div className="flex items-center gap-2 bg-ivory-100 p-3 rounded-xl border border-sand-200">
-                <Wind size={16} className="text-[#a86548]" /> تكييف هواء
+                <Wind size={16} className="text-[#a86548]" /> {translate('roomDetail.ac', lang)}
               </div>
               <div className="flex items-center gap-2 bg-ivory-100 p-3 rounded-xl border border-sand-200">
-                <Wifi size={16} className="text-[#a86548]" /> واي فاي مجاني
+                <Wifi size={16} className="text-[#a86548]" /> {translate('roomDetail.wifi', lang)}
               </div>
             </div>
 
@@ -141,7 +142,7 @@ export default function RoomDetail() {
               to={`/book?room=${room.slug}`}
               className="w-full bg-[#a86548] hover:bg-[#8e5238] text-white py-4 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg transition duration-300"
             >
-              <Send size={16} /> احجز هذه الغرفة الآن
+              <Send size={16} /> {translate('roomDetail.bookNow', lang)}
             </Link>
           </div>
 
