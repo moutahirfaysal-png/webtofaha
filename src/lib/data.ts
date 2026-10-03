@@ -162,3 +162,12 @@ export async function fetchRooms(): Promise<Room[]> {
 export async function fetchRoomBySlug(slug: string): Promise<Room | null> {
   return roomsData.find((r) => r.slug === slug) || null;
 }
+
+// دالة افتراضية لإرجاع الإعدادات ومنع أي خطأ بناء (Build Error)
+export async function fetchSettings(): Promise<Record<string, any>> {
+  return {
+    site_name: 'Riad Tofaha',
+    whatsapp_number: '212618177464',
+    city_tax_per_person: 2.5,
+  };
+}
