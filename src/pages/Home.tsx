@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, Bed, Users, ArrowRight, MapPin, Star, Palmtree, MessageSquareQuote } from 'lucide-react';
+import { ChevronDown, Bed, Users, ArrowRight, MapPin, Star, Palmtree, MessageSquareQuote, Sparkles, Shield, HeartHandshake } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { translate, getLocalizedText } from '@/lib/i18n';
 import { useSEO, buildLodgingBusinessSchema, buildOrganizationSchema, buildWebSiteSchema } from '@/lib/seo';
@@ -38,12 +38,12 @@ export default function Home() {
   ];
 
   const welcomeFeatures = [
-    { key: 'authenticity', icon: Star },
+    { key: 'authenticity', icon: Sparkles },
     { key: 'architecture', icon: Palmtree },
-    { key: 'intimate', icon: Users },
+    { key: 'intimate', icon: Shield },
     { key: 'comfort', icon: Bed },
     { key: 'culture', icon: MapPin },
-    { key: 'hospitality', icon: Star },
+    { key: 'hospitality', icon: HeartHandshake },
   ];
 
   // التعليقات الحقيقية المأخوذة من حساب Booking.com للرياض
@@ -97,13 +97,13 @@ export default function Home() {
 
         <div className="relative h-full flex items-center justify-center text-center px-6">
           <div className="max-w-4xl">
-            <p className="text-sm md:text-base uppercase tracking-[0.3em] text-gold-300 mb-6 animate-fade-in-down animation-delay-200">
+            <p className="text-sm md:text-base uppercase tracking-[0.3em] text-gold-300 mb-6 animate-fade-in-down animation-delay-200 font-medium">
               {getLocalizedText(settings?.brand_tagline, lang) || translate('hero.tagline', lang)}
             </p>
             <h1 className="text-hero font-serif font-medium text-ivory-50 mb-8 animate-fade-in-up animation-delay-300 text-balance">
               Riad Tofaha
             </h1>
-            <p className="text-lg md:text-xl text-ivory-50/90 max-w-2xl mx-auto leading-relaxed mb-10 animate-fade-in-up animation-delay-500">
+            <p className="text-lg md:text-xl text-ivory-50/90 max-w-2xl mx-auto leading-relaxed mb-10 animate-fade-in-up animation-delay-500 font-light">
               {getLocalizedText(settings?.brand_description, lang) || translate('welcome.intro', lang)}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animation-delay-700">
@@ -122,34 +122,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Welcome Section */}
+      {/* Welcome & Values Section */}
       <section className="py-24 md:py-32 bg-ivory-100">
         <div className="container-luxury">
-          <div className="text-center mb-20">
-            <p className="section-subtitle mb-4">{translate('welcome.title', lang)}</p>
+          <div className="text-center mb-20 space-y-3">
+            <p className="section-subtitle">{translate('values.badge', lang) || translate('welcome.title', lang)}</p>
             <h2 className="section-title max-w-3xl mx-auto text-balance">
-              {getLocalizedText(settings?.brand_description, lang) || translate('welcome.intro', lang)}
+              {translate('values.title', lang) || getLocalizedText(settings?.brand_description, lang) || translate('welcome.intro', lang)}
             </h2>
+            <p className="text-brown-600 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed">
+              {translate('values.subtitle', lang)}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {welcomeFeatures.map((feature, idx) => (
-              <div
-                key={feature.key}
-                className="group bg-ivory-50 p-10 text-center transition-all duration-500 hover:shadow-xl border-t-2 border-transparent hover:border-terracotta-400"
-                style={{ animationDelay: `${idx * 100}ms` }}
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-sand-100 rounded-full transition-colors duration-500 group-hover:bg-terracotta-100">
-                  <feature.icon size={28} className="text-terracotta-600" />
+            {welcomeFeatures.map((feature, idx) => {
+              const IconComponent = feature.icon;
+              const titleKey = `values.${feature.key}.title`;
+              const descKey = `values.${feature.key}.desc`;
+              
+              const translatedTitle = translate(titleKey, lang) !== titleKey 
+                ? translate(titleKey, lang) 
+                : translate(`welcome.${feature.key}`, lang);
+
+              const translatedDesc = translate(descKey, lang) !== descKey 
+                ? translate(descKey, lang) 
+                : translate(`welcome.${feature.key}Desc`, lang);
+
+              return (
+                <div
+                  key={feature.key}
+                  className="group bg-white p-8 rounded-3xl border border-sand-300/80 text-center transition-all duration-500 hover:shadow-2xl hover:border-gold-500/40 hover:-translate-y-1.5 flex flex-col items-center justify-between"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  <div className="w-16 h-16 mb-6 bg-gradient-to-br from-[#2A1810] to-[#4A2E1B] text-gold-300 rounded-2xl flex items-center justify-center shadow-md border border-gold-500/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                    <IconComponent size={28} className="text-gold-300" />
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="font-serif text-xl font-bold text-brown-800 group-hover:text-[#a86548] transition-colors">
+                      {translatedTitle}
+                    </h3>
+                    <p className="text-xs text-brown-600 leading-relaxed font-light">
+                      {translatedDesc}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-serif text-2xl font-medium text-brown-800 mb-3">
-                  {translate(`welcome.${feature.key}`, lang)}
-                </h3>
-                <p className="text-sm text-brown-600 leading-7">
-                  {translate(`welcome.${feature.key}Desc`, lang)}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -177,7 +197,7 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 to-transparent" />
                   {room.base_price && (
-                    <div className="absolute top-4 right-4 bg-ivory-50/95 px-4 py-2">
+                    <div className="absolute top-4 right-4 bg-ivory-50/95 px-4 py-2 rounded-xl shadow-sm">
                       <span className="text-sm font-medium text-brown-800">
                         {translate('roomsPreview.from', lang)} {formatPrice(room.base_price, room.currency)}
                       </span>
@@ -185,10 +205,10 @@ export default function Home() {
                     </div>
                   )}
                   <div className="absolute bottom-4 left-4 flex items-center gap-3 text-ivory-50">
-                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 px-3 py-1.5">
+                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                       <Bed size={14} /> {room.bed_config}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 px-3 py-1.5">
+                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                       <Users size={14} /> {room.max_occupancy} {translate('roomsPreview.guests', lang)}
                     </span>
                   </div>
@@ -197,14 +217,14 @@ export default function Home() {
                   <h3 className="font-serif text-2xl font-medium text-brown-800 mb-2">
                     {getLocalizedText(room.name, lang)}
                   </h3>
-                  <p className="text-sm text-brown-600 leading-7 mb-6">
+                  <p className="text-sm text-brown-600 leading-7 mb-6 font-light">
                     {getLocalizedText(room.short_description, lang) || getLocalizedText(room.description, lang)}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Link to={`/rooms/${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 border border-brown-300 px-6 py-3 text-sm font-medium uppercase tracking-widest text-brown-700 transition-all hover:bg-brown-700 hover:text-ivory-50">
+                    <Link to={`/rooms/${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 border border-brown-300 px-6 py-3 text-sm font-medium uppercase tracking-widest text-brown-700 transition-all hover:bg-brown-700 hover:text-ivory-50 rounded-xl">
                       {translate('roomsPreview.viewDetails', lang)}
                     </Link>
-                    <Link to={`/book?room=${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 bg-terracotta-600 px-6 py-3 text-sm font-medium uppercase tracking-widest text-ivory-50 transition-all hover:bg-terracotta-700">
+                    <Link to={`/book?room=${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 bg-[#a86548] hover:bg-[#8e5238] px-6 py-3 text-sm font-medium uppercase tracking-widest text-ivory-50 transition-all rounded-xl shadow-sm">
                       {translate('roomsPreview.bookRoom', lang)}
                     </Link>
                   </div>
@@ -222,7 +242,7 @@ export default function Home() {
       </section>
 
       {/* Experiences Section */}
-      <section className="py-24 md:py-32 bg-brown-900">
+      <section className="py-24 md:py-32 bg-[#2A1810]">
         <div className="container-luxury">
           <div className="text-center mb-16">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-gold-300 mb-4">
@@ -238,7 +258,7 @@ export default function Home() {
               <Link
                 key={exp.key}
                 to={`/blog/${exp.blogSlug}`}
-                className="group relative h-80 overflow-hidden"
+                className="group relative h-80 overflow-hidden rounded-2xl border border-gold-500/10 shadow-lg"
               >
                 <img
                   src={exp.image}
@@ -250,7 +270,7 @@ export default function Home() {
                   <h3 className="font-serif text-2xl font-medium text-ivory-50 mb-2">
                     {translate(`experiences.${exp.key}`, lang)}
                   </h3>
-                  <p className="text-sm text-ivory-50/70 leading-6 line-clamp-2">
+                  <p className="text-sm text-ivory-50/70 leading-6 line-clamp-2 font-light">
                     {translate(`experiences.${exp.key}Desc`, lang)}
                   </p>
                 </div>
@@ -351,17 +371,17 @@ export default function Home() {
             alt="Riad Tofaha pool"
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-brown-900/70" />
+          <div className="absolute inset-0 bg-[#2A1810]/80" />
         </div>
         <div className="relative container-luxury text-center">
           <h2 className="font-serif text-4xl md:text-5xl font-medium text-ivory-50 mb-6 text-balance">
             {translate('hero.bookStay', lang)}
           </h2>
-          <p className="text-lg text-ivory-50/80 max-w-2xl mx-auto mb-10">
+          <p className="text-lg text-ivory-50/80 max-w-2xl mx-auto mb-10 font-light">
             {getLocalizedText(settings?.brand_description, lang) || translate('welcome.intro', lang)}
           </p>
-          <Link to="/book" className="btn-gold">
-            {translate('nav.book', lang)}
+          <Link to="/book" className="bg-[#a86548] hover:bg-[#8e5238] text-white px-8 py-3.5 rounded-xl text-xs uppercase tracking-widest font-bold transition duration-300 shadow-xl inline-block">
+            {translate('nav.bookNow', lang)}
           </Link>
         </div>
       </section>
