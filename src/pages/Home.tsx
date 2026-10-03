@@ -13,7 +13,9 @@ import type { Room } from '@/lib/types';
 function RoomCard({ room, lang }: { room: Room; lang: Language }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const images = room.images && room.images.length > 0 ? room.images : ['/https://www.airbnb.fr/rooms/1434061785654499260?guests=1&adults=1&s=67&unique_share_id=4f02827a-e142-43f2-99dd-30b24d0cec63'];
+  const images = room.images && room.images.length > 0 
+    ? room.images 
+    : ['/terasssse.jpeg'];
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -215,7 +217,7 @@ export default function Home() {
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <ChevronDown size={28} className="text-ivory-50/70" />
+          <ChevronDown size={28} className="text-ivory-50/70 animate-bounce" />
         </div>
       </section>
 
@@ -234,7 +236,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* شبكة الغرف مع الأسهم المباشرة */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {rooms.map((room) => (
               <RoomCard key={room.id} room={room} lang={lang} />
@@ -249,7 +250,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experiences Section with Full Translations */}
+      {/* Experiences Section */}
       <section className="py-24 md:py-32 bg-[#2A1810]">
         <div className="container-luxury">
           <div className="text-center mb-16 space-y-3">
@@ -364,7 +365,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <img
             src="/terasse.jpeg"
-            alt="Riad Tofaha pool"
+            alt="Riad Tofaha terrace"
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-[#2A1810]/80" />
