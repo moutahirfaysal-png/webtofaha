@@ -1,5 +1,11 @@
 export type Language = 'en' | 'fr' | 'ar' | 'es';
 
+export const DEFAULT_LANGUAGE: Language = 'en';
+
+export function isRTL(lang: Language): boolean {
+  return lang === 'ar';
+}
+
 export const translations: Record<Language, Record<string, string>> = {
   en: {
     'nav.home': 'Home',
@@ -59,7 +65,6 @@ export const translations: Record<Language, Record<string, string>> = {
   },
 };
 
-// دالة الترجمة الذكية مع معالجة الأحرف الخاطئة والبدائل
 export function translate(key: string, lang: Language = 'en'): string {
   const lowerKey = key.toLowerCase();
   
@@ -71,7 +76,6 @@ export function translate(key: string, lang: Language = 'en'): string {
     return translations['en'][lowerKey];
   }
 
-  // في حال عدم وجود المفتاح، يتم تنسيقه بشكل جميل بدلاً من إظهار الكود الخام
   const cleanFallback = key.split('.').pop() || key;
   return cleanFallback.replace(/([A-Z])/g, ' $1').trim();
 }
