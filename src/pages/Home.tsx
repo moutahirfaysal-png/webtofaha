@@ -1,13 +1,121 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, Bed, Users, ArrowRight, MessageSquareQuote } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, Bed, Users, ArrowRight, MessageSquareQuote } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
-import { translate, getLocalizedText } from '@/lib/i18n';
+import { translate, getLocalizedText, Language } from '@/lib/i18n';
 import { useSEO, buildLodgingBusinessSchema, buildOrganizationSchema, buildWebSiteSchema } from '@/lib/seo';
 import { fetchRooms } from '@/lib/data';
 import { useSettings } from '@/lib/SettingsContext';
 import { formatPrice } from '@/lib/booking';
 import type { Room } from '@/lib/types';
+
+// مكون بطاقة الغرفة المزود بأسهم التنقل بين الصور
+function RoomCard({ room, lang }: { room: Room; lang: Language }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = room.images && room.images.length > 0 ? room.images : ['/terasse.jpeg'];
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <div className="card-luxury group">
+      <div className="relative h-72 overflow-hidden rounded-t-3xl">
+        <Link to={`/rooms/${room.slug}`} className="block h-full w-full">
+          <img
+            src={images[currentImageIndex]}
+            alt={getLocalizedText(room.name, lang)}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 via-transparent to-transparent" />
+        </Link>
+
+        {/* أسهم التصفح بين صور الغرفة */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={handlePrevImage}
+              aria-label="Previous Image"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-brown-900/60 hover:bg-brown-900 text-ivory-50 p-2 rounded-full backdrop-blur-md transition shadow-md"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              onClick={handleNextImage}
+              aria-label="Next Image"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-brown-900/60 hover:bg-brown-900 text-ivory-50 p-2 rounded-full backdrop-blur-md transition shadow-md"
+            >
+              <ChevronRight size={18} />
+            </button>
+
+            {/* مؤشر النقاط لعدد الصور */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex gap-1.5 bg-brown-900/40 backdrop-blur-sm px-2.5 py-1 rounded-full">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setCurrentImageIndex(idx);
+                  }}
+                  className={`h-1.5 rounded-full transition-all ${
+                    idx === currentImageIndex ? 'w-4 bg-gold-300' : 'w-1.5 bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* سعر الغرفة */}
+        {room.base_price && (
+          <div className="absolute top-4 right-4 bg-ivory-50/95 px-4 py-2 rounded-xl shadow-sm z-10 pointer-events-none">
+            <span className="text-sm font-medium text-brown-800">
+              {translate('roomsPreview.from', lang)} {formatPrice(room.base_price, room.currency)}
+            </span>
+            <span className="text-xs text-brown-500"> / {translate('roomsPreview.perNight', lang)}</span>
+          </div>
+        )}
+
+        {/* مواصفات الغرفة */}
+        <div className="absolute bottom-4 left-4 flex items-center gap-3 text-ivory-50 z-10 pointer-events-none">
+          <span className="inline-flex items-center gap-1.5 text-xs bg-brown-900/60 backdrop-blur-sm px-3 py-1.5 rounded-lg">
+            <Bed size={14} /> {room.bed_config}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs bg-brown-900/60 backdrop-blur-sm px-3 py-1.5 rounded-lg">
+            <Users size={14} /> {room.max_occupancy} {translate('roomsPreview.guests', lang)}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-8">
+        <h3 className="font-serif text-2xl font-medium text-brown-800 mb-2">
+          {getLocalizedText(room.name, lang)}
+        </h3>
+        <p className="text-sm text-brown-600 leading-7 mb-6 font-light">
+          {getLocalizedText(room.short_description, lang) || getLocalizedText(room.description, lang)}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link to={`/rooms/${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 border border-brown-300 px-6 py-3 text-sm font-medium uppercase tracking-widest text-brown-700 transition-all hover:bg-brown-700 hover:text-ivory-50 rounded-xl">
+            {translate('roomsPreview.viewDetails', lang)}
+          </Link>
+          <Link to={`/book?room=${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 bg-[#a86548] hover:bg-[#8e5238] px-6 py-3 text-sm font-medium uppercase tracking-widest text-ivory-50 transition-all rounded-xl shadow-sm">
+            {translate('roomsPreview.bookRoom', lang)}
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const { lang } = useLanguage();
@@ -36,7 +144,6 @@ export default function Home() {
     { key: 'hammam', image: 'https://images.pexels.com/photos/7391720/pexels-photo-7391720.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'perfect-romantic-getaway-in-marrakech' },
   ];
 
-  // التعليقات الحقيقية من Booking.com
   const realBookingReviews = [
     {
       id: '1',
@@ -112,7 +219,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Rooms Preview Section */}
+      {/* Rooms Section */}
       <section className="py-24 md:py-32 bg-ivory-100">
         <div className="container-luxury">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
@@ -127,53 +234,10 @@ export default function Home() {
             </p>
           </div>
 
+          {/* شبكة الغرف مع الأسهم المباشرة */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {rooms.map((room) => (
-              <div
-                key={room.id}
-                className="card-luxury group"
-              >
-                <Link to={`/rooms/${room.slug}`} className="block relative h-72 overflow-hidden">
-                  <img
-                    src={room.images[0]}
-                    alt={getLocalizedText(room.name, lang)}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 to-transparent" />
-                  {room.base_price && (
-                    <div className="absolute top-4 right-4 bg-ivory-50/95 px-4 py-2 rounded-xl shadow-sm">
-                      <span className="text-sm font-medium text-brown-800">
-                        {translate('roomsPreview.from', lang)} {formatPrice(room.base_price, room.currency)}
-                      </span>
-                      <span className="text-xs text-brown-500"> / {translate('roomsPreview.perNight', lang)}</span>
-                    </div>
-                  )}
-                  <div className="absolute bottom-4 left-4 flex items-center gap-3 text-ivory-50">
-                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 backdrop-blur-sm px-3 py-1.5 rounded-lg">
-                      <Bed size={14} /> {room.bed_config}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 backdrop-blur-sm px-3 py-1.5 rounded-lg">
-                      <Users size={14} /> {room.max_occupancy} {translate('roomsPreview.guests', lang)}
-                    </span>
-                  </div>
-                </Link>
-                <div className="p-8">
-                  <h3 className="font-serif text-2xl font-medium text-brown-800 mb-2">
-                    {getLocalizedText(room.name, lang)}
-                  </h3>
-                  <p className="text-sm text-brown-600 leading-7 mb-6 font-light">
-                    {getLocalizedText(room.short_description, lang) || getLocalizedText(room.description, lang)}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Link to={`/rooms/${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 border border-brown-300 px-6 py-3 text-sm font-medium uppercase tracking-widest text-brown-700 transition-all hover:bg-brown-700 hover:text-ivory-50 rounded-xl">
-                      {translate('roomsPreview.viewDetails', lang)}
-                    </Link>
-                    <Link to={`/book?room=${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 bg-[#a86548] hover:bg-[#8e5238] px-6 py-3 text-sm font-medium uppercase tracking-widest text-ivory-50 transition-all rounded-xl shadow-sm">
-                      {translate('roomsPreview.bookRoom', lang)}
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <RoomCard key={room.id} room={room} lang={lang} />
             ))}
           </div>
 
@@ -185,14 +249,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experiences Section */}
+      {/* Experiences Section with Full Translations */}
       <section className="py-24 md:py-32 bg-[#2A1810]">
         <div className="container-luxury">
-          <div className="text-center mb-16">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-gold-300 mb-4">
+          <div className="text-center mb-16 space-y-3">
+            <p className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-gold-300">
               {translate('experiences.subtitle', lang)}
             </p>
-            <h2 className="font-serif text-4xl md:text-5xl font-medium text-ivory-50">
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-ivory-50">
               {translate('experiences.title', lang)}
             </h2>
           </div>
