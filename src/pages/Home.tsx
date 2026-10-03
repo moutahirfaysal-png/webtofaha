@@ -25,7 +25,7 @@ export default function Home() {
     fetchRooms().then(setRooms);
   }, []);
 
-  const heroImage = '/hero.jpg';
+  const heroImage = '/terasssse.jpeg';
 
   const experiences = [
     { key: 'jemaa', image: 'https://images.pexels.com/photos/35513343/pexels-photo-35513343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'best-places-to-visit-in-marrakech-tourist-guide' },
