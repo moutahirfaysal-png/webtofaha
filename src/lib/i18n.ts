@@ -8,6 +8,7 @@ export function isRTL(lang: Language): boolean {
 
 export const translations: Record<Language, Record<string, string>> = {
   en: {
+    // Nav
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.rooms': 'Our Rooms',
@@ -16,15 +17,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.booknow': 'Book Now',
 
-    // Rooms Page (EN)
+    // Home
+    'home.rooms_subtitle': 'ACCOMMODATION & SUITES',
+    'home.rooms_title': 'Our Exclusive Rooms & Suites',
+    'home.rooms_desc': 'Experience authentic Moroccan hospitality with modern comfort in our elegantly appointed rooms.',
+
+    // Rooms
     'rooms.page_title': 'Our Rooms & Suites | Riad Tofaha Marrakech',
     'rooms.subtitle': 'ACCOMMODATION & SUITES',
     'rooms.title': 'Our Rooms & Suites',
     'rooms.desc': 'Discover our authentic Moroccan rooms and suites, designed for ultimate comfort, charm, and tranquility in the heart of Marrakech Medina.',
-    'subtitle': 'ACCOMMODATION & SUITES',
-    'title': 'Our Rooms & Suites',
-    'desc': 'Discover our authentic Moroccan rooms and suites, designed for ultimate comfort, charm, and tranquility in the heart of Marrakech Medina.',
-
     'roomsPreview.from': 'from',
     'roomsPreview.perNight': 'night',
     'roomsPreview.guests': 'guests',
@@ -32,23 +34,37 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.bookRoom': 'Book via WhatsApp',
     'roomsPreview.viewAll': 'Explore All Rooms',
 
-    // Gallery Page (EN)
-    'gallery.hero_badge': 'PHOTO GALLERY',
-    'gallery.hero_title': 'Immerse Yourself in Riad Tofaha',
-    'gallery.hero_subtitle': 'Explore our refined spaces, from peaceful suites and traditional salons to the sunny rooftop terrace.',
-    'gallery.cat_all': 'All',
-    'gallery.cat_rooms': 'Rooms & Suites',
-    'gallery.cat_terrace': 'Rooftop Terrace',
-    'gallery.cat_salon': 'Moroccan Salon',
-    'gallery.cat_kitchen': 'Shared Kitchen',
-    'gallery.cat_bathroom': 'Bathrooms',
-    'gallery.cat_exterior': 'Courtyard & Exterior',
+    // Book Page (EN)
+    'book.hero_badge': 'DIRECT BOOKING',
+    'book.hero_title': 'Book Your Stay',
+    'book.hero_subtitle': 'Book directly with Riad Tofaha for guaranteed best rates and instant WhatsApp confirmation.',
+    'book.select_room': 'Select Desired Room:',
+    'book.per_night': 'night',
+    'book.guests_capacity': 'guests',
+    'book.estimated_total': 'Estimated Total Amount:',
+    'book.form_title': 'Confirm Your Stay Details',
+    'book.form_subtext': 'Select dates and fill in your details to send a direct WhatsApp booking request.',
+    'book.checkin': 'Check-in Date',
+    'book.checkout': 'Check-out Date',
+    'book.guests_label': 'Number of Guests',
+    'book.guest_1': '1 Guest',
+    'book.guest_2': '2 Guests',
+    'book.guest_3': '3 Guests',
+    'book.guest_4': '4 Guests',
+    'book.fullname': 'Full Name',
+    'book.phone': 'Phone / WhatsApp',
+    'book.email': 'Email Address',
+    'book.notes': 'Special Requests or Notes (Optional)',
+    'book.placeholder_name': 'e.g. John Doe',
+    'book.placeholder_notes': 'e.g. Airport transfer request, estimated arrival time...',
+    'book.submit_btn': 'Confirm & Send Booking via WhatsApp',
+    'book.guarantee': 'Direct & safe booking with no hidden fees.',
 
-    // About Page (EN)
+    // About
     'about.page_title': 'About Riad Tofaha | Authentic Luxury Riad in Marrakech',
     'about.hero_badge': 'ABOUT RIAD TOFAHA',
     'about.hero_title': 'A Modern & Authentic Moroccan Sanctuary',
-    'about.hero_subtitle': 'Newly renovated boutique Riad in the historic Medina of Marrakech, offering modern comfort and peaceful luxury.',
+    'about.hero_subtitle': 'Newly renovated boutique Riad in the historic Medina of Marrakech, offering modern comfort, peaceful luxury, and rare direct car access.',
     'about.story_badge': 'THE TOFAHA EXPERIENCE',
     'about.story_title': 'Traditional Moroccan Charm Meets Modern Comfort',
     'about.story_p1': 'Riad Tofaha is a newly restored boutique Riad located in the heart of Marrakech Medina. It seamlessly blends traditional Moroccan craftsmanship with high-end contemporary comfort.',
@@ -62,7 +78,20 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.card4_title': 'Tranquil & Quiet Refuge',
     'about.card4_desc': 'Enjoy undisturbed peace and quiet inside the Riad after exploring the city.',
 
-    // Contact Page (EN)
+    // Gallery
+    'gallery.page_title': 'Photo Gallery | Riad Tofaha Marrakech',
+    'gallery.hero_badge': 'PHOTO GALLERY',
+    'gallery.hero_title': 'Immerse Yourself in Riad Tofaha',
+    'gallery.hero_subtitle': 'Explore our refined spaces, from peaceful suites and traditional salons to the sunny rooftop terrace.',
+    'gallery.cat_all': 'All',
+    'gallery.cat_rooms': 'Rooms & Suites',
+    'gallery.cat_terrace': 'Rooftop Terrace',
+    'gallery.cat_salon': 'Moroccan Salon',
+    'gallery.cat_kitchen': 'Shared Kitchen',
+    'gallery.cat_bathroom': 'Bathrooms',
+    'gallery.cat_exterior': 'Courtyard & Exterior',
+
+    // Contact
     'contact.herotagline': 'GET IN TOUCH',
     'contact.herotitle': 'We Are Here to Assist You',
     'contact.herosubtitle': 'Have questions or need assistance with your reservation? Reach out to us directly or visit our official booking channels.',
@@ -93,6 +122,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'contact.placeholder.message': 'Write your message or question here...',
   },
   fr: {
+    // Nav
     'nav.home': 'Accueil',
     'nav.about': 'À Propos',
     'nav.rooms': 'Nos Chambres',
@@ -101,15 +131,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.booknow': 'Réserver',
 
-    // Rooms Page (FR)
+    // Home
+    'home.rooms_subtitle': 'HÉBERGEMENT & SUITES',
+    'home.rooms_title': 'Nos Chambres & Suites Exclusives',
+    'home.rooms_desc': 'Découvrez l’hospitalité marocaine authentique dans des chambres élégantes alliant confort moderne et charme traditionnel.',
+
+    // Rooms
     'rooms.page_title': 'Nos Chambres & Suites | Riad Tofaha Marrakech',
     'rooms.subtitle': 'HÉBERGEMENT & SUITES',
     'rooms.title': 'Nos Chambres & Suites',
     'rooms.desc': 'Découvrez nos chambres et suites marocaines authentiques, conçues pour un confort ultime, du charme et de la tranquillité au cœur de la médina de Marrakech.',
-    'subtitle': 'HÉBERGEMENT & SUITES',
-    'title': 'Nos Chambres & Suites',
-    'desc': 'Découvrez nos chambres et suites marocaines authentiques, conçues pour un confort ultime, du charme et de la tranquillité au cœur de la médina de Marrakech.',
-
     'roomsPreview.from': 'à partir de',
     'roomsPreview.perNight': 'nuit',
     'roomsPreview.guests': 'personnes',
@@ -117,19 +148,33 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.bookRoom': 'Réserver via WhatsApp',
     'roomsPreview.viewAll': 'Découvrir Toutes les Chambres',
 
-    // Gallery Page (FR)
-    'gallery.hero_badge': 'GALERIE PHOTOS',
-    'gallery.hero_title': 'Plongez dans l’Univers du Riad Tofaha',
-    'gallery.hero_subtitle': 'Découvrez nos espaces raffinés, de nos chambres élégantes au salon traditionnel et la terrasse ensoleillée.',
-    'gallery.cat_all': 'Tout',
-    'gallery.cat_rooms': 'Chambres & Suites',
-    'gallery.cat_terrace': 'Terrasse',
-    'gallery.cat_salon': 'Salon Marocain',
-    'gallery.cat_kitchen': 'Cuisine Équipée',
-    'gallery.cat_bathroom': 'Salles de Bain',
-    'gallery.cat_exterior': 'Cour & Extérieur',
+    // Book Page (FR)
+    'book.hero_badge': 'RÉSERVATION DIRECTE',
+    'book.hero_title': 'Réservez Votre Séjour',
+    'book.hero_subtitle': 'Réservez directement avec le Riad Tofaha pour bénéficier des meilleurs tarifs garantis et d’une confirmation immédiate par WhatsApp.',
+    'book.select_room': 'Sélectionnez la chambre souhaitée :',
+    'book.per_night': 'nuit',
+    'book.guests_capacity': 'personnes',
+    'book.estimated_total': 'Montant total estimé :',
+    'book.form_title': 'Confirmez vos coordonnées',
+    'book.form_subtext': 'Sélectionnez vos dates et renseignez vos informations pour démarrer un échange direct sur WhatsApp.',
+    'book.checkin': 'Date d’arrivée',
+    'book.checkout': 'Date de départ',
+    'book.guests_label': 'Nombre d’hôtes',
+    'book.guest_1': '1 Hôte',
+    'book.guest_2': '2 Hôtes',
+    'book.guest_3': '3 Hôtes',
+    'book.guest_4': '4 Hôtes',
+    'book.fullname': 'Nom complet',
+    'book.phone': 'Téléphone / WhatsApp',
+    'book.email': 'Adresse e-mail',
+    'book.notes': 'Demandes particulières ou remarques (Optionnel)',
+    'book.placeholder_name': 'ex. Jean Dupont',
+    'book.placeholder_notes': 'ex. Demande de transfert aéroport, heure d’arrivée estimée...',
+    'book.submit_btn': 'Confirmer et envoyer la réservation par WhatsApp',
+    'book.guarantee': 'Réservation directe et sécurisée sans aucun frais caché.',
 
-    // About Page (FR)
+    // About
     'about.page_title': 'À Propos du Riad Tofaha | Riad de Luxe Authentique à Marrakech',
     'about.hero_badge': 'À PROPOS DU RIAD TOFAHA',
     'about.hero_title': 'Un Sanctuaire Marocain Moderne & Authentique',
@@ -147,7 +192,20 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.card4_title': 'Calme et Sérénité Absolue',
     'about.card4_desc': 'Profitez d’un silence apaisant à l’intérieur du Riad.',
 
-    // Contact Page (FR)
+    // Gallery
+    'gallery.page_title': 'Galerie Photos | Riad Tofaha Marrakech',
+    'gallery.hero_badge': 'GALERIE PHOTOS',
+    'gallery.hero_title': 'Plongez dans l’Univers du Riad Tofaha',
+    'gallery.hero_subtitle': 'Découvrez nos espaces raffinés, de nos chambres élégantes au salon traditionnel et la terrasse ensoleillée.',
+    'gallery.cat_all': 'Tout',
+    'gallery.cat_rooms': 'Chambres & Suites',
+    'gallery.cat_terrace': 'Terrasse',
+    'gallery.cat_salon': 'Salon Marocain',
+    'gallery.cat_kitchen': 'Cuisine Équipée',
+    'gallery.cat_bathroom': 'Salles de Bain',
+    'gallery.cat_exterior': 'Cour & Extérieur',
+
+    // Contact
     'contact.herotagline': 'CONTACTEZ-NOUS',
     'contact.herotitle': 'Nous Sommes à Votre Écoute',
     'contact.herosubtitle': 'Une question ou besoin d’assistance pour votre réservation ? Contactez-nous directement.',
@@ -178,6 +236,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'contact.placeholder.message': 'Écrivez votre message ou votre question ici...',
   },
   ar: {
+    // Nav
     'nav.home': 'الرئيسية',
     'nav.about': 'من نحن',
     'nav.rooms': 'غرفنا',
@@ -186,15 +245,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'اتصل بنا',
     'nav.booknow': 'احجز الآن',
 
-    // Rooms Page (AR)
+    // Home
+    'home.rooms_subtitle': 'الإقامة والأجنحة',
+    'home.rooms_title': 'غرفنا وأجنحتنا المتميزة',
+    'home.rooms_desc': 'استمتع بالضيافة المغربية الأصيلة مع أقصى درجات الراحة والهدوء في غرفنا وأجنحتنا المصممة بأناقة.',
+
+    // Rooms
     'rooms.page_title': 'غرفنا وأجنحتنا | رياض تفاحة مراكش',
     'rooms.subtitle': 'الإقامة والأجنحة',
     'rooms.title': 'غرفنا وأجنحتنا',
     'rooms.desc': 'اكتشف غرفنا وأجنحتنا المغربية الأصيلة، المصممة لتوفير أقصى درجات الراحة والهدوء في قلب مدينة مراكش العتيقة.',
-    'subtitle': 'الإقامة والأجنحة',
-    'title': 'غرفنا وأجنحتنا',
-    'desc': 'اكتشف غرفنا وأجنحتنا المغربية الأصيلة، المصممة لتوفير أقصى درجات الراحة والهدوء في قلب مدينة مراكش العتيقة.',
-
     'roomsPreview.from': 'ابتداءً من',
     'roomsPreview.perNight': 'ليلة',
     'roomsPreview.guests': 'ضيوف',
@@ -202,19 +262,33 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.bookRoom': 'احجز عبر واتساب',
     'roomsPreview.viewAll': 'تصفح كافة الغرف',
 
-    // Gallery Page (AR)
-    'gallery.hero_badge': 'معرض الصور',
-    'gallery.hero_title': 'اكتشف تفاصيل وجمال رياض تفاحة',
-    'gallery.hero_subtitle': 'استكشف أركان الرياض الفاخرة، من الغرف الأنيقة والصالون المغربي إلى التراس المشرق على السطح.',
-    'gallery.cat_all': 'الكل',
-    'gallery.cat_rooms': 'الغرف والأجنحة',
-    'gallery.cat_terrace': 'التراس',
-    'gallery.cat_salon': 'الصالون المغربي',
-    'gallery.cat_kitchen': 'المطبخ المجهز',
-    'gallery.cat_bathroom': 'الحمامات',
-    'gallery.cat_exterior': 'الفناء والخارج',
+    // Book Page (AR)
+    'book.hero_badge': 'حجز مباشر',
+    'book.hero_title': 'احجز إقامتك',
+    'book.hero_subtitle': 'احجز إقامتك مباشرة مع رياض تفاحة للحصول على أفضل الأسعار المؤكدة والخدمة المباشرة عبر الواتساب.',
+    'book.select_room': 'اختر الغرفة المطلوبة:',
+    'book.per_night': 'ليلة',
+    'book.guests_capacity': 'ضيوف',
+    'book.estimated_total': 'المبلغ الإجمالي التقديري:',
+    'book.form_title': 'تأكيد بيانات إقامتك',
+    'book.form_subtext': 'حدد التواريخ وبياناتك وسيتم فتح محادثة WhatsApp فوراً لتأكيد الحجز.',
+    'book.checkin': 'تاريخ الوصول',
+    'book.checkout': 'تاريخ المغادرة',
+    'book.guests_label': 'عدد الضيوف',
+    'book.guest_1': 'ضيف واحد (1)',
+    'book.guest_2': 'ضيفين (2)',
+    'book.guest_3': '3 ضيوف',
+    'book.guest_4': '4 ضيوف',
+    'book.fullname': 'الاسم الكامل',
+    'book.phone': 'رقم الهاتف / الواتساب',
+    'book.email': 'البريد الإلكتروني',
+    'book.notes': 'ملاحظات أو طلبات خاصة (اختياري)',
+    'book.placeholder_name': 'مثال: فيصل المحمدي',
+    'book.placeholder_notes': 'مثال: طلب خدمة الاستقبال من المطار أو وقت الوصول المتوقع...',
+    'book.submit_btn': 'تأكيد وإرسال الحجز عبر الواتساب',
+    'book.guarantee': 'حجز مباشر وآمن بدون أي رسوم إضافية.',
 
-    // About Page (AR)
+    // About
     'about.page_title': 'عن رياض تفاحة | رياض فخم وأصيل في مراكش',
     'about.hero_badge': 'عن رياض تفاحة',
     'about.hero_title': 'ملاذ مغربي أصيل وعصري في قلب مراكش',
@@ -232,7 +306,20 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.card4_title': 'سكينة وهدوء مطلق',
     'about.card4_desc': 'استمتع بالهدوء والراحة المطلقة داخل الرياض بعد يوم حافل بالاستكشاف.',
 
-    // Contact Page (AR)
+    // Gallery
+    'gallery.page_title': 'معرض الصور | رياض تفاحة مراكش',
+    'gallery.hero_badge': 'معرض الصور',
+    'gallery.hero_title': 'اكتشف تفاصيل وجمال رياض تفاحة',
+    'gallery.hero_subtitle': 'استكشف أركان الرياض الفاخرة، من الغرف الأنيقة والصالون المغربي إلى التراس المشرق على السطح.',
+    'gallery.cat_all': 'الكل',
+    'gallery.cat_rooms': 'الغرف والأجنحة',
+    'gallery.cat_terrace': 'التراس',
+    'gallery.cat_salon': 'الصالون المغربي',
+    'gallery.cat_kitchen': 'المطبخ المجهز',
+    'gallery.cat_bathroom': 'الحمامات',
+    'gallery.cat_exterior': 'الفناء والخارج',
+
+    // Contact
     'contact.herotagline': 'تواصل معنا',
     'contact.herotitle': 'نحن هنا لخدمتك وإجابة استفساراتك',
     'contact.herosubtitle': 'هل لديك سؤال أو تحتاج مساعدة في حجز إقامتك؟ تواصل معنا مباشرة.',
@@ -263,6 +350,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'contact.placeholder.message': 'اكتب استفسارك أو رسالتك هنا...',
   },
   es: {
+    // Nav
     'nav.home': 'Inicio',
     'nav.about': 'Nosotros',
     'nav.rooms': 'Habitaciones',
@@ -271,15 +359,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contacto',
     'nav.booknow': 'Reservar',
 
-    // Rooms Page (ES)
+    // Home
+    'home.rooms_subtitle': 'ALOJAMIENTO Y SUITES',
+    'home.rooms_title': 'Nuestras Habitaciones y Suites Exclusivas',
+    'home.rooms_desc': 'Disfrute de la auténtica hospitalidad marroquí con el máximo confort en nuestras elegantes habitaciones.',
+
+    // Rooms
     'rooms.page_title': 'Nuestras Habitaciones y Suites | Riad Tofaha Marrakech',
     'rooms.subtitle': 'ALOJAMIENTO Y SUITES',
     'rooms.title': 'Nuestras Habitaciones y Suites',
     'rooms.desc': 'Descubra nuestras auténticas habitaciones y suites marroquíes, diseñadas para el máximo confort, encanto y tranquilidad en el corazón de la Medina de Marrakech.',
-    'subtitle': 'ALOJAMIENTO Y SUITES',
-    'title': 'Nuestras Habitaciones y Suites',
-    'desc': 'Descubra nuestras auténticas habitaciones y suites marroquíes, diseñadas para el máximo confort, encanto y tranquilidad en el corazón de la Medina de Marrakech.',
-
     'roomsPreview.from': 'desde',
     'roomsPreview.perNight': 'noche',
     'roomsPreview.guests': 'personas',
@@ -287,19 +376,33 @@ export const translations: Record<Language, Record<string, string>> = {
     'roomsPreview.bookRoom': 'Reservar por WhatsApp',
     'roomsPreview.viewAll': 'Explorar Todas las Habitaciones',
 
-    // Gallery Page (ES)
-    'gallery.hero_badge': 'GALERÍA DE FOTOS',
-    'gallery.hero_title': 'Sumérjase en el Universo de Riad Tofaha',
-    'gallery.hero_subtitle': 'Explore nuestros elegantes espacios, desde acogedoras habitaciones hasta nuestra terraza panorámica.',
-    'gallery.cat_all': 'Todos',
-    'gallery.cat_rooms': 'Habitaciones',
-    'gallery.cat_terrace': 'Terraza',
-    'gallery.cat_salon': 'Salón Marroquí',
-    'gallery.cat_kitchen': 'Cocina Compartida',
-    'gallery.cat_bathroom': 'Baños',
-    'gallery.cat_exterior': 'Patio y Exterior',
+    // Book Page (ES)
+    'book.hero_badge': 'RESERVA DIRECTA',
+    'book.hero_title': 'Reserve su Estancia',
+    'book.hero_subtitle': 'Reserve directamente con Riad Tofaha para obtener las mejores tarifas garantizadas y confirmación inmediata por WhatsApp.',
+    'book.select_room': 'Seleccione la habitación deseada:',
+    'book.per_night': 'noche',
+    'book.guests_capacity': 'huéspedes',
+    'book.estimated_total': 'Monto total estimado:',
+    'book.form_title': 'Confirme los detalles de su estancia',
+    'book.form_subtext': 'Seleccione las fechas y complete sus datos para iniciar un chat de reserva directo por WhatsApp.',
+    'book.checkin': 'Fecha de llegada',
+    'book.checkout': 'Fecha de salida',
+    'book.guests_label': 'Número de huéspedes',
+    'book.guest_1': '1 Huésped',
+    'book.guest_2': '2 Huéspedes',
+    'book.guest_3': '3 Huéspedes',
+    'book.guest_4': '4 Huéspedes',
+    'book.fullname': 'Nombre completo',
+    'book.phone': 'Teléfono / WhatsApp',
+    'book.email': 'Correo electrónico',
+    'book.notes': 'Peticiones especiales o notas (Opcional)',
+    'book.placeholder_name': 'ej. Juan Pérez',
+    'book.placeholder_notes': 'ej. Solicitud de traslado al aeropuerto, hora estimada de llegada...',
+    'book.submit_btn': 'Confirmar y enviar reserva por WhatsApp',
+    'book.guarantee': 'Reserva directa y segura sin comisiones ocultas.',
 
-    // About Page (ES)
+    // About
     'about.page_title': 'Sobre Riad Tofaha | Riad de Lujo Auténtico en Marrakech',
     'about.hero_badge': 'SOBRE RIAD TOFAHA',
     'about.hero_title': 'Un Santuario Marroquí Moderno y Auténtico',
@@ -317,7 +420,20 @@ export const translations: Record<Language, Record<string, string>> = {
     'about.card4_title': 'Tranquilidad y Paz Total',
     'about.card4_desc': 'Disfrute de un ambiente silencioso y relajante dentro del Riad.',
 
-    // Contact Page (ES)
+    // Gallery
+    'gallery.page_title': 'Galería de Fotos | Riad Tofaha Marrakech',
+    'gallery.hero_badge': 'GALERÍA DE FOTOS',
+    'gallery.hero_title': 'Sumérjase en el Universo de Riad Tofaha',
+    'gallery.hero_subtitle': 'Explore nuestros elegantes espacios, desde acogedoras habitaciones hasta nuestra terraza panorámica.',
+    'gallery.cat_all': 'Todos',
+    'gallery.cat_rooms': 'Habitaciones',
+    'gallery.cat_terrace': 'Terraza',
+    'gallery.cat_salon': 'Salón Marroquí',
+    'gallery.cat_kitchen': 'Cocina Compartida',
+    'gallery.cat_bathroom': 'Baños',
+    'gallery.cat_exterior': 'Patio y Exterior',
+
+    // Contact
     'contact.herotagline': 'CONTÁCTENOS',
     'contact.herotitle': 'Estamos Aquí para Ayudarle',
     'contact.herosubtitle': '¿Tiene alguna pregunta o necesita ayuda con su reserva? Contáctenos directamente.',
