@@ -485,3 +485,19 @@ export function getLocalizedText(obj: any, lang: Language): string {
   if (typeof obj === 'string') return obj;
   return obj[lang] || obj['en'] || Object.values(obj)[0] || '';
 }
+// أضف هذه المفاتيح داخل قسم ar و en و fr و es في i18n.ts:
+
+// AR:
+'book.city_tax': 'ضريبة الإقامة والترويج السياحي بمراكش',
+'book.rooms_needed': 'عدد الغرف المطلوبة',
+'book.estimated_total': 'المبلغ الإجمالي النهائي:',
+
+// EN:
+'book.city_tax': 'Marrakech Tourist City Tax (€2.50/guest/night)',
+'book.rooms_needed': 'Rooms Required',
+'book.estimated_total': 'Estimated Total Amount:',
+
+// FR:
+'book.city_tax': 'Taxe de séjour Marrakech (2,50 €/pers/nuit)',
+'book.rooms_needed': 'Chambres requises',
+'book.estimated_total': 'Montant total estimé :',
