@@ -34,6 +34,29 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.viewDetails': 'View Details',
     'rooms.bookRoom': 'Book Room',
 
+    // القيم والمميزات (Values)
+    'values.badge': 'THE TOFAHA EXPERIENCE',
+    'values.title': 'Why Stay With Us',
+    'values.subtitle': 'Immerse yourself in timeless Moroccan refinement, authentic architecture, and legendary hospitality.',
+    
+    'values.authenticity.title': 'Authentic Moroccan Craftsmanship',
+    'values.authenticity.desc': 'Handcrafted Zellige tiles, carved plasterwork, and centuries-old artisan traditions in every corner.',
+
+    'values.architecture.title': 'Traditional Architecture',
+    'values.architecture.desc': 'An open-air patio with lush courtyard greenery and a soothing central water fountain.',
+
+    'values.intimate.title': 'Intimate & Peaceful Haven',
+    'values.intimate.desc': 'An exclusive sanctuary designed to offer complete privacy and absolute serenity away from the busy Medina.',
+
+    'values.comfort.title': 'Modern Luxury & Comfort',
+    'values.comfort.desc': 'Premium plush bedding, climate-controlled rooms, and high-speed Wi-Fi throughout the Riad.',
+
+    'values.culture.title': 'Prime Medina Location',
+    'values.culture.desc': 'Situated in the heart of the historical Medina, just steps away from Marrakech’s most iconic monuments.',
+
+    'values.hospitality.title': 'Legendary Hospitality',
+    'values.hospitality.desc': 'Warm personal greetings, dedicated concierge service, and genuine Moroccan care tailored to your stay.',
+
     'book.title': 'Book Your Stay',
     'book.subtitle': 'Select your stay dates and enter your details. We will confirm your reservation instantly via WhatsApp.',
     'book.roomSelect': 'Select Room',
@@ -83,6 +106,29 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.bathroom': 'Salle de Bain Privative',
     'rooms.viewDetails': 'Voir Détails',
     'rooms.bookRoom': 'Réserver',
+
+    // Values (FR)
+    'values.badge': 'L\'EXPÉRIENCE TOFAHA',
+    'values.title': 'Pourquoi Choisir Notre Riad',
+    'values.subtitle': 'Plongez au cœur du raffinement marocain, d\'une architecture séculaire et d\'une hospitalité légendaire.',
+    
+    'values.authenticity.title': 'Artisanat Marocain Authentique',
+    'values.authenticity.desc': 'Zelliges faits main, plâtres sculptés et finitions artisanales traditionnelles dans chaque espace.',
+
+    'values.architecture.title': 'Architecture Traditionnelle',
+    'values.architecture.desc': 'Un patio central baigné de lumière avec une fontaine d\'eau apaisante et une verdure verdoyante.',
+
+    'values.intimate.title': 'Havre de Paix Intime',
+    'values.intimate.desc': 'Un sanctuaire privé conçu pour vous offrir une sérénité absolue loin de l\'agitation de la Médina.',
+
+    'values.comfort.title': 'Confort Moderne & Élégance',
+    'values.comfort.desc': 'Literie haut de gamme, climatisation réversible et Wi-Fi haut débit dans tout l\'établissement.',
+
+    'values.culture.title': 'Emplacement Idéal en Médina',
+    'values.culture.desc': 'Niché au cœur de la Médina historique, à quelques minutes à pied des lieux touristiques emblématiques.',
+
+    'values.hospitality.title': 'Hospitalité Légendaire',
+    'values.hospitality.desc': 'Accueil chaleureux, service conciergerie personnalisé et bienveillance marocaine dédiée à votre confort.',
 
     'book.title': 'Réserver Votre Séjour',
     'book.subtitle': 'Sélectionnez vos dates de séjour et entrez vos coordonnées. Nous confirmerons votre réservation instantanément via WhatsApp.',
@@ -134,6 +180,29 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.viewDetails': 'عرض التفاصيل',
     'rooms.bookRoom': 'احجز الغرفة',
 
+    // Values (AR)
+    'values.badge': 'تجربة رياض تفاحة',
+    'values.title': 'لماذا تختار الإقامة معنا؟',
+    'values.subtitle': 'عش تجربة الفخامة المغربية الأصيلة وسط معمار تقليدي وضيافة مراكشية عريقة.',
+    
+    'values.authenticity.title': 'أصالة الصناعة التقليدية',
+    'values.authenticity.desc': 'زليج تقليدي مصنوع يدوياً، وجبس منقوش بدقة، وتفاصيل حرفية عريقة في كل زاوية.',
+
+    'values.architecture.title': 'عمارة مركسية تقليدية',
+    'values.architecture.desc': 'فناء مركزي مفتوح على السماء يضم خضرة ساحرة ونافورة ماء منعشة تعزف ألحان السكينة.',
+
+    'values.intimate.title': 'ملاذ هادئ وخاص',
+    'values.intimate.desc': 'ملاذ خاص مصمم ليوفر لك الخصوصية التامة والهدوء المطلق بعيداً عن صخب الأزقة.',
+
+    'values.comfort.title': 'راحة وعصرنة رفيعة',
+    'values.comfort.desc': 'أسرة فاخرة للغاية، تكييف متطور، وخدمة إنترنت فائقة السرعة في جميع مرافق الرياض.',
+
+    'values.culture.title': 'موقع استراتيجي بالمدينة العتيقة',
+    'values.culture.desc': 'يقع الرياض في قلب المدينة القديمة وعلى بُعد خطوات قليلة من أشهر معالم مراكش التاريخية.',
+
+    'values.hospitality.title': 'ضيافة مغربية عريقة',
+    'values.hospitality.desc': 'استقبال حار بالمنعنع المغربي، وخدمة كونسيرج مخصصة تلبي كافة تطلعاتك طوال إقامتك.',
+
     'book.title': 'احجز إقامتك',
     'book.subtitle': 'اختر تواريخ إقامتك وأدخل بياناتك، وسنقوم بتأكيد حجزك فوراً عبر الواتساب.',
     'book.roomSelect': 'اختر الغرفة',
@@ -183,6 +252,29 @@ export const translations: Record<Language, Record<string, string>> = {
     'rooms.bathroom': 'Baño Privado',
     'rooms.viewDetails': 'Ver Detalles',
     'rooms.bookRoom': 'Reservar',
+
+    // Values (ES)
+    'values.badge': 'LA EXPERIENCIA TOFAHA',
+    'values.title': 'Por Qué Elegir Nuestro Riad',
+    'values.subtitle': 'Sumérjase en el refinamiento marroquí, la arquitectura auténtica y la hospitalidad legendaria.',
+    
+    'values.authenticity.title': 'Artesanía Marroquí Auténtica',
+    'values.authenticity.desc': 'Zellige hecho a mano, yeso esculpido y tradiciones artesanales en cada rincón.',
+
+    'values.architecture.title': 'Arquitectura Tradicional',
+    'values.architecture.desc': 'Un patio al aire libre rodeado de vegetación y una refrescante fuente de agua.',
+
+    'values.intimate.title': 'Un Remanso de Paz Íntimo',
+    'values.intimate.desc': 'Un santuario exclusivo diseñado para ofrecer absoluta serenidad lejos del bullicio de la Medina.',
+
+    'values.comfort.title': 'Lujo y Confort Moderno',
+    'values.comfort.desc': 'Camas de alta calidad, aire acondicionado y Wi-Fi de alta velocidad en todo el Riad.',
+
+    'values.culture.title': 'Ubicación Privilegiada en la Medina',
+    'values.culture.desc': 'Ubicado en el corazón de la Medina histórica, a pocos pasos de los monumentos más icónicos.',
+
+    'values.hospitality.title': 'Hospitalidad Legendaria',
+    'values.hospitality.desc': 'Cálida bienvenida personalizada, servicio de conserjería dedicado y auténtica atención marroquí.',
 
     'book.title': 'Reservar Su Estancia',
     'book.subtitle': 'Seleccione sus fechas de estancia e ingrese sus datos. Confirmaremos su reserva al instante por WhatsApp.',
