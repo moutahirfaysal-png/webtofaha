@@ -16,13 +16,18 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.booknow': 'Book Now',
 
-    // Rooms Page (EN)
+    // Home Page Rooms Section
+    'home.rooms_subtitle': 'ACCOMMODATION & SUITES',
+    'home.rooms_title': 'Our Exclusive Rooms & Suites',
+    'home.rooms_desc': 'Experience authentic Moroccan hospitality with modern comfort in our elegantly appointed rooms in the heart of Marrakech Medina.',
+
+    // Rooms Page
     'rooms.page_title': 'Our Rooms & Suites | Riad Tofaha Marrakech',
     'rooms.subtitle': 'ACCOMMODATION & SUITES',
     'rooms.title': 'Our Rooms & Suites',
     'rooms.desc': 'Discover our authentic Moroccan rooms and suites, designed for ultimate comfort, charm, and tranquility in the heart of Marrakech Medina.',
 
-    // Contact Page (EN)
+    // Contact Page
     'contact.herotagline': 'GET IN TOUCH',
     'contact.herotitle': 'We Are Here to Assist You',
     'contact.herosubtitle': 'Have questions or need assistance with your reservation? Reach out to us directly or visit our official booking channels.',
@@ -61,13 +66,18 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.booknow': 'Réserver',
 
-    // Rooms Page (FR)
+    // Home Page Rooms Section
+    'home.rooms_subtitle': 'HÉBERGEMENT & SUITES',
+    'home.rooms_title': 'Nos Chambres & Suites Exclusives',
+    'home.rooms_desc': 'Découvrez l’hospitalité marocaine authentique dans des chambres élégantes alliant confort moderne et charme traditionnel.',
+
+    // Rooms Page
     'rooms.page_title': 'Nos Chambres & Suites | Riad Tofaha Marrakech',
     'rooms.subtitle': 'HÉBERGEMENT & SUITES',
     'rooms.title': 'Nos Chambres & Suites',
     'rooms.desc': 'Découvrez nos chambres et suites marocaines authentiques, conçues pour un confort ultime, du charme et de la tranquillité au cœur de la médina de Marrakech.',
 
-    // Contact Page (FR)
+    // Contact Page
     'contact.herotagline': 'CONTACTEZ-NOUS',
     'contact.herotitle': 'Nous Sommes à Votre Écoute',
     'contact.herosubtitle': 'Une question ou besoin d’assistance pour votre réservation ? Contactez-nous directement ou consultez nos plateformes officielles.',
@@ -106,13 +116,18 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'اتصل بنا',
     'nav.booknow': 'احجز الآن',
 
-    // Rooms Page (AR)
+    // Home Page Rooms Section
+    'home.rooms_subtitle': 'الإقامة والأجنحة',
+    'home.rooms_title': 'غرفنا وأجنحتنا المتميزة',
+    'home.rooms_desc': 'استمتع بالضيافة المغربية الأصيلة مع أقصى درجات الراحة والهدوء في غرفنا وأجنحتنا المصممة بأناقة في قلب المدينة العتيقة.',
+
+    // Rooms Page
     'rooms.page_title': 'غرفنا وأجنحتنا | رياض تفاحة مراكش',
     'rooms.subtitle': 'الإقامة والأجنحة',
     'rooms.title': 'غرفنا وأجنحتنا',
     'rooms.desc': 'اكتشف غرفنا وأجنحتنا المغربية الأصيلة، المصممة لتوفير أقصى درجات الراحة والهدوء في قلب مدينة مراكش العتيقة.',
 
-    // Contact Page (AR)
+    // Contact Page
     'contact.herotagline': 'تواصل معنا',
     'contact.herotitle': 'نحن هنا لخدمتك وإجابة استفساراتك',
     'contact.herosubtitle': 'هل لديك سؤال أو تحتاج مساعدة في حجز إقامتك؟ تواصل معنا مباشرة أو تصفح صفحاتنا الرسمية.',
@@ -151,13 +166,18 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contacto',
     'nav.booknow': 'Reservar',
 
-    // Rooms Page (ES)
+    // Home Page Rooms Section
+    'home.rooms_subtitle': 'ALOJAMIENTO Y SUITES',
+    'home.rooms_title': 'Nuestras Habitaciones y Suites Exclusivas',
+    'home.rooms_desc': 'Disfrute de la auténtica hospitalidad marroquí con el máximo confort en nuestras elegantes habitaciones en el corazón de la Medina de Marrakech.',
+
+    // Rooms Page
     'rooms.page_title': 'Nuestras Habitaciones y Suites | Riad Tofaha Marrakech',
     'rooms.subtitle': 'ALOJAMIENTO Y SUITES',
     'rooms.title': 'Nuestras Habitaciones y Suites',
     'rooms.desc': 'Descubra nuestras auténticas habitaciones y suites marroquíes, diseñadas para el máximo confort, encanto y tranquilidad en el corazón de la Medina de Marrakech.',
 
-    // Contact Page (ES)
+    // Contact Page
     'contact.herotagline': 'CONTÁCTENOS',
     'contact.herotitle': 'Estamos Aquí para Ayudarle',
     'contact.herosubtitle': '¿Tiene alguna pregunta o necesita ayuda con su reserva? Contáctenos directamente o visite nuestras páginas oficiales.',
