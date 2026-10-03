@@ -13,6 +13,7 @@ export default function RoomDetails() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
+    // البحث عن الغرفة بناءً على الـ slug أو الـ id
     const foundRoom = roomsData.find(r => r.slug === slug || r.id === slug);
     if (foundRoom) {
       setRoom(foundRoom);
@@ -45,7 +46,7 @@ export default function RoomDetails() {
     setCurrentImageIndex((prev) => (prev - 1 + room.images.length) % room.images.length);
   };
 
-  // دالة مساعدة لضمان جلب النص باللغة الصحيحة بغض النظر عن طريقة حفظه في البيانات
+  // دالة مساعدة لضمان جلب النص باللغة الحالية للموقع
   const getText = (field: any) => {
     if (!field) return '';
     if (typeof field === 'string') return field;
@@ -56,7 +57,7 @@ export default function RoomDetails() {
     <div className="min-h-screen bg-ivory-100 py-24 md:py-32" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <div className="container-luxury max-w-7xl mx-auto px-4">
         
-        {/* زر العودة */}
+        {/* زر العودة لكل الغرف */}
         <div className="mb-6">
           <button 
             onClick={() => navigate(-1)}
@@ -66,7 +67,7 @@ export default function RoomDetails() {
           </button>
         </div>
 
-        {/* رأس الصفحة */}
+        {/* رأس الصفحة والعنوان */}
         <div className="mb-8">
           <p className="text-xs md:text-sm uppercase tracking-[0.2em] text-[#a86548] font-bold mb-2">
             {lang === 'ar' ? 'الإقامة والأجنحة' : lang === 'fr' ? 'HÉBERGEMENT & SUITES' : 'ACCOMMODATION & SUITES'}
@@ -78,7 +79,7 @@ export default function RoomDetails() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* قسم الصور */}
+          {/* قسم الصور ومعرض العرض */}
           <div className="lg:col-span-7 space-y-4">
             <div className="relative h-[350px] md:h-[480px] rounded-2xl overflow-hidden bg-sand-200 shadow-md">
               <img
@@ -91,12 +92,14 @@ export default function RoomDetails() {
                   <button
                     onClick={prevImage}
                     className="absolute top-1/2 left-4 -translate-y-1/2 bg-brown-900/60 hover:bg-brown-900 text-ivory-50 p-2.5 rounded-full backdrop-blur-sm transition"
+                    aria-label="Previous image"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button
                     onClick={nextImage}
                     className="absolute top-1/2 right-4 -translate-y-1/2 bg-brown-900/60 hover:bg-brown-900 text-ivory-50 p-2.5 rounded-full backdrop-blur-sm transition"
+                    aria-label="Next image"
                   >
                     <ChevronRight size={20} />
                   </button>
@@ -104,7 +107,7 @@ export default function RoomDetails() {
               )}
             </div>
 
-            {/* الصور المصغرة */}
+            {/* الصور المصغرة بالأسفل */}
             <div className="grid grid-cols-5 gap-3">
               {room.images.map((img, index) => (
                 <button
@@ -120,7 +123,7 @@ export default function RoomDetails() {
             </div>
           </div>
 
-          {/* تفاصيل وحجز الغرفة */}
+          {/* تفاصيل الغرفة، السعر والمميزات */}
           <div className="lg:col-span-5 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-sand-200 space-y-6">
             
             {/* السعر */}
@@ -154,7 +157,7 @@ export default function RoomDetails() {
               </div>
             </div>
 
-            {/* المرافق الأساسية */}
+            {/* المعدات والمميزات الأساسية (Amenities) */}
             <div className="pt-2">
               <h3 className="text-xs md:text-sm uppercase tracking-wider text-brown-900 font-bold mb-3">
                 {lang === 'ar' ? 'المعدات والمميزات الأساسية' : lang === 'fr' ? 'Équipements & Services' : 'Amenities & Services'}
