@@ -1,121 +1,83 @@
 export type Language = 'en' | 'fr' | 'ar' | 'es';
 
-export const DEFAULT_LANGUAGE: Language = 'en';
-
-export const isRTL = (lang: Language): boolean => lang === 'ar';
-
-export const translations: Record<Language, Record<string, any>> = {
+export const translations: Record<Language, Record<string, string>> = {
   en: {
-    nav: { home: 'Home', about: 'About', rooms: 'Our Rooms', gallery: 'Gallery', experiences: 'Experiences', blog: 'Blog', contact: 'Contact', bookNow: 'Book Now' },
-    rooms: {
-      title: 'Our Rooms & Suites',
-      viewDetails: 'VIEW ROOM DETAILS',
-      bookThisRoom: 'BOOK THIS ROOM',
-      from: 'from',
-      perNight: 'per night',
-    },
-    details: {
-      back: 'Back to Rooms',
-      pricePerNight: 'Price per night',
-      bestPrice: 'Best price guaranteed',
-      descriptionTitle: 'Room Description',
-      amenitiesTitle: 'Room Amenities & Services',
-      bathroom: 'Private En-suite Bathroom',
-      towels: 'Towels & Toiletries',
-      ac: 'Air Conditioning & Heating',
-      hairdryer: 'Hairdryer',
-      wifi: 'Free High-Speed Wi-Fi',
-      essentials: 'Essential Amenities (Safe, Linens)',
-    }
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.rooms': 'Our Rooms',
+    'nav.gallery': 'Gallery',
+    'nav.blog': 'Blog',
+    'nav.contact': 'Contact',
+    'nav.bookNow': 'Book Now',
+    
+    'hero.title': 'Your Authentic Moroccan Escape in the Heart of Marrakech',
+    'hero.subtitle': 'Discover the charm of Marrakech at Riad Tofaha, where traditional Moroccan elegance meets modern comfort.',
+    'hero.exploreRooms': 'Explore Rooms',
+    'hero.bookStay': 'Book Your Stay',
   },
   fr: {
-    nav: { home: 'Accueil', about: 'À Propos', rooms: 'Nos Chambres', gallery: 'Galerie', experiences: 'Expériences', blog: 'Blog', contact: 'Contact', bookNow: 'Réserver' },
-    rooms: {
-      title: 'Nos Chambres & Suites',
-      viewDetails: 'DÉTAILS DE LA CHAMBRE',
-      bookThisRoom: 'RÉSERVER CETTE CHAMBRE',
-      from: 'à partir de',
-      perNight: 'par nuit',
-    },
-    details: {
-      back: 'Retour aux chambres',
-      pricePerNight: 'Prix par nuit',
-      bestPrice: 'Meilleur prix garanti',
-      descriptionTitle: 'Description de la chambre',
-      amenitiesTitle: 'Équipements et Services',
-      bathroom: 'Salle de bain privée attenante',
-      towels: 'Serviettes et articles de toilette',
-      ac: 'Climatisation et Chauffage',
-      hairdryer: 'Sèche-cheveux',
-      wifi: 'Wi-Fi haut débit gratuit',
-      essentials: 'Équipements essentiels (Coffre, Linge)',
-    }
+    'nav.home': 'Accueil',
+    'nav.about': 'À Propos',
+    'nav.rooms': 'Nos Chambres',
+    'nav.gallery': 'Galerie',
+    'nav.blog': 'Blog',
+    'nav.contact': 'Contact',
+    'nav.bookNow': 'Réserver',
+
+    'hero.title': 'Votre Échappée Marocaine Authentique au Cœur de Marrakech',
+    'hero.subtitle': 'Découvrez le charme de Marrakech au Riad Tofaha, où l’élégance marocaine traditionnelle rencontre le confort moderne.',
+    'hero.exploreRooms': 'Découvrir les Chambres',
+    'hero.bookStay': 'Réserver Votre Séjour',
   },
   ar: {
-    nav: { home: 'الرئيسية', about: 'من نحن', rooms: 'غرفنا', gallery: 'المعرض', experiences: 'التجارب', blog: 'المدونة', contact: 'اتصل بنا', bookNow: 'احجز الآن' },
-    rooms: {
-      title: 'غرفنا وأجنحتنا',
-      viewDetails: 'عرض تفاصيل الغرفة',
-      bookThisRoom: 'احجز هذه الغرفة',
-      from: 'ابتداءً من',
-      perNight: 'في الليلة',
-    },
-    details: {
-      back: 'العودة للغرف',
-      pricePerNight: 'السعر لليلة الواحدة',
-      bestPrice: 'أفضل سعر مضمون',
-      descriptionTitle: 'وصف الغرفة',
-      amenitiesTitle: 'معدات وخدمات الغرفة',
-      bathroom: 'دوش وطواليط داخلي خاص',
-      towels: 'فوطات ومعدات الاستحمام',
-      ac: 'كليماتيزور (تكييف وتدفئة)',
-      hairdryer: 'مجفف شعر (Sèche-cheveux)',
-      wifi: 'إنترنت واي فاي سريع ومجاني',
-      essentials: 'المعدات الأساسية (خزنة، أغطية)',
-    }
+    'nav.home': 'الرئيسية',
+    'nav.about': 'من نحن',
+    'nav.rooms': 'غرفنا',
+    'nav.gallery': 'المعرض',
+    'nav.blog': 'المدونة',
+    'nav.contact': 'اتصل بنا',
+    'nav.bookNow': 'احجز الآن',
+
+    'hero.title': 'ملاذك المغربي الأصيل في قلب مراكش',
+    'hero.subtitle': 'اكتشف سحر مراكش في رياض تفاحة، حيث تلتقي الأناقة المغربية التقليدية بالراحة العصريّة.',
+    'hero.exploreRooms': 'استكشف الغرف',
+    'hero.bookStay': 'احجز إقامتك',
   },
   es: {
-    nav: { home: 'Inicio', about: 'Sobre Nosotros', rooms: 'Nuestras Habitaciones', gallery: 'Galería', experiences: 'Experiencias', blog: 'Blog', contact: 'Contacto', bookNow: 'Reservar' },
-    rooms: {
-      title: 'Nuestras Habitaciones y Suites',
-      viewDetails: 'VER DETALLES DE LA HABITACIÓN',
-      bookThisRoom: 'RESERVAR ESTA HABITACIÓN',
-      from: 'desde',
-      perNight: 'por noche',
-    },
-    details: {
-      back: 'Volver a las habitaciones',
-      pricePerNight: 'Precio por noche',
-      bestPrice: 'Mejor precio garantizado',
-      descriptionTitle: 'Descripción de la habitación',
-      amenitiesTitle: 'Servicios y Equipamiento',
-      bathroom: 'Baño privado en suite',
-      towels: 'Toallas y artículos de aseo',
-      ac: 'Aire acondicionado y calefacción',
-      hairdryer: 'Secador de pelo',
-      wifi: 'Wi-Fi de alta velocidad gratis',
-      essentials: 'Servicios esenciales (Caja fuerte, Ropa de cama)',
-    }
-  }
+    'nav.home': 'Inicio',
+    'nav.about': 'Nosotros',
+    'nav.rooms': 'Habitaciones',
+    'nav.gallery': 'Galería',
+    'nav.blog': 'Blog',
+    'nav.contact': 'Contacto',
+    'nav.bookNow': 'Reservar',
+
+    'hero.title': 'Su Escapada Auténtica Marroquí en el Corazón de Marrakech',
+    'hero.subtitle': 'Descubra el encanto de Marrakech en Riad Tofaha, donde la elegancia tradicional se une al confort moderno.',
+    'hero.exploreRooms': 'Explorar Habitaciones',
+    'hero.bookStay': 'Reservar Estancia',
+  },
 };
 
-// دالة الترجمة عبر المفاتيح (e.g. "nav.home")
-export function translate(keyPath: string, lang: Language = DEFAULT_LANGUAGE): string {
-  const keys = keyPath.split('.');
-  let result: any = translations[lang] || translations[DEFAULT_LANGUAGE];
-  for (const key of keys) {
-    if (result && result[key]) {
-      result = result[key];
-    } else {
-      return keyPath;
-    }
+// دالة الترجمة الذكية مع معالجة الأحرف الخاطئة والبدائل
+export function translate(key: string, lang: Language = 'en'): string {
+  const lowerKey = key.toLowerCase();
+  
+  if (translations[lang] && translations[lang][lowerKey]) {
+    return translations[lang][lowerKey];
   }
-  return typeof result === 'string' ? result : keyPath;
+  
+  if (translations['en'] && translations['en'][lowerKey]) {
+    return translations['en'][lowerKey];
+  }
+
+  // في حال عدم وجود المفتاح، يتم تنسيقه بشكل جميل بدلاً من إظهار الكود الخام
+  const cleanFallback = key.split('.').pop() || key;
+  return cleanFallback.replace(/([A-Z])/g, ' $1').trim();
 }
 
-// دالة جلب النص بناءً على اللغة المحددة
-export function getLocalizedText(textObj: Record<string, string> | string | undefined, lang: Language): string {
-  if (!textObj) return '';
-  if (typeof textObj === 'string') return textObj;
-  return textObj[lang] || textObj['en'] || textObj['fr'] || Object.values(textObj)[0] || '';
+export function getLocalizedText(obj: any, lang: Language): string {
+  if (!obj) return '';
+  if (typeof obj === 'string') return obj;
+  return obj[lang] || obj['en'] || Object.values(obj)[0] || '';
 }
