@@ -8,7 +8,6 @@ import { fetchRooms } from '@/lib/data';
 import { formatPrice } from '@/lib/booking';
 import type { Room } from '@/lib/types';
 
-// مكون فرعي لبناء بطاقة الغرفة مع سلايدر الصور والأسهم
 function RoomCardItem({ room, lang }: { room: Room; lang: Language }) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
@@ -29,39 +28,42 @@ function RoomCardItem({ room, lang }: { room: Room; lang: Language }) {
   return (
     <div className="bg-white rounded-3xl overflow-hidden border border-sand-300/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col group">
       
-      {/* Slider Container */}
+      {/* Slider Container - بدون رابط خارجي كي لا ينقل المستخدم عند ضغط الأسهم */}
       <div className="relative h-72 md:h-80 overflow-hidden bg-brown-900/10">
         <img
           src={images[currentImgIndex]}
           alt={getLocalizedText(room.name, lang)}
-          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-all duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 via-transparent to-black/20 pointer-events-none" />
 
-        {/* Navigation Arrows (Show if more than 1 image) */}
+        {/* Navigation Arrows */}
         {images.length > 1 && (
           <>
             <button
+              type="button"
               onClick={prevImage}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/75 text-white flex items-center justify-center transition backdrop-blur-sm z-10"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition backdrop-blur-md z-20 shadow-lg cursor-pointer"
               aria-label="Previous image"
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={22} />
             </button>
 
             <button
+              type="button"
               onClick={nextImage}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/75 text-white flex items-center justify-center transition backdrop-blur-sm z-10"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition backdrop-blur-md z-20 shadow-lg cursor-pointer"
               aria-label="Next image"
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={22} />
             </button>
 
             {/* Pagination Dots */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 pointer-events-auto">
               {images.map((_, idx) => (
                 <button
                   key={idx}
+                  type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -70,7 +72,6 @@ function RoomCardItem({ room, lang }: { room: Room; lang: Language }) {
                   className={`h-2 rounded-full transition-all ${
                     idx === currentImgIndex ? 'w-5 bg-gold-300' : 'w-2 bg-white/60'
                   }`}
-                  aria-label={`Slide ${idx + 1}`}
                 />
               ))}
             </div>
