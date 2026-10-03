@@ -26,7 +26,7 @@ export default function Book() {
   const [notes, setNotes] = useState('');
 
   // رقم الواتساب الرسمي للرياض
-  const riadWhatsAppNumber = '212613136351'; 
+  const riadWhatsAppNumber = '212618177464'; 
 
   useSEO({
     title: `${translate('book.title', lang)} | Riad Tofaha Marrakech`,
