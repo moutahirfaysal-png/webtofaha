@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Calendar, Users, Send, CheckCircle2, Bed, Sparkles, Tag, Building, Receipt } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
-import { translate, getLocalizedText } from '@/lib/i18n';
+import { translate, getLocalizedText, Language } from '@/lib/i18n';
 import { useSEO } from '@/lib/seo';
 import { fetchRooms } from '@/lib/data';
 import { formatPrice } from '@/lib/booking';
 import type { Room } from '@/lib/types';
 
-// ضريبة الإقامة والترويج السياحي بمراكش (2.50 € لكل شخص / ليلة)
 const CITY_TAX_PER_PERSON_PER_NIGHT = 2.5;
 
 export default function Book() {
@@ -19,7 +18,6 @@ export default function Book() {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [selectedRoomSlug, setSelectedRoomSlug] = useState<string>('');
   
-  // بيانات الحجز
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guestsCount, setGuestsCount] = useState(2);
@@ -49,11 +47,9 @@ export default function Book() {
 
   const selectedRoom = rooms.find((r) => r.slug === selectedRoomSlug) || rooms[0];
 
-  // حساب عدد الغرف المطلوبة بناءً على عدد الضيوف وسعة الغرفة
   const roomMaxCapacity = selectedRoom?.max_occupancy || 2;
   const roomsNeeded = Math.max(1, Math.ceil(guestsCount / roomMaxCapacity));
 
-  // حساب عدد الليالي والمبالغ والضرائب
   const calculatePricing = () => {
     if (!checkIn || !checkOut) {
       return { nights: 0, roomSubtotal: 0, totalCityTax: 0, grandTotal: 0 };
@@ -73,7 +69,21 @@ export default function Book() {
 
   const { nights, roomSubtotal, totalCityTax, grandTotal } = calculatePricing();
 
-  // إرسال تفاصيل الحجز عبر WhatsApp
+  // صياغة أسطر الفاتورة حسب اللغة بدقة
+  const getAccommodationLineText = (roomsNeeded: number, nights: number, lang: Language) => {
+    if (lang === 'fr') return `Hébergement (${roomsNeeded} ch. × ${nights} n.) :`;
+    if (lang === 'ar') return `الإقامة (${roomsNeeded} ${roomsNeeded > 1 ? 'غرف' : 'غرفة'} × ${nights} ليلة):`;
+    if (lang === 'es') return `Alojamiento (${roomsNeeded} hab. × ${nights} n.):`;
+    return `Accommodation (${roomsNeeded} ${roomsNeeded > 1 ? 'rooms' : 'room'} × ${nights} ${nights > 1 ? 'nights' : 'night'}):`;
+  };
+
+  const getCityTaxLineText = (guestsCount: number, nights: number, lang: Language) => {
+    if (lang === 'fr') return `Taxe de séjour (${guestsCount} pers. × ${nights} n. × 2,50 €) :`;
+    if (lang === 'ar') return `ضريبة الإقامة بمراكش (${guestsCount} ضيوف × ${nights} ليلة × 2.50€):`;
+    if (lang === 'es') return `Tasa turística (${guestsCount} huésp. × ${nights} n. × 2,50 €):`;
+    return `Marrakech City Tax (${guestsCount} ${guestsCount > 1 ? 'guests' : 'guest'} × ${nights} ${nights > 1 ? 'nights' : 'night'} × €2.50):`;
+  };
+
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -90,7 +100,7 @@ export default function Book() {
     } else if (lang === 'ar') {
       messageText = `🏨 *طلب حجز مباشر - رياض تفاحة مراكش* 🏨\n----------------------------------\n🛏️ *الغرفة:* ${roomName}\n💰 *السعر لليلة:* ${roomPriceStr}/ليلة\n👥 *عدد الضيوف:* ${guestsCount} شخص\n🏠 *عدد الغرف المطلوبة:* ${roomsNeeded} غرفة\n\n📅 *تاريخ الوصول:* ${checkIn || 'غير محدد'}\n📅 *تاريخ المغادرة:* ${checkOut || 'غير محدد'}\n🌙 *عدد الليالي:* ${nights > 0 ? nights : 1}\n\n💶 *مجموع الإقامة (${roomsNeeded} غرفة × ${nights} ليلة):* ${roomSubtotalStr}\n🏛️ *ضريبة الإقامة بمراكش (2.50€/شخص/ليلة):* ${taxStr}\n💵 *المبلغ الإجمالي النهائي:* ${grandTotalStr}\n\n👤 *الاسم الكامل:* ${guestName}\n📱 *الهاتف:* ${guestPhone}\n📧 *البريد الإلكتروني:* ${guestEmail}\n📝 *ملاحظات:* ${notes || 'لا يوجد'}\n----------------------------------`;
     } else if (lang === 'es') {
-      messageText = `🏨 *Solicitud de Reserva Directa - Riad Tofaha* 🏨\n----------------------------------\n🛏️ *Habitación:* ${roomName}\n💰 *Precio por noche:* ${roomPriceStr}/noche\n👥 *Huéspedes:* ${guestsCount}\n🏠 *Habitaciones requeridas:* ${roomsNeeded}\n\n📅 *Llegada:* ${checkIn || 'No especificada'}\n📅 *Salida:* ${checkOut || 'No especificada'}\n🌙 *Noches:* ${nights > 0 ? nights : 1}\n\n💶 *Subtotal Alojamiento:* ${roomSubtotalStr}\n🏛️️ *Tasa turística de Marrakech:* ${taxStr}\n💵 *TOTAL ESTIMADO:* ${grandTotalStr}\n\n👤 *Nombre:* ${guestName}\n📱 *Teléfono:* ${guestPhone}\n📧 *Correo:* ${guestEmail}\n📝 *Notas:* ${notes || 'Ninguna'}\n----------------------------------`;
+      messageText = `🏨 *Solicitud de Reserva Directa - Riad Tofaha* 🏨\n----------------------------------\n🛏️ *Habitación:* ${roomName}\n💰 *Precio por noche:* ${roomPriceStr}/noche\n👥 *Huéspedes:* ${guestsCount}\n🏠 *Habitaciones requeridas:* ${roomsNeeded}\n\n📅 *Llegada:* ${checkIn || 'No especificada'}\n📅 *Salida:* ${checkOut || 'No especificada'}\n🌙 *Noches:* ${nights > 0 ? nights : 1}\n\n💶 *Subtotal Alojamiento:* ${roomSubtotalStr}\n🏛 *Tasa turística de Marrakech:* ${taxStr}\n💵 *TOTAL ESTIMADO:* ${grandTotalStr}\n\n👤 *Nombre:* ${guestName}\n📱 *Teléfono:* ${guestPhone}\n📧 *Correo:* ${guestEmail}\n📝 *Notas:* ${notes || 'Ninguna'}\n----------------------------------`;
     } else {
       messageText = `🏨 *Direct Stay Booking Request - Riad Tofaha* 🏨\n----------------------------------\n🛏️ *Selected Room:* ${roomName}\n💰 *Rate per night:* ${roomPriceStr}/night\n👥 *Guests Count:* ${guestsCount} guest(s)\n🏠 *Rooms Required:* ${roomsNeeded} room(s)\n\n📅 *Check-in:* ${checkIn || 'Not set'}\n📅 *Check-out:* ${checkOut || 'Not set'}\n🌙 *Total Nights:* ${nights > 0 ? nights : 1}\n\n💶 *Accommodation Subtotal (${roomsNeeded} room(s) x ${nights} n.):* ${roomSubtotalStr}\n🏛️ *Marrakech City Tourist Tax (€2.50/guest/night):* ${taxStr}\n💵 *ESTIMATED TOTAL:* ${grandTotalStr}\n\n👤 *Full Name:* ${guestName}\n📱 *Phone:* ${guestPhone}\n📧 *Email:* ${guestEmail}\n📝 *Notes:* ${notes || 'None'}\n----------------------------------`;
     }
@@ -120,7 +130,7 @@ export default function Book() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Side: Selected Room Summary & Dynamic Calculation */}
+          {/* Left Side: Room Summary & Dynamic Calculation */}
           <div className="lg:col-span-5 space-y-6">
             
             {/* Room Selector Dropdown */}
@@ -168,10 +178,10 @@ export default function Book() {
                       <Bed size={14} className="text-[#a86548]" /> {selectedRoom.bed_config}
                     </span>
                     <span className="bg-ivory-100 px-3 py-1.5 rounded-lg border border-sand-300 flex items-center gap-1.5">
-                      <Users size={14} className="text-[#a86548]" /> {selectedRoom.max_occupancy} {translate('book.guests_capacity', lang)} / الغرفة
+                      <Users size={14} className="text-[#a86548]" /> {selectedRoom.max_occupancy} {translate('book.guests_capacity', lang)} / {translate('book.per_room', lang)}
                     </span>
                     <span className="bg-[#a86548]/10 text-[#a86548] px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5">
-                      <Building size={14} /> {roomsNeeded} {roomsNeeded > 1 ? 'غرف مطلوبة' : 'غرفة واحدة'}
+                      <Building size={14} /> {roomsNeeded} {roomsNeeded > 1 ? translate('book.rooms_required', lang) : translate('book.room_required', lang)}
                     </span>
                   </div>
                 </div>
@@ -180,30 +190,30 @@ export default function Book() {
                 {nights > 0 ? (
                   <div className="bg-[#2A1810] text-ivory-50 p-5 rounded-2xl space-y-3">
                     <div className="flex items-center gap-2 text-gold-300 text-xs font-bold uppercase border-b border-white/10 pb-2">
-                      <Receipt size={16} /> تفاصيل الفاتورة التقديرية
+                      <Receipt size={16} /> {translate('book.breakdown_title', lang)}
                     </div>
 
                     {/* Room Subtotal */}
                     <div className="flex justify-between text-xs text-ivory-50/80">
-                      <span>الإقامة ({roomsNeeded} غرفة × {nights} ليلة):</span>
+                      <span>{getAccommodationLineText(roomsNeeded, nights, lang)}</span>
                       <span className="font-semibold text-white">{formatPrice(roomSubtotal, selectedRoom.currency)}</span>
                     </div>
 
                     {/* City Tourist Tax */}
                     <div className="flex justify-between text-xs text-ivory-50/80">
-                      <span>ضريبة الإقامة بمراكش ({guestsCount} ضيوف × {nights} ليلة × 2.50€):</span>
+                      <span>{getCityTaxLineText(guestsCount, nights, lang)}</span>
                       <span className="font-semibold text-white">{formatPrice(totalCityTax, selectedRoom.currency)}</span>
                     </div>
 
                     {/* Grand Total */}
                     <div className="flex justify-between text-sm font-bold text-gold-300 pt-2 border-t border-white/15">
-                      <span>المبلغ الإجمالي النهائي:</span>
+                      <span>{translate('book.estimated_total', lang)}</span>
                       <span className="text-base">{formatPrice(grandTotal, selectedRoom.currency)}</span>
                     </div>
                   </div>
                 ) : (
                   <div className="bg-ivory-100 p-4 rounded-2xl text-xs text-brown-600 border border-sand-300 text-center font-light">
-                    حدّد تاريخ الوصول والمغادرة لعرض التكلفة الإضافية وضريبة الإقامة.
+                    {translate('book.dates_prompt', lang)}
                   </div>
                 )}
               </div>
@@ -261,7 +271,7 @@ export default function Book() {
                   </span>
                   {guestsCount > roomMaxCapacity && (
                     <span className="text-[11px] text-[#a86548] font-bold">
-                      (يتطلب حجز {roomsNeeded} غرف)
+                      ({translate('book.requires_rooms', lang)} {roomsNeeded} {translate('book.rooms_required', lang)})
                     </span>
                   )}
                 </label>
@@ -270,12 +280,12 @@ export default function Book() {
                   onChange={(e) => setGuestsCount(Number(e.target.value))}
                   className="w-full bg-ivory-100 border border-sand-300 rounded-xl px-4 py-3 text-xs md:text-sm font-bold text-brown-900 focus:outline-none focus:ring-2 focus:ring-[#a86548]"
                 >
-                  <option value={1}>1 ضيف (غرفة واحدة)</option>
-                  <option value={2}>2 ضيوف (غرفة واحدة)</option>
-                  <option value={3}>3 ضيوف (غرفتان — 2 Rooms)</option>
-                  <option value={4}>4 ضيوف (غرفتان — 2 Rooms)</option>
-                  <option value={5}>5 ضيوف (3 غرف — 3 Rooms)</option>
-                  <option value={6}>6 ضيوف (3 غرف — 3 Rooms)</option>
+                  <option value={1}>{translate('book.guest_1', lang)}</option>
+                  <option value={2}>{translate('book.guest_2', lang)}</option>
+                  <option value={3}>{translate('book.guest_3', lang)}</option>
+                  <option value={4}>{translate('book.guest_4', lang)}</option>
+                  <option value={5}>{translate('book.guest_5', lang)}</option>
+                  <option value={6}>{translate('book.guest_6', lang)}</option>
                 </select>
               </div>
 
