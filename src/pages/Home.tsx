@@ -347,7 +347,7 @@ export default function Home() {
       <section className="relative py-24 md:py-32">
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/31356131/pexels-photo-31356131.png?auto=compress&cs=tinysrgb&w=1920"
+            src="/terasse.jpeg"
             alt="Riad Tofaha pool"
             className="h-full w-full object-cover"
           />
