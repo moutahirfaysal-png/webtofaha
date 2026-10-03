@@ -97,7 +97,7 @@ export default function Footer() {
             <strong className="text-gray-200">Address:</strong> 18 Rue Ank Jemel, Marrakesh 40000
           </p>
           <p className="text-sm text-gray-400">
-            <strong className="text-gray-200">Email:</strong> riadtofahr@gmail.com
+            <strong className="text-gray-200">Email:</strong> riadtofaha@gmail.com
           </p>
         </div>
 
