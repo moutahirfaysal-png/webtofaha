@@ -22,7 +22,6 @@ export default function Gallery() {
     canonicalPath: '/gallery',
   });
 
-  // قائمة الصور المصنفة (يمكنك تعديل روابط الصور أو إضافتها بسهولة)
   const galleryItems: GalleryItem[] = [
     {
       id: '1',
@@ -80,7 +79,6 @@ export default function Gallery() {
     },
   ];
 
-  // تصفية الصور بحسب القسم المختار
   const filteredItems = activeTab === 'all'
     ? galleryItems
     : galleryItems.filter(item => item.category === activeTab);
@@ -95,7 +93,6 @@ export default function Gallery() {
     { key: 'exterior', labelKey: 'gallery.cat_exterior' },
   ];
 
-  // أزرار التحكم في النافذة المكبرة
   const handleNext = () => {
     if (lightboxIndex !== null) {
       setLightboxIndex((lightboxIndex + 1) % filteredItems.length);
@@ -111,7 +108,7 @@ export default function Gallery() {
   return (
     <div className="pt-24 pb-20 bg-ivory-100 min-h-screen text-brown-900">
       
-      {/* 1. Hero Banner */}
+      {/* Hero Header Section */}
       <section className="bg-[#2A1810] text-ivory-50 py-16 md:py-24 px-4 mb-12 border-b border-gold-500/20">
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-gold-300 font-medium flex items-center justify-center gap-2">
@@ -128,7 +125,7 @@ export default function Gallery() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        {/* 2. Categories Filter Tabs */}
+        {/* Categories Filter Tabs */}
         <div className="flex items-center justify-center flex-wrap gap-2 md:gap-3">
           {categories.map((cat) => {
             const isActive = activeTab === cat.key;
@@ -148,7 +145,7 @@ export default function Gallery() {
           })}
         </div>
 
-        {/* 3. Photos Grid */}
+        {/* Photos Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map((item, index) => (
             <div
@@ -176,11 +173,10 @@ export default function Gallery() {
 
       </div>
 
-      {/* 4. Lightbox Modal */}
+      {/* Lightbox Modal */}
       {lightboxIndex !== null && (
         <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
           
-          {/* Close Button */}
           <button
             onClick={() => setLightboxIndex(null)}
             className="absolute top-6 right-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition"
@@ -188,7 +184,6 @@ export default function Gallery() {
             <X size={24} />
           </button>
 
-          {/* Previous Button */}
           <button
             onClick={handlePrev}
             className="absolute left-4 md:left-8 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition"
@@ -196,7 +191,6 @@ export default function Gallery() {
             <ChevronLeft size={28} />
           </button>
 
-          {/* Main Image View */}
           <div className="max-w-5xl max-h-[85vh] text-center space-y-4">
             <img
               src={filteredItems[lightboxIndex].image}
@@ -213,7 +207,6 @@ export default function Gallery() {
             </div>
           </div>
 
-          {/* Next Button */}
           <button
             onClick={handleNext}
             className="absolute right-4 md:right-8 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition"
