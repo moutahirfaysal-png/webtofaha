@@ -1,240 +1,368 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Bed, Users, ArrowRight, Wifi, Coffee, Sparkles, MapPin, Star, ShieldCheck } from 'lucide-react';
+import { ChevronDown, Bed, Users, ArrowRight, MapPin, Star, Palmtree, MessageSquareQuote } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { translate, getLocalizedText } from '@/lib/i18n';
-import { useSEO } from '@/lib/seo';
+import { useSEO, buildLodgingBusinessSchema, buildOrganizationSchema, buildWebSiteSchema } from '@/lib/seo';
 import { fetchRooms } from '@/lib/data';
+import { useSettings } from '@/lib/SettingsContext';
 import { formatPrice } from '@/lib/booking';
 import type { Room } from '@/lib/types';
 
 export default function Home() {
   const { lang } = useLanguage();
+  const { settings } = useSettings();
   const [rooms, setRooms] = useState<Room[]>([]);
 
   useSEO({
-    title: `Riad Tofaha | ${translate('hero.tagline', lang)}`,
-    description: translate('hero.subtitle', lang),
+    title: undefined,
+    description: 'Riad Tofaha is a traditional Moroccan riad in the heart of Marrakech offering authentic accommodation, warm hospitality, and an unforgettable cultural experience.',
     canonicalPath: '/',
+    jsonLd: [buildLodgingBusinessSchema(), buildOrganizationSchema(), buildWebSiteSchema()],
   });
 
   useEffect(() => {
-    fetchRooms().then((data) => setRooms(data.slice(0, 3))); // عرض أول 3 غرف فقط
+    fetchRooms().then(setRooms);
   }, []);
 
+  const heroImage = '/terasssse.jpeg';
+
+  const experiences = [
+    { key: 'jemaa', image: 'https://images.pexels.com/photos/35513343/pexels-photo-35513343.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'best-places-to-visit-in-marrakech-tourist-guide' },
+    { key: 'bahia', image: 'https://images.pexels.com/photos/10306569/pexels-photo-10306569.png?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'best-places-to-visit-in-marrakech-tourist-guide' },
+    { key: 'majorelle', image: 'https://images.pexels.com/photos/5435195/pexels-photo-5435195.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: '10-best-things-to-do-in-marrakech' },
+    { key: 'souks', image: 'https://images.pexels.com/photos/22711558/pexels-photo-22711558.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'marrakech-travel-tips-before-visiting' },
+    { key: 'cuisine', image: 'https://images.pexels.com/photos/2291596/pexels-photo-2291596.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'what-to-eat-in-marrakech-moroccan-cuisine-guide' },
+    { key: 'hammam', image: 'https://images.pexels.com/photos/7391720/pexels-photo-7391720.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'perfect-romantic-getaway-in-marrakech' },
+    { key: 'excursions', image: 'https://images.pexels.com/photos/30205199/pexels-photo-30205199.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', blogSlug: 'ultimate-travel-guide-to-marrakech-morocco' },
+  ];
+
+  const welcomeFeatures = [
+    { key: 'authenticity', icon: Star },
+    { key: 'architecture', icon: Palmtree },
+    { key: 'intimate', icon: Users },
+    { key: 'comfort', icon: Bed },
+    { key: 'culture', icon: MapPin },
+    { key: 'hospitality', icon: Star },
+  ];
+
+  // التعليقات الحقيقية المأخوذة من حساب Booking.com للرياض
+  const realBookingReviews = [
+    {
+      id: '1',
+      name: 'Mbarek',
+      country: 'France',
+      flag: '🇫🇷',
+      date: '28 mars 2026',
+      room: 'Chambre Double Deluxe',
+      score: '10',
+      title: 'Exceptionnel',
+      comment: "J'ai passé un séjour exceptionnel dans ce riad Tofaha récemment rénové, à seulement 15 minutes à pied du centre. Le déjeuner est parfait rien à dire. Khalid, l'hôte, a été incroyablement gentil, accueillant et serviable durant mon séjour. Les quatre chambres indépendantes, la cuisine commune équipée et la terrasse sur le toit rendent le séjour particulièrement confortable. L'endroit est à la fois authentique et moderne !",
+      ownerResponse: "Me Mbarek merci beaucoup pour votre message"
+    },
+    {
+      id: '2',
+      name: 'Marcel',
+      country: 'Hongrie',
+      flag: '🇭🇺',
+      date: '6 août 2026',
+      room: 'Chambre Double Deluxe',
+      score: '10',
+      title: 'Exceptionnel',
+      comment: "Everything was just perfect. Highly recommend. And owner it's always available. I felt like being in a 5***** hotel.",
+      ownerResponse: "Thanks a lot bro 🤓 you are welcome anytime"
+    },
+    {
+      id: '3',
+      name: 'Daniel',
+      country: 'Allemagne',
+      flag: '🇩🇪',
+      date: '10 mai 2026',
+      room: 'Chambre Double Deluxe',
+      score: '10',
+      title: 'Exceptionnel',
+      comment: "Stayed at Khalils Riad for two nights at a weekend. Really enjoyed this time. He's a very kind guy and takes care about his guests. Rooms are clean and beds are comfortable. Definitely recommend this place and looking forward to go there again!!",
+      ownerResponse: "Thanks a lot Daniel and you are welcome any time"
+    }
+  ];
+
   return (
-    <div className="bg-ivory-100 min-h-screen text-brown-900">
-      {/* 1. Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center text-center px-4 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0 transition-all duration-700"
-          style={{ backgroundImage: `url('https://images.pexels.com/photos/31356131/pexels-photo-31356131.png')` }}
-        >
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
+    <div className="overflow-x-hidden">
+      {/* Hero Section */}
+      <section className="relative h-screen min-h-[600px] w-full">
+        <div className="absolute inset-0">
+          <img src={heroImage} alt="Riad Tofaha courtyard" className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-brown-900/60 via-brown-900/40 to-brown-900/70" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto pt-20 space-y-6 text-ivory-50 animate-fade-in">
-          <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-gold-300 font-medium">
-            {translate('hero.tagline', lang)}
-          </p>
-
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-wide">
-            {translate('hero.title', lang)}
-          </h1>
-
-          <p className="text-sm md:text-lg text-ivory-100/90 max-w-2xl mx-auto leading-relaxed font-light">
-            {translate('hero.subtitle', lang)}
-          </p>
-
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/rooms"
-              className="w-full sm:w-auto bg-[#a86548] hover:bg-[#8e5238] text-white px-8 py-3.5 rounded-xl text-xs uppercase tracking-widest font-bold transition duration-300 shadow-lg"
-            >
-              {translate('hero.exploreRooms', lang)}
-            </Link>
-            <Link
-              to="/book"
-              className="w-full sm:w-auto border border-ivory-50/40 hover:bg-ivory-50/10 text-ivory-50 px-8 py-3.5 rounded-xl text-xs uppercase tracking-widest font-bold transition duration-300"
-            >
-              {translate('hero.bookStay', lang)}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Welcome & About Section */}
-      <section className="py-20 md:py-28 px-4 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-terracotta-600 font-bold">
-              {translate('nav.about', lang)}
-            </span>
-            <h2 className="font-serif text-3xl md:text-5xl text-brown-900 leading-tight">
-              An Oasís of Peace & Authentic Architecture
-            </h2>
-            <p className="text-brown-700 leading-relaxed font-light">
-              Nestled in the historical Medina of Marrakech, Riad Tofaha blends traditional Zellige tilework, handcrafted plastering, and tranquil courtyards with modern hospitality.
+        <div className="relative h-full flex items-center justify-center text-center px-6">
+          <div className="max-w-4xl">
+            <p className="text-sm md:text-base uppercase tracking-[0.3em] text-gold-300 mb-6 animate-fade-in-down animation-delay-200">
+              {getLocalizedText(settings?.brand_tagline, lang) || translate('hero.tagline', lang)}
             </p>
-            <div className="pt-4 flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <Star className="text-gold-500 fill-gold-500" size={18} />
-                <span className="font-bold text-brown-900">4.9 / 5</span>
-                <span className="text-xs text-brown-500">(Guest Reviews)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="text-terracotta-600" size={18} />
-                <span className="text-sm text-brown-800">Marrakech Medina</span>
-              </div>
-            </div>
-            <div className="pt-2">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-terracotta-600 hover:text-brown-900 transition"
-              >
-                Discover Our Story <ArrowRight size={14} />
+            <h1 className="text-hero font-serif font-medium text-ivory-50 mb-8 animate-fade-in-up animation-delay-300 text-balance">
+              Riad Tofaha
+            </h1>
+            <p className="text-lg md:text-xl text-ivory-50/90 max-w-2xl mx-auto leading-relaxed mb-10 animate-fade-in-up animation-delay-500">
+              {getLocalizedText(settings?.brand_description, lang) || translate('welcome.intro', lang)}
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animation-delay-700">
+              <Link to="/rooms" className="btn-primary">
+                {translate('hero.exploreRooms', lang)}
+              </Link>
+              <Link to="/book" className="btn-outline">
+                {translate('hero.bookStay', lang)}
               </Link>
             </div>
           </div>
+        </div>
 
-          <div className="relative grid grid-cols-2 gap-4">
-            <img
-              src="https://images.pexels.com/photos/31356131/pexels-photo-31356131.png"
-              alt="Riad Courtyard"
-              className="rounded-2xl shadow-md h-72 w-full object-cover"
-            />
-            <img
-              src="https://images.pexels.com/photos/31356131/pexels-photo-31356131.png"
-              alt="Riad Details"
-              className="rounded-2xl shadow-md h-72 w-full object-cover mt-8"
-            />
-          </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-scroll-indicator">
+          <ChevronDown size={28} className="text-ivory-50/70" />
         </div>
       </section>
 
-      {/* 3. Featured Rooms Section */}
-      <section className="py-20 bg-ivory-200/60 border-y border-sand-300/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-terracotta-600 font-bold">
-                {translate('rooms.subtitle', lang)}
-              </span>
-              <h2 className="font-serif text-3xl md:text-5xl text-brown-900 mt-2">
-                {translate('rooms.title', lang)}
-              </h2>
-            </div>
-            <Link
-              to="/rooms"
-              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brown-800 hover:text-terracotta-600 transition"
-            >
-              View All Accommodations <ArrowRight size={14} />
-            </Link>
+      {/* Welcome Section */}
+      <section className="py-24 md:py-32 bg-ivory-100">
+        <div className="container-luxury">
+          <div className="text-center mb-20">
+            <p className="section-subtitle mb-4">{translate('welcome.title', lang)}</p>
+            <h2 className="section-title max-w-3xl mx-auto text-balance">
+              {getLocalizedText(settings?.brand_description, lang) || translate('welcome.intro', lang)}
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {rooms.map((room) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {welcomeFeatures.map((feature, idx) => (
               <div
-                key={room.id}
-                className="bg-ivory-50 rounded-2xl border border-sand-200 overflow-hidden shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between"
+                key={feature.key}
+                className="group bg-ivory-50 p-10 text-center transition-all duration-500 hover:shadow-xl border-t-2 border-transparent hover:border-terracotta-400"
+                style={{ animationDelay: `${idx * 100}ms` }}
               >
-                <div>
-                  <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={room.images?.[0] || 'https://images.pexels.com/photos/31356131/pexels-photo-31356131.png'}
-                      alt={getLocalizedText(room.name, lang)}
-                      className="w-full h-full object-cover hover:scale-105 transition duration-500"
-                    />
-                    {room.base_price && (
-                      <div className="absolute top-4 right-4 bg-brown-950/80 backdrop-blur-md text-ivory-50 px-3 py-1.5 rounded-lg text-xs font-semibold">
-                        {formatPrice(room.base_price, room.currency)} / {translate('rooms.night', lang)}
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6 space-y-3">
-                    <h3 className="font-serif text-xl font-medium text-brown-900">
-                      {getLocalizedText(room.name, lang)}
-                    </h3>
-                    <p className="text-xs text-brown-600 line-clamp-2 font-light">
-                      {getLocalizedText(room.short_description, lang) || getLocalizedText(room.description, lang)}
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-brown-500 pt-2">
-                      <span className="flex items-center gap-1"><Bed size={13} /> {room.bed_config}</span>
-                      <span className="flex items-center gap-1"><Users size={13} /> {room.max_occupancy} Guests</span>
-                    </div>
-                  </div>
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-sand-100 rounded-full transition-colors duration-500 group-hover:bg-terracotta-100">
+                  <feature.icon size={28} className="text-terracotta-600" />
                 </div>
-                <div className="p-6 pt-0">
-                  <Link
-                    to={`/rooms/${room.slug}`}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-[#a86548] hover:bg-[#8e5238] text-white py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition"
-                  >
-                    {translate('rooms.viewDetails', lang)}
-                  </Link>
-                </div>
+                <h3 className="font-serif text-2xl font-medium text-brown-800 mb-3">
+                  {translate(`welcome.${feature.key}`, lang)}
+                </h3>
+                <p className="text-sm text-brown-600 leading-7">
+                  {translate(`welcome.${feature.key}Desc`, lang)}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 4. Experience & Amenities */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-[0.25em] text-terracotta-600 font-bold">Services</span>
-          <h2 className="font-serif text-3xl md:text-5xl text-brown-900 mt-2">The Riad Experience</h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-ivory-50 p-8 rounded-2xl border border-sand-200 text-center space-y-3">
-            <div className="w-12 h-12 bg-terracotta-50 rounded-xl flex items-center justify-center mx-auto text-terracotta-600">
-              <Coffee size={24} />
-            </div>
-            <h4 className="font-serif text-lg font-bold">Traditional Breakfast</h4>
-            <p className="text-xs text-brown-600 leading-relaxed font-light">Freshly prepared daily Moroccan breakfast served on the rooftop terrace.</p>
+      {/* Rooms Preview */}
+      <section className="py-24 md:py-32 bg-ivory-50">
+        <div className="container-luxury">
+          <div className="text-center mb-16">
+            <p className="section-subtitle mb-4">{translate('roomsPreview.subtitle', lang)}</p>
+            <h2 className="section-title">{translate('roomsPreview.title', lang)}</h2>
           </div>
 
-          <div className="bg-ivory-50 p-8 rounded-2xl border border-sand-200 text-center space-y-3">
-            <div className="w-12 h-12 bg-terracotta-50 rounded-xl flex items-center justify-center mx-auto text-terracotta-600">
-              <Sparkles size={24} />
-            </div>
-            <h4 className="font-serif text-lg font-bold">Courtyard Pool</h4>
-            <p className="text-xs text-brown-600 leading-relaxed font-light">Cool off in our refreshing plunge pool located in the central courtyard.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {rooms.map((room, idx) => (
+              <div
+                key={room.id}
+                className="card-luxury group"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
+                <Link to={`/rooms/${room.slug}`} className="block relative h-72 overflow-hidden">
+                  <img
+                    src={room.images[0]}
+                    alt={getLocalizedText(room.name, lang)}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brown-900/60 to-transparent" />
+                  {room.base_price && (
+                    <div className="absolute top-4 right-4 bg-ivory-50/95 px-4 py-2">
+                      <span className="text-sm font-medium text-brown-800">
+                        {translate('roomsPreview.from', lang)} {formatPrice(room.base_price, room.currency)}
+                      </span>
+                      <span className="text-xs text-brown-500"> / {translate('roomsPreview.perNight', lang)}</span>
+                    </div>
+                  )}
+                  <div className="absolute bottom-4 left-4 flex items-center gap-3 text-ivory-50">
+                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 px-3 py-1.5">
+                      <Bed size={14} /> {room.bed_config}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-sm bg-brown-900/50 px-3 py-1.5">
+                      <Users size={14} /> {room.max_occupancy} {translate('roomsPreview.guests', lang)}
+                    </span>
+                  </div>
+                </Link>
+                <div className="p-8">
+                  <h3 className="font-serif text-2xl font-medium text-brown-800 mb-2">
+                    {getLocalizedText(room.name, lang)}
+                  </h3>
+                  <p className="text-sm text-brown-600 leading-7 mb-6">
+                    {getLocalizedText(room.short_description, lang) || getLocalizedText(room.description, lang)}
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Link to={`/rooms/${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 border border-brown-300 px-6 py-3 text-sm font-medium uppercase tracking-widest text-brown-700 transition-all hover:bg-brown-700 hover:text-ivory-50">
+                      {translate('roomsPreview.viewDetails', lang)}
+                    </Link>
+                    <Link to={`/book?room=${room.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 bg-terracotta-600 px-6 py-3 text-sm font-medium uppercase tracking-widest text-ivory-50 transition-all hover:bg-terracotta-700">
+                      {translate('roomsPreview.bookRoom', lang)}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="bg-ivory-50 p-8 rounded-2xl border border-sand-200 text-center space-y-3">
-            <div className="w-12 h-12 bg-terracotta-50 rounded-xl flex items-center justify-center mx-auto text-terracotta-600">
-              <Wifi size={24} />
-            </div>
-            <h4 className="font-serif text-lg font-bold">High-Speed Fiber</h4>
-            <p className="text-xs text-brown-600 leading-relaxed font-light">Seamless internet connectivity throughout all rooms and shared spaces.</p>
-          </div>
-
-          <div className="bg-ivory-50 p-8 rounded-2xl border border-sand-200 text-center space-y-3">
-            <div className="w-12 h-12 bg-terracotta-50 rounded-xl flex items-center justify-center mx-auto text-terracotta-600">
-              <ShieldCheck size={24} />
-            </div>
-            <h4 className="font-serif text-lg font-bold">24/7 Concierge</h4>
-            <p className="text-xs text-brown-600 leading-relaxed font-light">Personalized excursions, airport transfers, and local guidance.</p>
+          <div className="text-center mt-12">
+            <Link to="/rooms" className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-terracotta-600 hover:text-terracotta-700 transition-colors">
+              {translate('roomsPreview.viewAll', lang)} <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* 5. Call to Action */}
-      <section className="bg-brown-950 text-ivory-50 py-20 px-4 text-center relative overflow-hidden">
-        <div className="max-w-3xl mx-auto space-y-6 relative z-10">
-          <h2 className="font-serif text-3xl md:text-5xl font-medium">Ready to Experience Riad Tofaha?</h2>
-          <p className="text-ivory-100/80 text-sm md:text-base font-light">
-            Book directly with us to guarantee the best available rates and exclusive welcome perks.
-          </p>
-          <div>
-            <Link
-              to="/book"
-              className="inline-block bg-[#a86548] hover:bg-[#8e5238] text-white px-8 py-3.5 rounded-xl text-xs uppercase tracking-widest font-bold transition shadow-xl"
-            >
-              {translate('nav.bookNow', lang)}
+      {/* Experiences Section */}
+      <section className="py-24 md:py-32 bg-brown-900">
+        <div className="container-luxury">
+          <div className="text-center mb-16">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-gold-300 mb-4">
+              {translate('experiences.subtitle', lang)}
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium text-ivory-50">
+              {translate('experiences.title', lang)}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {experiences.map((exp) => (
+              <Link
+                key={exp.key}
+                to={`/blog/${exp.blogSlug}`}
+                className="group relative h-80 overflow-hidden"
+              >
+                <img
+                  src={exp.image}
+                  alt={translate(`experiences.${exp.key}`, lang)}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brown-900/90 via-brown-900/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="font-serif text-2xl font-medium text-ivory-50 mb-2">
+                    {translate(`experiences.${exp.key}`, lang)}
+                  </h3>
+                  <p className="text-sm text-ivory-50/70 leading-6 line-clamp-2">
+                    {translate(`experiences.${exp.key}Desc`, lang)}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link to="/experiences" className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-gold-300 hover:text-gold-200 transition-colors">
+              {translate('experiences.exploreAll', lang)} <ArrowRight size={16} />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* REAL BOOKING.COM REVIEWS SECTION */}
+      <section className="py-24 md:py-32 bg-ivory-100">
+        <div className="container-luxury">
+          <div className="text-center mb-16 space-y-4">
+            <p className="section-subtitle">GUEST REVIEWS & EXPERIENCES</p>
+            <h2 className="section-title">What Our Guests Say on Booking.com</h2>
+
+            {/* Booking.com Rating Badge */}
+            <div className="inline-flex items-center gap-3 bg-ivory-50 px-6 py-3 rounded-2xl shadow-sm border border-sand-200 mt-4">
+              <div className="bg-[#003580] text-white font-bold text-lg px-3 py-1 rounded-lg">
+                10 / 10
+              </div>
+              <div className="text-left rtl:text-right">
+                <div className="text-sm font-bold text-brown-800 flex items-center gap-1.5">
+                  <span>Exceptionnel</span>
+                  <span className="text-xs text-brown-400">• Verified by Booking.com</span>
+                </div>
+                <div className="text-xs text-brown-600">Authentic reviews from verified guests</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Booking.com Reviews Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {realBookingReviews.map((item) => (
+              <div 
+                key={item.id} 
+                className="bg-ivory-50 p-8 rounded-2xl shadow-sm border border-sand-200 flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
+              >
+                <div className="space-y-4">
+                  {/* Top Review Header */}
+                  <div className="flex items-center justify-between border-b border-sand-200 pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{item.flag}</span>
+                      <div>
+                        <h4 className="font-bold text-brown-800 text-sm">{item.name}</h4>
+                        <p className="text-[11px] text-brown-500">{item.country} • {item.date}</p>
+                      </div>
+                    </div>
+                    <div className="bg-[#003580] text-white font-bold text-xs px-2.5 py-1 rounded-md">
+                      {item.score} / 10
+                    </div>
+                  </div>
+
+                  {/* Room Tag */}
+                  <p className="text-[11px] font-semibold text-terracotta-600 uppercase tracking-wider">
+                    {item.room}
+                  </p>
+
+                  {/* Review Title & Comment */}
+                  <div>
+                    <h3 className="font-serif font-bold text-brown-800 text-base mb-1.5">
+                      "{item.title}"
+                    </h3>
+                    <p className="text-brown-600 text-xs leading-relaxed font-light">
+                      {item.comment}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Owner Reply Box */}
+                {item.ownerResponse && (
+                  <div className="mt-6 pt-4 border-t border-sand-200 bg-sand-100/60 p-3 rounded-xl">
+                    <p className="text-[11px] font-bold text-brown-800 mb-0.5 flex items-center gap-1">
+                      <MessageSquareQuote size={13} className="text-terracotta-600" /> Réponse de l'établissement:
+                    </p>
+                    <p className="text-[11px] text-brown-600 italic">
+                      "{item.ownerResponse}"
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative py-24 md:py-32">
+        <div className="absolute inset-0">
+          <img
+            src="/terasse.jpeg"
+            alt="Riad Tofaha pool"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-brown-900/70" />
+        </div>
+        <div className="relative container-luxury text-center">
+          <h2 className="font-serif text-4xl md:text-5xl font-medium text-ivory-50 mb-6 text-balance">
+            {translate('hero.bookStay', lang)}
+          </h2>
+          <p className="text-lg text-ivory-50/80 max-w-2xl mx-auto mb-10">
+            {getLocalizedText(settings?.brand_description, lang) || translate('welcome.intro', lang)}
+          </p>
+          <Link to="/book" className="btn-gold">
+            {translate('nav.book', lang)}
+          </Link>
         </div>
       </section>
     </div>
