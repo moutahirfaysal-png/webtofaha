@@ -7,16 +7,17 @@ import { useSEO } from '@/lib/seo';
 export default function Contact() {
   const { lang } = useLanguage();
 
-  // بيانات التواصل القابلة للتعديل بسهولة
-  const phoneFormatted = '+212 613 136351';
-  const whatsappNumber = '212613136351';
+  // بيانات الرياض الرسمية
+  const phoneFormatted = '+212 618 177464';
+  const whatsappNumber = '212618177464';
   const contactEmail = 'contact@riadtofaha.com';
   
-  // روابط منصات الحجز الخارجية (يمكنك تغييرها بروابطك الرسمية لاحقاً)
-  const bookingComUrl = 'https://www.booking.com/hotel/ma/riad-tofaha.html';
-  const airbnbUrl = 'https://www.airbnb.com/rooms/1434061785654499260';
+  // الروابط المباشرة المرفقة
+  const bookingComUrl = 'https://www.booking.com/hotel/ma/riad-tofaha.fr.html';
+  const airbnbUrl = 'https://www.airbnb.fr/rooms/1434061785654499260';
+  const googleMapsUrl = 'https://maps.app.goo.gl/twzPTFH4qwoBpLct7';
 
-  // حالة نموذج الرسائل
+  // نموذج الرسائل
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
@@ -28,7 +29,6 @@ export default function Contact() {
     canonicalPath: '/contact',
   });
 
-  // إرسال الرسالة عبر الواتساب
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -49,7 +49,7 @@ ${message}
   return (
     <div className="pt-24 pb-20 bg-ivory-100 min-h-screen text-brown-900">
       
-      {/* 1. Hero Header */}
+      {/* 1. Header Banner */}
       <section className="bg-[#2A1810] text-ivory-50 py-16 md:py-24 px-4 mb-16 border-b border-gold-500/20">
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-gold-300 font-medium flex items-center justify-center gap-2">
@@ -66,14 +66,14 @@ ${message}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         
-        {/* 2. Contact Cards & OTAs Grid */}
+        {/* 2. Contact Cards & Booking Platforms */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Left: Direct Contact Information */}
+          {/* Left Side Info Cards */}
           <div className="lg:col-span-5 space-y-6">
             
-            {/* Phone & WhatsApp */}
-            <div className="bg-white p-6 rounded-3xl border border-sand-300/80 shadow-sm flex items-start gap-4">
+            {/* Phone & WhatsApp Card */}
+            <div className="bg-white p-6 rounded-3xl border border-sand-300/80 shadow-sm flex items-start gap-4 hover:shadow-md transition">
               <div className="w-12 h-12 bg-[#2A1810] text-gold-300 rounded-2xl flex items-center justify-center shrink-0 shadow-md">
                 <Phone size={22} />
               </div>
@@ -87,13 +87,13 @@ ${message}
                   </a>
                 </p>
                 <p className="text-xs text-brown-500 font-light mt-1">
-                  متاح عبر WhatsApp للرد السريع وتأكيد الحجوزات.
+                  متاح عبر WhatsApp للتواصل والمساعدة المباشرة.
                 </p>
               </div>
             </div>
 
-            {/* Email */}
-            <div className="bg-white p-6 rounded-3xl border border-sand-300/80 shadow-sm flex items-start gap-4">
+            {/* Email Card */}
+            <div className="bg-white p-6 rounded-3xl border border-sand-300/80 shadow-sm flex items-start gap-4 hover:shadow-md transition">
               <div className="w-12 h-12 bg-[#2A1810] text-gold-300 rounded-2xl flex items-center justify-center shrink-0 shadow-md">
                 <Mail size={22} />
               </div>
@@ -107,13 +107,13 @@ ${message}
                   </a>
                 </p>
                 <p className="text-xs text-brown-500 font-light mt-1">
-                  للاستفسارات الرسمية وطلبات الإقامة الطويلة.
+                  للاستفسارات الرسمية وطلبات الإقامة الحصرية.
                 </p>
               </div>
             </div>
 
-            {/* Address */}
-            <div className="bg-white p-6 rounded-3xl border border-sand-300/80 shadow-sm flex items-start gap-4">
+            {/* Address Card */}
+            <div className="bg-white p-6 rounded-3xl border border-sand-300/80 shadow-sm flex items-start gap-4 hover:shadow-md transition">
               <div className="w-12 h-12 bg-[#2A1810] text-gold-300 rounded-2xl flex items-center justify-center shrink-0 shadow-md">
                 <MapPin size={22} />
               </div>
@@ -130,19 +130,18 @@ ${message}
               </div>
             </div>
 
-            {/* External Booking Channels Section (Booking.com & Airbnb) */}
+            {/* External Booking Channels (Booking.com & Airbnb) */}
             <div className="bg-gradient-to-br from-[#2A1810] to-[#4A2E1B] text-ivory-50 p-6 rounded-3xl shadow-xl border border-gold-500/20 space-y-4">
               <div>
                 <h3 className="font-serif text-lg font-bold text-gold-300">
-                  {translate('contact.otasTitle', lang)}
+                  {translate('contact.otastitle', lang)}
                 </h3>
                 <p className="text-xs text-ivory-50/80 font-light mt-1 leading-relaxed">
-                  {translate('contact.otasSubtitle', lang)}
+                  {translate('contact.otassubtitle', lang)}
                 </p>
               </div>
 
               <div className="space-y-3 pt-2">
-                {/* Booking.com Link */}
                 <a
                   href={bookingComUrl}
                   target="_blank"
@@ -150,17 +149,16 @@ ${message}
                   className="flex items-center justify-between bg-white/10 hover:bg-white/20 px-4 py-3 rounded-2xl border border-white/15 transition group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="bg-[#003580] text-white font-black text-xs px-2 py-1 rounded">
+                    <div className="bg-[#003580] text-white font-black text-xs px-2.5 py-1 rounded">
                       Booking
                     </div>
                     <span className="text-xs font-semibold text-ivory-50 group-hover:text-gold-300 transition">
-                      {translate('contact.bookingBadge', lang)}
+                      {translate('contact.bookingbadge', lang)}
                     </span>
                   </div>
                   <ExternalLink size={14} className="text-gold-300" />
                 </a>
 
-                {/* Airbnb Link */}
                 <a
                   href={airbnbUrl}
                   target="_blank"
@@ -168,11 +166,11 @@ ${message}
                   className="flex items-center justify-between bg-white/10 hover:bg-white/20 px-4 py-3 rounded-2xl border border-white/15 transition group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="bg-[#FF5A5F] text-white font-black text-xs px-2 py-1 rounded">
+                    <div className="bg-[#FF5A5F] text-white font-black text-xs px-2.5 py-1 rounded">
                       airbnb
                     </div>
                     <span className="text-xs font-semibold text-ivory-50 group-hover:text-gold-300 transition">
-                      {translate('contact.airbnbBadge', lang)}
+                      {translate('contact.airbnbbadge', lang)}
                     </span>
                   </div>
                   <ExternalLink size={14} className="text-gold-300" />
@@ -182,14 +180,14 @@ ${message}
 
           </div>
 
-          {/* Right: Direct Contact Form */}
+          {/* Right Side Form */}
           <div className="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-sand-300/80 shadow-lg space-y-6">
             <div>
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-brown-900">
-                {translate('contact.formTitle', lang)}
+                {translate('contact.formtitle', lang)}
               </h2>
               <p className="text-xs text-brown-600 font-light mt-1">
-                سيتم تحويل رسالتك مباشرة فور إرسالها إلى الواتساب الرسمي للرياض.
+                سيتم إرسال الاستفسار فوراً إلى رقم الواتساب الرسمي للرياض.
               </p>
             </div>
 
@@ -197,7 +195,7 @@ ${message}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="block text-xs font-bold uppercase tracking-wider text-brown-800">
-                    {translate('contact.fullName', lang)}
+                    {translate('contact.fullname', lang)}
                   </label>
                   <input
                     type="text"
@@ -211,7 +209,7 @@ ${message}
 
                 <div className="space-y-1.5">
                   <label className="block text-xs font-bold uppercase tracking-wider text-brown-800">
-                    {translate('contact.emailAddress', lang)}
+                    {translate('contact.emailaddress', lang)}
                   </label>
                   <input
                     type="email"
@@ -256,32 +254,39 @@ ${message}
                 type="submit"
                 className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-md transition duration-300"
               >
-                <Send size={16} /> {translate('contact.sendBtn', lang)}
+                <Send size={16} /> {translate('contact.sendbtn', lang)}
               </button>
 
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-brown-500 pt-1 text-center">
                 <CheckCircle2 size={14} className="text-[#25D366] shrink-0" />
-                <span>رد سريع ومباشر على مدار الساعة.</span>
+                <span>رد سريع ومباشر عبر واتساب.</span>
               </div>
             </form>
           </div>
 
         </div>
 
-        {/* 3. Embedded Interactive Google Map */}
+        {/* 3. Google Maps Section */}
         <section className="bg-white p-6 md:p-8 rounded-3xl border border-sand-300/80 shadow-lg space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h2 className="font-serif text-xl md:text-2xl font-bold text-brown-900 flex items-center gap-2">
               <MapPin className="text-[#a86548]" size={20} />
-              {translate('contact.mapTitle', lang)}
+              {translate('contact.maptitle', lang)}
             </h2>
-            <span className="text-xs text-brown-500 font-medium">Marrakech Medina</span>
+            <a
+              href={googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#a86548] hover:text-brown-900 transition"
+            >
+              {translate('contact.openinmaps', lang)} <ExternalLink size={14} />
+            </a>
           </div>
 
           <div className="w-full h-80 md:h-96 rounded-2xl overflow-hidden border border-sand-300 shadow-inner">
             <iframe
-              title="Riad Tofaha Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.883733182397!2d-7.9945!3d31.6345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM4JzA0LjIiTiA3wrA1OSczNi4yIlc!52sRiad%20TOFAHA!5e0!3m2!1sen!2sma!4v1710000000000!5m2!1sen!2sma"
+              title="Riad Tofaha Google Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.883733182397!2d-7.9945!3d31.6345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d373c09e8633%3A0x33b1e3523fbf5f7a!2sRiad%20TOFAHA!5e0!3m2!1sen!2sma!4v1710000000000!5m2!1sen!2sma"
               width="100%"
               height="100%"
               style={{ border: 0 }}
