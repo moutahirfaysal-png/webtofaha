@@ -16,6 +16,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.booknow': 'Book Now',
 
+    // Rooms Page (EN)
+    'rooms.page_title': 'Our Rooms & Suites | Riad Tofaha Marrakech',
+    'rooms.subtitle': 'ACCOMMODATION & SUITES',
+    'rooms.title': 'Our Rooms & Suites',
+    'rooms.desc': 'Discover our authentic Moroccan rooms and suites, designed for ultimate comfort, charm, and tranquility in the heart of Marrakech Medina.',
+
     // Contact Page (EN)
     'contact.herotagline': 'GET IN TOUCH',
     'contact.herotitle': 'We Are Here to Assist You',
@@ -54,6 +60,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.blog': 'Blog',
     'nav.contact': 'Contact',
     'nav.booknow': 'Réserver',
+
+    // Rooms Page (FR)
+    'rooms.page_title': 'Nos Chambres & Suites | Riad Tofaha Marrakech',
+    'rooms.subtitle': 'HÉBERGEMENT & SUITES',
+    'rooms.title': 'Nos Chambres & Suites',
+    'rooms.desc': 'Découvrez nos chambres et suites marocaines authentiques, conçues pour un confort ultime, du charme et de la tranquillité au cœur de la médina de Marrakech.',
 
     // Contact Page (FR)
     'contact.herotagline': 'CONTACTEZ-NOUS',
@@ -94,6 +106,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'اتصل بنا',
     'nav.booknow': 'احجز الآن',
 
+    // Rooms Page (AR)
+    'rooms.page_title': 'غرفنا وأجنحتنا | رياض تفاحة مراكش',
+    'rooms.subtitle': 'الإقامة والأجنحة',
+    'rooms.title': 'غرفنا وأجنحتنا',
+    'rooms.desc': 'اكتشف غرفنا وأجنحتنا المغربية الأصيلة، المصممة لتوفير أقصى درجات الراحة والهدوء في قلب مدينة مراكش العتيقة.',
+
     // Contact Page (AR)
     'contact.herotagline': 'تواصل معنا',
     'contact.herotitle': 'نحن هنا لخدمتك وإجابة استفساراتك',
@@ -132,6 +150,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.blog': 'Blog',
     'nav.contact': 'Contacto',
     'nav.booknow': 'Reservar',
+
+    // Rooms Page (ES)
+    'rooms.page_title': 'Nuestras Habitaciones y Suites | Riad Tofaha Marrakech',
+    'rooms.subtitle': 'ALOJAMIENTO Y SUITES',
+    'rooms.title': 'Nuestras Habitaciones y Suites',
+    'rooms.desc': 'Descubra nuestras auténticas habitaciones y suites marroquíes, diseñadas para el máximo confort, encanto y tranquilidad en el corazón de la Medina de Marrakech.',
 
     // Contact Page (ES)
     'contact.herotagline': 'CONTÁCTENOS',
